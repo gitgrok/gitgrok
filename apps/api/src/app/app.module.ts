@@ -7,7 +7,7 @@ import { PathManager } from './services/path-manager';
 import { SearchController } from './controllers/search.controller';
 import { SearchService } from './services/search.service';
 import { ResultTransformer } from './services/result-transformer';
-import { EnvController } from '@onivoro/server-parameterization';
+import { EnvController, EnvModule } from '@onivoro/server-parameterization';
 import { ServerGitModule } from '@onivoro/server-git';
 
 const env = [
@@ -15,7 +15,7 @@ const env = [
 ];
 
 @Module({
-  imports: [ServerGitModule],
+  imports: [ServerGitModule, EnvModule],
   controllers: [RepositoryController, SearchController, EnvController],
   providers: [...env, RepositoryService, PathManager, ResultTransformer, SearchService],
 })
