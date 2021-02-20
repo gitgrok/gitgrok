@@ -1,4 +1,4 @@
 export const ports = {
-    api: 3211,
+    api: 7777,
     browser: 4321
 }

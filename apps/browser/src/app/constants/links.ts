@@ -1,4 +1,5 @@
-import { ILink } from '@onivoro/angular-navbar';
+import { ILink } from "../interfaces/i-link.interface";
+
 export const home: ILink = {
     icon: 'home',
     id: 'home',
