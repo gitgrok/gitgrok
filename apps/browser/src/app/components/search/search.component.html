@@ -1,0 +1,9 @@
+<mat-card>
+    <onivoro-search-form
+        (valueChange)="onSearchFormValueChange.next($event)"
+    ></onivoro-search-form>
+</mat-card>
+
+<onivoro-search-result [rawResult]="result" *ngFor="let result of searchResults$ | async"></onivoro-search-result>
+
+{{search$ | async}}

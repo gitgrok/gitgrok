@@ -17,7 +17,6 @@
   },
   "projects": {
     "browser": { "tags": [] },
-    "browser-e2e": { "tags": [], "implicitDependencies": ["browser"] },
     "api": { "tags": [] },
     "api-interfaces": { "tags": [] }
   }

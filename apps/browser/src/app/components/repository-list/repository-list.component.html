@@ -1,0 +1,6 @@
+<mat-card>
+    <onivoro-repository-form (valueChange)="urlSubject.next($event)"></onivoro-repository-form><button mat-fab color="primary" (click)="onAddSubject.next($event)">Track</button>
+</mat-card>
+{{(repos$ | async).length}}
+<onivoro-repository *ngFor="let r of repos$ | async" [url]="r"></onivoro-repository>
+{{url$|async}}
