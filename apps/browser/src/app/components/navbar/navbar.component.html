@@ -1,0 +1,10 @@
+<nav>
+    <ul>
+        <li *ngFor="let link of links">
+            <a (click)="clickWrapper($event, link)" [id]="link.id">
+                <i class="material-icons">{{link.icon}}</i>
+                <span class="link-label">{{link.label}}</span>
+            </a>
+        </li>
+    </ul>
+</nav>

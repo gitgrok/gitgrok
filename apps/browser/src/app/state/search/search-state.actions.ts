@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { AppEvent } from '@onivoro/gitgrok';
+import { AppEvent } from '@gitgrok/isomorphic';
 import { failed, finished, started } from '../lib';
 import { ISearchState } from './search-state.interface';
 const SEARCH_INIT = 'SEARCH_INIT';

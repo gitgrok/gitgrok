@@ -1,7 +1,7 @@
 
 import { Injectable } from '@nestjs/common';
 import { parse } from 'path';
-import {IFileSearchResult, IRepoSearchResult} from '@onivoro/gitgrok';
+import {IFileSearchResult, IRepoSearchResult} from '@gitgrok/isomorphic';
 
 @Injectable()
 export class ResultTransformer {

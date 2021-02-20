@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { IRepoSearchResult } from '@onivoro/gitgrok';
+import { IRepoSearchResult } from '@gitgrok/isomorphic';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { openDirStarted } from '../../state/app/app-state.actions';

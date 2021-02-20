@@ -6,7 +6,6 @@ import { of } from 'rxjs';
 import { catchError, concatMap, defaultIfEmpty, tap } from 'rxjs/operators';
 import { ManifestPath } from '../config/gitgrok-server.config';
 import { PathManager } from './path-manager';
-import { Repository } from 'nodegit';
 
 @Injectable()
 export class RepositoryService {
@@ -18,8 +17,9 @@ export class RepositoryService {
     return execRx(`code ${at}`);
   }
   async getReferencesForRepoUrl(url: string) {
-    const repo = await Repository.open(this.pathManager.extractProjectDirFromUrl(url));
-    return await repo.getReferences();
+    // const repo = await Repository.open(this.pathManager.extractProjectDirFromUrl(url));
+    // return await repo.getReferences();
+    return ['not implemented silly'];
   }
   logger = new Logger(RepositoryService.name);
 
