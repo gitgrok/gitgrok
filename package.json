@@ -8,6 +8,7 @@
     "nx": "nx",
     "start:browser": "ng serve --port 4321 --open",
     "start:server": "ng serve api",
+    "local": "GITGROK_MANIFEST=/Users/lee.norris/.gitgrok/.manifest GITGROK_HOME=/Users/lee.norris/.gitgrok/ GITGROK_PORT=777 npm run start:server & npm run start:browser",
     "build": "ng build",
     "test": "ng test",
     "lint": "nx workspace-lint && ng lint",
