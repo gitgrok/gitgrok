@@ -19,7 +19,7 @@ export class AppService {
     const { ipc, page } = await this.browserService.createAppRuntime(url);
     this._ipc = ipc;
 
-    (ipc as any).once(down, (msg: any) => this.actions$$.next(msg));
+    (ipc as any).on(down, (msg: any) => this.actions$$.next(msg));
     // (ipc as any).once(down, (msg: any) => this._ipc.send(up, msg));
 
     await page.evaluate(`
@@ -37,7 +37,7 @@ ipc.on('${up}', (detail) => {
 
 });`
     );
-    await ipc.send(up, 'gitgrok-from-server-to-browser');
-    return this.actions$;
+    await ipc.send(up, 'lo viejo paso ya no soy el esclavo');
+    return this.actions$.toPromise();
   };
 }

@@ -52,3 +52,4 @@ export const cloneFailed = createAction(
 );
 
 export const upStarted = createAction(started(AppEvent.UP$), props<{tipo: string, props: any}>());
+export const upFinished = createAction(finished(AppEvent.UP$));

@@ -14,6 +14,8 @@ import {
   openDirStarted,
   openRepoFinished,
   openRepoStarted,
+  upFinished,
+  upStarted,
 } from './app-state.actions';
 
 @Injectable()
@@ -24,9 +26,10 @@ export class AppStateEffects {
     private readonly ipc: IpcProvider
   ) {}
 
-  serverLink$ = createEffect(() => this.actions$.pipe(
-      tap((a) => console.warn(a)),
-      tap((a) => this.ipc.send('pong', a)) 
+  onUp$ = createEffect(() => this.actions$.pipe(
+    ofType(upStarted),
+    tap(a => console.warn(a)),
+    map(a => upFinished())
   ));
 
   getRepos$ = createEffect(() =>
