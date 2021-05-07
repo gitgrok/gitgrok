@@ -8,7 +8,7 @@ export class Dto {
 export class RepositoryController {
   logger = new Logger(RepositoryController.name);
 
-  constructor(private readonly repositoryService: RepositoryService) { }
+  constructor(private readonly repositoryService: RepositoryService) {}
 
   @Get()
   async list() {
@@ -32,9 +32,14 @@ export class RepositoryController {
 
   @Put()
   async track(@Body() body: Dto) {
-    return await this.repositoryService.track(body.url)
+    return await this.repositoryService
+      .track(body.url)
       .toPromise()
-      .then(() => { this.logger.log('success'); })
-      .catch(e => { this.logger.warn(e); })
+      .then(() => {
+        this.logger.log('success');
+      })
+      .catch((e) => {
+        this.logger.warn(e);
+      });
   }
 }

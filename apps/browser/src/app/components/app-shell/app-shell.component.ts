@@ -3,16 +3,15 @@ import { ILink } from '../../interfaces/i-link.interface';
 @Component({
   selector: 'onivoro-app-shell',
   templateUrl: './app-shell.component.html',
-  styleUrls: ['./app-shell.component.scss']
+  styleUrls: ['./app-shell.component.scss'],
 })
 export class AppShellComponent implements OnInit {
   @Input() links!: ILink[];
   @Output() clicks = new EventEmitter<any>();
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onClick($event) {
     this.clicks.next($event);

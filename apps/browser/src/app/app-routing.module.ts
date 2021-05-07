@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router'
+import { RouterModule, Routes } from '@angular/router';
 import { InitStartedGuard } from '../app/state/app/init-started.guard';
 import { HomeComponent } from './components/home/home.component';
 import { RepositoryListComponent } from './components/repository-list/repository-list.component';
@@ -16,12 +16,12 @@ const routes: Routes = [
       { path: search.slug, component: SearchComponent, pathMatch },
       { path: home.slug, component: HomeComponent, pathMatch },
       { path: '', redirectTo: home.slug, pathMatch },
-    ]
-  }
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

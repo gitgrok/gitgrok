@@ -1,3 +1,5 @@
+export * from './lib/constant/custom-event-name';
+
 export { IBranch } from './lib/interfaces/branch.interface';
 export { IFileSearchResult } from './lib/interfaces/file-search-result'
 export { ParsedPath } from './lib/interfaces/parsed-path.interface';

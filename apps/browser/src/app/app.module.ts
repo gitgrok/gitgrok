@@ -18,20 +18,30 @@ import { SearchFormComponent } from './components/search-form/search-form.compon
 import { SearchResultComponent } from './components/search-result/search-result.component';
 import { SearchComponent } from './components/search/search.component';
 import { MaterialModule } from './material.module';
+import { IpcProvider } from './providers/ipc.provider';
+import { ActionService } from './services/action.service';
+import { RepoService } from './services/repo.service';
 import { SearchService } from './services/search.service';
 import { SearchStateModule } from './state/search/search-state.module';
 
-const services = [
-  SearchService
-];
+const services = [SearchService, ActionService, RepoService];
 
-const components = [AppComponent, RepositoryListComponent, RepositoryComponent, RepositoryFormComponent, SearchComponent, SearchFormComponent, HomeComponent, SearchResultComponent,
-AppShellComponent, NavbarComponent
+const components = [
+  AppComponent,
+  RepositoryListComponent,
+  RepositoryComponent,
+  RepositoryFormComponent,
+  SearchComponent,
+  SearchFormComponent,
+  HomeComponent,
+  SearchResultComponent,
+  AppShellComponent,
+  NavbarComponent,
 ];
 
 @NgModule({
   declarations: [...components],
-  imports: [
+  imports: [    
     AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
@@ -41,9 +51,9 @@ AppShellComponent, NavbarComponent
     StoreModule.forRoot({}, {}),
     EffectsModule.forRoot([]),
     AppStateModule,
-    SearchStateModule
+    SearchStateModule,
   ],
-  providers: [...services],
-  bootstrap: [AppComponent]
+  providers: [...services, IpcProvider],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

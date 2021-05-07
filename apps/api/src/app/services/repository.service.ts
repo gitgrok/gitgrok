@@ -23,7 +23,10 @@ export class RepositoryService {
   }
   logger = new Logger(RepositoryService.name);
 
-  constructor(private readonly manifestPath: ManifestPath, private readonly pathManager: PathManager) { }
+  constructor(
+    private readonly manifestPath: ManifestPath,
+    private readonly pathManager: PathManager
+  ) {}
 
   list() {
     return readObjectRx(this.manifestPath.value);
@@ -32,21 +35,25 @@ export class RepositoryService {
   track(url: string) {
     return this.clone(url).pipe(
       tap(() => this.logger.log('about to upate manifest')),
-      concatMap(() => this.updateManifest(url)),
+      concatMap(() => this.updateManifest(url))
     );
   }
 
   private updateManifest(url) {
     return this.list().pipe(
-      tap(d => this.logger.log(d)),
-      concatMap(list =>
-        writeObjectRx(this.manifestPath.value, this.dedup([...list, url].sort()))
-      ));
+      tap((d) => this.logger.log(d)),
+      concatMap((list) =>
+        writeObjectRx(
+          this.manifestPath.value,
+          this.dedup([...list, url].sort())
+        )
+      )
+    );
   }
 
   private dedup(arr: string[]) {
     const output = {};
-    arr.forEach(k => {
+    arr.forEach((k) => {
       output[k] = 1;
     });
     return Object.keys(output);
@@ -58,7 +65,11 @@ export class RepositoryService {
     const target = resolve(cwd, project);
     const cloneCmd = `git clone ${url} ${target}`;
     return execRx(`cd ${cwd} && ${cloneCmd}`).pipe(
-      catchError(() => execRx(`mkdir -p ${cwd} && ${cloneCmd}`, undefined, true).pipe(catchError(e => of(e)))),
+      catchError(() =>
+        execRx(`mkdir -p ${cwd} && ${cloneCmd}`, undefined, true).pipe(
+          catchError((e) => of(e))
+        )
+      ),
       defaultIfEmpty(() => ({}))
     );
   }

@@ -3,13 +3,13 @@ module.exports = {
   preset: '../../jest.preset.js',
   globals: {
     'ts-jest': {
-      tsConfig: '<rootDir>/tsconfig.spec.json',
+      tsConfig: '<rootDir>/tsconfig.spec.json'
     }
   },
   testEnvironment: 'node',
   transform: {
-    '^.+\\.[tj]sx?$':  'ts-jest' 
+    '^.+\\.[tj]sx?$': 'ts-jest'
   },
-    moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory: '../../coverage/libs/isomorphic'
 };

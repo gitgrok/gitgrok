@@ -1,3 +1,7 @@
-import { ISearchState } from "./search-state.interface";
+import { ISearchState } from './search-state.interface';
 
-export const searchStateDefault: ISearchState = { query: '', results: null, repos: null };
+export const searchStateDefault: ISearchState = {
+  query: '',
+  results: null,
+  repos: null,
+};
