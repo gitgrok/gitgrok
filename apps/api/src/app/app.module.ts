@@ -12,7 +12,7 @@ import { PathManager } from './services/path-manager';
 import { SearchController } from './controllers/search.controller';
 import { SearchService } from './services/search.service';
 import { ResultTransformer } from './services/result-transformer';
-import { EnvController, EnvModule } from '@onivoro/server-parameterization';
+import { EnvModule } from '@onivoro/server-parameterization';
 import { ServerGitModule } from '@onivoro/server-git';
 import { resolve } from 'path';
 import {ServerBrowserModule} from '@onivoro/server-browser';
@@ -29,7 +29,7 @@ const env = [HomePath, ManifestPath, GitGrokPort];
       rootPath: resolve(process.cwd(), 'dist/apps/browser')
     })
   ],
-  controllers: [RepositoryController, SearchController, EnvController],
+  controllers: [RepositoryController, SearchController],
   providers: [
     ...env,
     RepositoryService,

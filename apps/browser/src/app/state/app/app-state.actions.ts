@@ -50,3 +50,5 @@ export const cloneFailed = createAction(
   failed(AppEvent.CLONE),
   props<{ error: any }>()
 );
+
+export const upStarted = createAction(started(AppEvent.UP$), props<{tipo: string, props: any}>());
