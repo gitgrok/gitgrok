@@ -30,7 +30,8 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     window.addEventListener(up, ($event: any) => {
-      this.store.dispatch(upStarted({...$event.detail}))
+      console.warn('app.component listener', $event);
+      this.store.dispatch(upStarted({...$event}))
     });
   }
 }

@@ -14,13 +14,12 @@ export class AppService {
     concatMap((a) => this._ipc.send(up, a))
   );
 
-  async initIpcChannel(browserPort: number) {
-    const url = `http://localhost:${browserPort}`;
+  async initIpcChannel(assetPort: number) {
+    const url = `http://localhost:${assetPort}`;
     const { ipc, page } = await this.browserService.createAppRuntime(url);
     this._ipc = ipc;
 
-    (ipc as any).on(down, (msg: any) => this.actions$$.next(msg));
-    // (ipc as any).once(down, (msg: any) => this._ipc.send(up, msg));
+    (ipc as any).on(down, (msg: any) => this.actions$$.next(msg));    
 
     await page.evaluate(`
 const { IPC } = window['puppeteer-ipc/browser'];

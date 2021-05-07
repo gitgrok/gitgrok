@@ -50,7 +50,7 @@
     "@nrwl/angular": "11.2.12",
     "@onivoro/angular-serializable-forms": "^0.1.0",
     "@onivoro/browser-layout": "^0.6.0",
-    "@onivoro/server-browser": "^0.7.0",
+    "@onivoro/server-browser": "^0.8.0",
     "@onivoro/server-disk": "^0.2.0",
     "@onivoro/server-git": "^0.1.0",
     "@onivoro/server-parameterization": "^0.6.0",
