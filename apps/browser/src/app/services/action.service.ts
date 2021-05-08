@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { IIpcAction } from '@gitgrok/isomorphic';
 import { IpcProvider } from '../providers/ipc.provider';
 
 @Injectable({
@@ -6,7 +7,7 @@ import { IpcProvider } from '../providers/ipc.provider';
 })
 export class ActionService {
   constructor(private readonly ipc: IpcProvider) {}
-  dispatch<T>(type: string, payload: T) {    
-    return this.ipc.send(type, payload);
+  dispatch<T>(action: IIpcAction) {    
+    return this.ipc.send(action);
   }
 }

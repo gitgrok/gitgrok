@@ -25,6 +25,6 @@ export class SearchService extends BaseService {
   }
 
   getV3(text: string, pathFilter: string) {
-    return this.actionService.dispatch('search', {text, pathFilter});
+    return this.actionService.dispatch({ actionType: 'search', actionProps: { text, pathFilter } });
   }
 }

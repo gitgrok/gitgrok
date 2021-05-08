@@ -5,13 +5,13 @@ import { ILink } from './interfaces/i-link.interface';
 import { Subject } from 'rxjs';
 import { links } from './constants/links';
 import { up } from '@gitgrok/isomorphic';
-import { upStarted } from './state/app/app-state.actions';
+import { downStarted, upStarted } from './state/app/app-state.actions';
 
 @Component({
   selector: 'gitgrok-root',
   template: `<onivoro-app-shell [links]="links" (clicks)="navigate($event)">
-                <pre>{{state$|async|json}}</pre>
-                <h1>testinggggg</h1>
+  <pre style="overflow-y:scroll; max-height: 80vh; display: block;">{{(state$|async)?.app?.downStream|json}}</pre>
+  
                 <router-outlet></router-outlet>
              </onivoro-app-shell>`,
 })
@@ -25,6 +25,7 @@ export class AppComponent implements OnInit {
     this.route = link;
     this.route$.next(link);
     this.router.navigate([link?.slug || '']);
+    this.store.dispatch(downStarted({actionType: up, actionProps: {...link, icon: 'glory', id: +new Date()}}))
   }
 
   constructor(private readonly router: Router, private readonly store: Store) { }

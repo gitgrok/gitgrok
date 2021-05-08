@@ -1,13 +1,17 @@
 import { Injectable } from '@angular/core';
+import { down } from '@gitgrok/isomorphic';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, concatMap, exhaustMap, map, tap } from 'rxjs/operators';
 import { IpcProvider } from '../../providers/ipc.provider';
+import { ActionService } from '../../services/action.service';
 import { RepoService } from '../../services/repo.service';
 import {
   cloneFailed,
   cloneFinished,
   cloneStarted,
+  downFinished,
+  downStarted,
   initFailed,
   initFinished,
   initStarted,
@@ -23,13 +27,20 @@ export class AppStateEffects {
   constructor(
     private readonly actions$: Actions,
     private readonly repoService: RepoService,
-    private readonly ipc: IpcProvider
+    private readonly actionService: ActionService
   ) {}
 
   onUp$ = createEffect(() => this.actions$.pipe(
     ofType(upStarted),
-    tap(a => console.warn(a)),
     map(a => upFinished())
+  ));
+
+  onDown$ = createEffect(() => this.actions$.pipe(
+    ofType(downStarted),
+    tap(({actionType, actionProps}) => {     
+      this.actionService.dispatch({actionType, actionProps})
+    }),
+    map(a => downFinished())
   ));
 
   getRepos$ = createEffect(() =>

@@ -1,4 +1,5 @@
 export * from './lib/constant/custom-event-name';
+export * from './lib/constant/global-name';
 
 export { IIpcAction } from './lib/interfaces/ipc-action.interface';
 export { IBranch } from './lib/interfaces/branch.interface';

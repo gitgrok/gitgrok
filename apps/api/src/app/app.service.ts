@@ -1,4 +1,4 @@
-import { up, down } from '@gitgrok/isomorphic';
+import { up, down, globalName, IIpcAction } from '@gitgrok/isomorphic';
 import { Injectable } from '@nestjs/common';
 import { BrowserService } from '@onivoro/server-browser';
 import { from, BehaviorSubject } from 'rxjs';
@@ -7,10 +7,14 @@ import { concatMap, tap } from 'rxjs/operators';
 @Injectable()
 export class AppService {
   constructor(private readonly browserService: BrowserService) { }
-  private readonly downStream$$ = new BehaviorSubject({});
+  private readonly downStream$$ = new BehaviorSubject<IIpcAction>({
+    actionType: AppService.name,
+    actionProps: Object.keys(this)
+  });
   private _ipc: any;
 
   readonly downStream$ = this.downStream$$.asObservable().pipe(
+    tap(lee => console.log('server receiver downstream', lee)),
     concatMap((a) => this._ipc.send(up, a))
   );
 
@@ -26,7 +30,8 @@ export class AppService {
         concatMap(({ page }) => from(page.evaluate(`
 const { IPC } = window['puppeteer-ipc/browser'];
 const ipc = new IPC();
-
+window['${globalName}'] = ipc;
+ipc.send('${down}', {actionType: '${down}', actionProps: {coffee: 'black'}});
 ipc.on('${up}', (detail) => {
     console.warn(detail);        
 
@@ -37,10 +42,8 @@ ipc.on('${up}', (detail) => {
     );
 });`
         ))),
-        concatMap(() => this.downStream$$.asObservable().pipe(
-          concatMap((a) => from(this._ipc.send(up, a)))
-        )),
-        concatMap(() => this._ipc.send(up, { actionType: up, hotsauce: 'on-erythng' }))
+        concatMap(() => this.downStream$),        
       );
   };
 }
+
