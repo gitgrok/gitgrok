@@ -1,5 +1,6 @@
 export interface IAppState {
   repos: any[];
   error: any;
-  lee: any[];
+  upStream: any[];
+  downStream: any[];
 }

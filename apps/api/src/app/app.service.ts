@@ -14,14 +14,16 @@ export class AppService {
     concatMap((a) => this._ipc.send(up, a))
   );
 
-  async initIpcChannel(assetPort: number) {
+  initIpcChannel(assetPort: number) {
     const url = `http://localhost:${assetPort}`;
-    const { ipc, page } = await this.browserService.createAppRuntime(url);
-    this._ipc = ipc;
-
-    (ipc as any).on(down, (msg: any) => this.actions$$.next(msg));    
-
-    await page.evaluate(`
+    // const { ipc, page } = 
+    return from(this.browserService.createAppRuntime(url))
+      .pipe(
+        tap(({ ipc }) => {
+          this._ipc = ipc;
+          (ipc as any).on(down, (msg: any) => this.actions$$.next(msg));
+        }),
+        concatMap(({ page }) => from(page.evaluate(`
 const { IPC } = window['puppeteer-ipc/browser'];
 const ipc = new IPC();
 
@@ -33,10 +35,9 @@ ipc.on('${up}', (detail) => {
         detail,
       })
     );
-
 });`
-    );
-    await ipc.send(up, 'lo viejo paso ya no soy el esclavo');
-    return this.actions$.toPromise();
+        ))),
+        concatMap(() => this._ipc.send(up, { type: up, hotsauce: 'on-erythng' }))
+      );    
   };
 }

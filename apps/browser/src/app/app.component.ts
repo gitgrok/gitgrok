@@ -11,6 +11,7 @@ import { upStarted } from './state/app/app-state.actions';
   selector: 'gitgrok-root',
   template: `<onivoro-app-shell [links]="links" (clicks)="navigate($event)">
                 <pre>{{state$|async|json}}</pre>
+                <h1>testinggggg</h1>
                 <router-outlet></router-outlet>
              </onivoro-app-shell>`,
 })

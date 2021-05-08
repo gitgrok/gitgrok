@@ -8,9 +8,8 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors();
   const { api } = ports;
-  await app.listen(api)
-  app.get(AppService).initIpcChannel(api);
+  await app.listen(api);
+  await app.get(AppService).initIpcChannel(4321).toPromise();
 }
 
 bootstrap();
-

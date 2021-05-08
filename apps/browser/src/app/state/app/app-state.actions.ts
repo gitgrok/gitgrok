@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { AppEvent } from '@gitgrok/isomorphic';
+import { AppEvent, IIpcAction } from '@gitgrok/isomorphic';
 import { failed, finished, started } from '../lib';
 
 export const initStarted = createAction(started(AppEvent.INIT));
@@ -42,6 +42,7 @@ export const cloneStarted = createAction(
   started(AppEvent.CLONE),
   props<{ url: string }>()
 );
+
 export const cloneFinished = createAction(
   finished(AppEvent.CLONE),
   props<{ repo: any }>()
@@ -51,5 +52,7 @@ export const cloneFailed = createAction(
   props<{ error: any }>()
 );
 
-export const upStarted = createAction(started(AppEvent.UP$), props<{tipo: string, props: any}>());
+export const upStarted = createAction(started(AppEvent.UP$), props<IIpcAction>());
 export const upFinished = createAction(finished(AppEvent.UP$));
+export const downStarted = createAction(started(AppEvent.DOWN$), props<IIpcAction>());
+export const downFinished = createAction(finished(AppEvent.DOWN$));
