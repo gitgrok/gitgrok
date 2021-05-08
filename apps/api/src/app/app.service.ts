@@ -7,21 +7,21 @@ import { concatMap, tap } from 'rxjs/operators';
 @Injectable()
 export class AppService {
   constructor(private readonly browserService: BrowserService) { }
-  private readonly actions$$ = new BehaviorSubject({});
+  private readonly downStream$$ = new BehaviorSubject({});
   private _ipc: any;
 
-  readonly actions$ = this.actions$$.asObservable().pipe(
+  readonly downStream$ = this.downStream$$.asObservable().pipe(
     concatMap((a) => this._ipc.send(up, a))
   );
 
   initIpcChannel(assetPort: number) {
     const url = `http://localhost:${assetPort}`;
-    // const { ipc, page } = 
+
     return from(this.browserService.createAppRuntime(url))
       .pipe(
         tap(({ ipc }) => {
           this._ipc = ipc;
-          (ipc as any).on(down, (msg: any) => this.actions$$.next(msg));
+          (ipc as any).on(down, (msg: any) => this.downStream$$.next(msg));
         }),
         concatMap(({ page }) => from(page.evaluate(`
 const { IPC } = window['puppeteer-ipc/browser'];
@@ -32,12 +32,15 @@ ipc.on('${up}', (detail) => {
 
     window.dispatchEvent(
       new CustomEvent('${up}', {
-        detail,
+        detail: detail,
       })
     );
 });`
         ))),
-        concatMap(() => this._ipc.send(up, { type: up, hotsauce: 'on-erythng' }))
-      );    
+        concatMap(() => this.downStream$$.asObservable().pipe(
+          concatMap((a) => from(this._ipc.send(up, a)))
+        )),
+        concatMap(() => this._ipc.send(up, { actionType: up, hotsauce: 'on-erythng' }))
+      );
   };
 }

@@ -30,9 +30,9 @@ export class AppComponent implements OnInit {
   constructor(private readonly router: Router, private readonly store: Store) { }
 
   ngOnInit(): void {
-    window.addEventListener(up, ($event: any) => {
-      console.warn('app.component listener', $event);
-      this.store.dispatch(upStarted({...$event}))
+    window.addEventListener(up, ({detail}: any) => {
+      console.warn('app.component listener', detail);
+      this.store.dispatch(upStarted({actionType: up, actionProps: detail}))
     });
   }
 }
