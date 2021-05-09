@@ -1,4 +1,4 @@
-import { up, down, globalName, IIpcAction } from '@gitgrok/isomorphic';
+import { up, down, globalName, IIpcAction, AppEvent } from '@gitgrok/isomorphic';
 import { Injectable } from '@nestjs/common';
 import { BrowserService } from '@onivoro/server-browser';
 import { from, BehaviorSubject } from 'rxjs';
@@ -31,10 +31,8 @@ export class AppService {
 const { IPC } = window['puppeteer-ipc/browser'];
 const ipc = new IPC();
 window['${globalName}'] = ipc;
-ipc.send('${down}', {actionType: '${down}', actionProps: {coffee: 'black'}});
-ipc.on('${up}', (detail) => {
-    console.warn(detail);        
-
+ipc.send('${down}', {actionType: '${AppEvent.INIT}', actionProps: {start: new Date().toISOString()}}});
+ipc.on('${up}', (detail) => {  
     window.dispatchEvent(
       new CustomEvent('${up}', {
         detail: detail,

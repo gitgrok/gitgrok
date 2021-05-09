@@ -9,9 +9,7 @@ import { downStarted, upStarted } from './state/app/app-state.actions';
 
 @Component({
   selector: 'gitgrok-root',
-  template: `<onivoro-app-shell [links]="links" (clicks)="navigate($event)">
-  <pre style="overflow-y:scroll; max-height: 80vh; display: block;">{{(state$|async)?.app?.downStream|json}}</pre>
-  
+  template: `<onivoro-app-shell [links]="links" (clicks)="navigate($event)">  
                 <router-outlet></router-outlet>
              </onivoro-app-shell>`,
 })
