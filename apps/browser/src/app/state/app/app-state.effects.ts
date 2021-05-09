@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, concatMap, exhaustMap, map, tap } from 'rxjs/operators'
+import { catchError, concatMap, exhaustMap, map } from 'rxjs/operators'
 import { RepoService } from '../../services/repo.service';
 import { cloneFailed, cloneFinished, cloneStarted, initFailed, initFinished, initStarted, openDirStarted, openRepoFinished, openRepoStarted } from "./app-state.actions";
-
+// import { ApiService} from '../../api'
 @Injectable()
 export class AppStateEffects {
     constructor(private readonly actions$: Actions, private readonly repoService: RepoService) { }
@@ -25,9 +25,10 @@ export class AppStateEffects {
             catchError(e => of(e).pipe(map((error) => cloneFailed({ error }))))
         ))
 
-    openRepo$ = createEffect(() =>
+    getBranchesForRepo$ = createEffect(() =>
         this.actions$.pipe(
             ofType(openRepoStarted),
+            // concatMap(() => ApiService),
             map(({ repo }) => openRepoFinished({ repo }))
         ))
 

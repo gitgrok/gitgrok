@@ -2,8 +2,7 @@
   "name": "gitgrok",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {
-    "gen": "ng-openapi-gen --input api.json --output ./libs/api-interfaces/src/",
+  "scripts": {    
     "ng": "nx",
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points",
     "nx": "nx",
@@ -54,6 +53,7 @@
     "@onivoro/server-disk": "^0.2.0",
     "@onivoro/server-git": "^0.1.0",
     "@onivoro/server-parameterization": "^0.6.0",
+    "@onivoro/server-process": "^0.46.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~6.6.3",
     "swagger-ui-express": "^4.1.6",

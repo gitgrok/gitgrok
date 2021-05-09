@@ -1,3 +1,4 @@
 /* tslint:disable */
 /* eslint-disable */
-export interface Dto {}
+export interface Dto {
+}

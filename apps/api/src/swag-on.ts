@@ -1,16 +1,26 @@
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { writeObjectRx } from '@onivoro/server-disk';
+import { readObjectRx, writeObjectRx } from '@onivoro/server-disk';
 import { resolve } from 'path';
-export const swagOn = async (app) => {
-    const config = new DocumentBuilder()
-        .setTitle('Cats example')
-        .setDescription('The cats API description')
-        .setVersion('1.0')
-        .addTag('cats')
-        .build();
-    const name = 'api';
-    const document = SwaggerModule.createDocument(app, config);
-    SwaggerModule.setup(name, app, document);
-    await writeObjectRx(resolve(process.cwd(), `${name}.json`), document).toPromise();
-    return app;
+import { concatMap } from 'rxjs/operators';
+import { execRx } from '@onivoro/server-process';
+
+export const swagOn = async (app: any, outPath = './apps/browser/src/app/api/', doc = 'api') => {
+    const docPath = resolve(process.cwd(), `${doc}.json`);
+
+    readObjectRx(resolve(process.cwd(), 'package.json'))
+        .pipe(
+            concatMap(({ name, version, repository }) => {
+                const config = new DocumentBuilder()
+                    .setTitle(name)
+                    .setDescription(repository)
+                    .setVersion(version)
+                    .addTag(version)
+                    .build();
+
+                const document = SwaggerModule.createDocument(app, config);
+                SwaggerModule.setup(doc, app, document);
+                return writeObjectRx(docPath, document).toPromise();
+            }),
+            concatMap(() => execRx(`ng-openapi-gen --input ${docPath} --output ${outPath}`))
+        )
 }

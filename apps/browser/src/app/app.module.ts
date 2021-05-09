@@ -20,7 +20,7 @@ import { SearchComponent } from './components/search/search.component';
 import { MaterialModule } from './material.module';
 import { SearchService } from './services/search.service';
 import { SearchStateModule } from './state/search/search-state.module';
-
+import {  } from '@gitgrok/api-interfaces'
 const services = [
   SearchService
 ];
