@@ -1,3 +1,1 @@
-export interface IRemote {
-
-}
+export interface IRemote {}

@@ -8,12 +8,10 @@ import { openDirStarted } from '../../state/app/app-state.actions';
 @Component({
   selector: 'onivoro-search-result',
   templateUrl: './search-result.component.html',
-  styleUrls: ['./search-result.component.scss']
+  styleUrls: ['./search-result.component.scss'],
 })
 export class SearchResultComponent implements OnInit {
-
-  constructor(private readonly store: Store) {
-  }
+  constructor(private readonly store: Store) {}
 
   @Input() rawResult!: any;
   result!: IRepoSearchResult;
@@ -27,10 +25,11 @@ export class SearchResultComponent implements OnInit {
       lineCount: 0,
       matches: [],
       path: '',
-      repo: ''
+      repo: '',
     };
 
-    this.openSubject.pipe(map(dir => this.store.dispatch(openDirStarted({ dir })))).subscribe();
+    this.openSubject
+      .pipe(map((dir) => this.store.dispatch(openDirStarted({ dir }))))
+      .subscribe();
   }
-
 }

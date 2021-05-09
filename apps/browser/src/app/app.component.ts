@@ -1,18 +1,20 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ILink } from './interfaces/i-link.interface';
 import { Subject } from 'rxjs';
-import {links} from './constants/links';
+import { links } from './constants/links';
 
 @Component({
   selector: 'gitgrok-root',
-  template: `<onivoro-app-shell [links]="links" (clicks)="navigate($event)"><router-outlet></router-outlet></onivoro-app-shell>`,
+  template: `<onivoro-app-shell [links]="links" (clicks)="navigate($event)"
+    ><router-outlet></router-outlet
+  ></onivoro-app-shell>`,
 })
 export class AppComponent {
-  links = links
+  links = links;
   route: any;
-  state$ = this.store.select(s => s);
+  state$ = this.store.select((s) => s);
   route$ = new Subject();
 
   navigate(link: ILink) {

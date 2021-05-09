@@ -15,10 +15,7 @@ import { Dto } from '../models/dto';
   providedIn: 'root',
 })
 export class ApiService extends BaseService {
-  constructor(
-    config: ApiConfiguration,
-    http: HttpClient
-  ) {
+  constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);
   }
 
@@ -33,22 +30,32 @@ export class ApiService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  repositoryControllerList$Response(params?: {
-  }): Observable<StrictHttpResponse<void>> {
-
-    const rb = new RequestBuilder(this.rootUrl, ApiService.RepositoryControllerListPath, 'get');
+  repositoryControllerList$Response(params?: {}): Observable<
+    StrictHttpResponse<void>
+  > {
+    const rb = new RequestBuilder(
+      this.rootUrl,
+      ApiService.RepositoryControllerListPath,
+      'get'
+    );
     if (params) {
     }
 
-    return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*'
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
-      })
-    );
+    return this.http
+      .request(
+        rb.build({
+          responseType: 'text',
+          accept: '*/*',
+        })
+      )
+      .pipe(
+        filter((r: any) => r instanceof HttpResponse),
+        map((r: HttpResponse<any>) => {
+          return (r as HttpResponse<any>).clone({
+            body: undefined,
+          }) as StrictHttpResponse<void>;
+        })
+      );
   }
 
   /**
@@ -57,9 +64,7 @@ export class ApiService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  repositoryControllerList(params?: {
-  }): Observable<void> {
-
+  repositoryControllerList(params?: {}): Observable<void> {
     return this.repositoryControllerList$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
     );
@@ -77,23 +82,32 @@ export class ApiService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   repositoryControllerTrack$Response(params: {
-    body: Dto
+    body: Dto;
   }): Observable<StrictHttpResponse<void>> {
-
-    const rb = new RequestBuilder(this.rootUrl, ApiService.RepositoryControllerTrackPath, 'put');
+    const rb = new RequestBuilder(
+      this.rootUrl,
+      ApiService.RepositoryControllerTrackPath,
+      'put'
+    );
     if (params) {
       rb.body(params.body, 'application/json');
     }
 
-    return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*'
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
-      })
-    );
+    return this.http
+      .request(
+        rb.build({
+          responseType: 'text',
+          accept: '*/*',
+        })
+      )
+      .pipe(
+        filter((r: any) => r instanceof HttpResponse),
+        map((r: HttpResponse<any>) => {
+          return (r as HttpResponse<any>).clone({
+            body: undefined,
+          }) as StrictHttpResponse<void>;
+        })
+      );
   }
 
   /**
@@ -102,10 +116,7 @@ export class ApiService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  repositoryControllerTrack(params: {
-    body: Dto
-  }): Observable<void> {
-
+  repositoryControllerTrack(params: { body: Dto }): Observable<void> {
     return this.repositoryControllerTrack$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
     );
@@ -122,22 +133,32 @@ export class ApiService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  repositoryControllerBranches$Response(params?: {
-  }): Observable<StrictHttpResponse<void>> {
-
-    const rb = new RequestBuilder(this.rootUrl, ApiService.RepositoryControllerBranchesPath, 'get');
+  repositoryControllerBranches$Response(params?: {}): Observable<
+    StrictHttpResponse<void>
+  > {
+    const rb = new RequestBuilder(
+      this.rootUrl,
+      ApiService.RepositoryControllerBranchesPath,
+      'get'
+    );
     if (params) {
     }
 
-    return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*'
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
-      })
-    );
+    return this.http
+      .request(
+        rb.build({
+          responseType: 'text',
+          accept: '*/*',
+        })
+      )
+      .pipe(
+        filter((r: any) => r instanceof HttpResponse),
+        map((r: HttpResponse<any>) => {
+          return (r as HttpResponse<any>).clone({
+            body: undefined,
+          }) as StrictHttpResponse<void>;
+        })
+      );
   }
 
   /**
@@ -146,9 +167,7 @@ export class ApiService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  repositoryControllerBranches(params?: {
-  }): Observable<void> {
-
+  repositoryControllerBranches(params?: {}): Observable<void> {
     return this.repositoryControllerBranches$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
     );
@@ -165,22 +184,32 @@ export class ApiService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  repositoryControllerOpenRepo$Response(params?: {
-  }): Observable<StrictHttpResponse<void>> {
-
-    const rb = new RequestBuilder(this.rootUrl, ApiService.RepositoryControllerOpenRepoPath, 'get');
+  repositoryControllerOpenRepo$Response(params?: {}): Observable<
+    StrictHttpResponse<void>
+  > {
+    const rb = new RequestBuilder(
+      this.rootUrl,
+      ApiService.RepositoryControllerOpenRepoPath,
+      'get'
+    );
     if (params) {
     }
 
-    return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*'
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
-      })
-    );
+    return this.http
+      .request(
+        rb.build({
+          responseType: 'text',
+          accept: '*/*',
+        })
+      )
+      .pipe(
+        filter((r: any) => r instanceof HttpResponse),
+        map((r: HttpResponse<any>) => {
+          return (r as HttpResponse<any>).clone({
+            body: undefined,
+          }) as StrictHttpResponse<void>;
+        })
+      );
   }
 
   /**
@@ -189,9 +218,7 @@ export class ApiService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  repositoryControllerOpenRepo(params?: {
-  }): Observable<void> {
-
+  repositoryControllerOpenRepo(params?: {}): Observable<void> {
     return this.repositoryControllerOpenRepo$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
     );
@@ -209,23 +236,32 @@ export class ApiService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   repositoryControllerOpenDir$Response(params: {
-    body: Dto
+    body: Dto;
   }): Observable<StrictHttpResponse<void>> {
-
-    const rb = new RequestBuilder(this.rootUrl, ApiService.RepositoryControllerOpenDirPath, 'put');
+    const rb = new RequestBuilder(
+      this.rootUrl,
+      ApiService.RepositoryControllerOpenDirPath,
+      'put'
+    );
     if (params) {
       rb.body(params.body, 'application/json');
     }
 
-    return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*'
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
-      })
-    );
+    return this.http
+      .request(
+        rb.build({
+          responseType: 'text',
+          accept: '*/*',
+        })
+      )
+      .pipe(
+        filter((r: any) => r instanceof HttpResponse),
+        map((r: HttpResponse<any>) => {
+          return (r as HttpResponse<any>).clone({
+            body: undefined,
+          }) as StrictHttpResponse<void>;
+        })
+      );
   }
 
   /**
@@ -234,10 +270,7 @@ export class ApiService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  repositoryControllerOpenDir(params: {
-    body: Dto
-  }): Observable<void> {
-
+  repositoryControllerOpenDir(params: { body: Dto }): Observable<void> {
     return this.repositoryControllerOpenDir$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
     );
@@ -257,21 +290,30 @@ export class ApiService extends BaseService {
   searchControllerV2$Response(params: {
     pathFilter: string;
   }): Observable<StrictHttpResponse<void>> {
-
-    const rb = new RequestBuilder(this.rootUrl, ApiService.SearchControllerV2Path, 'get');
+    const rb = new RequestBuilder(
+      this.rootUrl,
+      ApiService.SearchControllerV2Path,
+      'get'
+    );
     if (params) {
       rb.query('pathFilter', params.pathFilter, {});
     }
 
-    return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*'
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
-      })
-    );
+    return this.http
+      .request(
+        rb.build({
+          responseType: 'text',
+          accept: '*/*',
+        })
+      )
+      .pipe(
+        filter((r: any) => r instanceof HttpResponse),
+        map((r: HttpResponse<any>) => {
+          return (r as HttpResponse<any>).clone({
+            body: undefined,
+          }) as StrictHttpResponse<void>;
+        })
+      );
   }
 
   /**
@@ -280,10 +322,7 @@ export class ApiService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  searchControllerV2(params: {
-    pathFilter: string;
-  }): Observable<void> {
-
+  searchControllerV2(params: { pathFilter: string }): Observable<void> {
     return this.searchControllerV2$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
     );
@@ -300,22 +339,32 @@ export class ApiService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  envControllerGetAll$Response(params?: {
-  }): Observable<StrictHttpResponse<void>> {
-
-    const rb = new RequestBuilder(this.rootUrl, ApiService.EnvControllerGetAllPath, 'get');
+  envControllerGetAll$Response(params?: {}): Observable<
+    StrictHttpResponse<void>
+  > {
+    const rb = new RequestBuilder(
+      this.rootUrl,
+      ApiService.EnvControllerGetAllPath,
+      'get'
+    );
     if (params) {
     }
 
-    return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*'
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
-      })
-    );
+    return this.http
+      .request(
+        rb.build({
+          responseType: 'text',
+          accept: '*/*',
+        })
+      )
+      .pipe(
+        filter((r: any) => r instanceof HttpResponse),
+        map((r: HttpResponse<any>) => {
+          return (r as HttpResponse<any>).clone({
+            body: undefined,
+          }) as StrictHttpResponse<void>;
+        })
+      );
   }
 
   /**
@@ -324,9 +373,7 @@ export class ApiService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  envControllerGetAll(params?: {
-  }): Observable<void> {
-
+  envControllerGetAll(params?: {}): Observable<void> {
     return this.envControllerGetAll$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
     );
@@ -343,22 +390,32 @@ export class ApiService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  envControllerGetOne$Response(params?: {
-  }): Observable<StrictHttpResponse<void>> {
-
-    const rb = new RequestBuilder(this.rootUrl, ApiService.EnvControllerGetOnePath, 'get');
+  envControllerGetOne$Response(params?: {}): Observable<
+    StrictHttpResponse<void>
+  > {
+    const rb = new RequestBuilder(
+      this.rootUrl,
+      ApiService.EnvControllerGetOnePath,
+      'get'
+    );
     if (params) {
     }
 
-    return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*'
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
-      })
-    );
+    return this.http
+      .request(
+        rb.build({
+          responseType: 'text',
+          accept: '*/*',
+        })
+      )
+      .pipe(
+        filter((r: any) => r instanceof HttpResponse),
+        map((r: HttpResponse<any>) => {
+          return (r as HttpResponse<any>).clone({
+            body: undefined,
+          }) as StrictHttpResponse<void>;
+        })
+      );
   }
 
   /**
@@ -367,12 +424,9 @@ export class ApiService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  envControllerGetOne(params?: {
-  }): Observable<void> {
-
+  envControllerGetOne(params?: {}): Observable<void> {
     return this.envControllerGetOne$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
     );
   }
-
 }

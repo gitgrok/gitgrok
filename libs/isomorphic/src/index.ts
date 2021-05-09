@@ -1,6 +1,6 @@
 export * from './lib/constant/stamps';
 export { IBranch } from './lib/interfaces/branch.interface';
-export { IFileSearchResult } from './lib/interfaces/file-search-result'
+export { IFileSearchResult } from './lib/interfaces/file-search-result';
 export { ParsedPath } from './lib/interfaces/parsed-path.interface';
 export { IRef } from './lib/interfaces/ref.interface';
 export { IRepoRefMap } from './lib/interfaces/repo-ref-map';

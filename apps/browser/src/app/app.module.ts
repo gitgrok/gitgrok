@@ -20,13 +20,20 @@ import { SearchComponent } from './components/search/search.component';
 import { MaterialModule } from './material.module';
 import { SearchService } from './services/search.service';
 import { SearchStateModule } from './state/search/search-state.module';
-import {  } from '@gitgrok/api-interfaces'
-const services = [
-  SearchService
-];
+import {} from '@gitgrok/api-interfaces';
+const services = [SearchService];
 
-const components = [AppComponent, RepositoryListComponent, RepositoryComponent, RepositoryFormComponent, SearchComponent, SearchFormComponent, HomeComponent, SearchResultComponent,
-AppShellComponent, NavbarComponent
+const components = [
+  AppComponent,
+  RepositoryListComponent,
+  RepositoryComponent,
+  RepositoryFormComponent,
+  SearchComponent,
+  SearchFormComponent,
+  HomeComponent,
+  SearchResultComponent,
+  AppShellComponent,
+  NavbarComponent,
 ];
 
 @NgModule({
@@ -41,9 +48,9 @@ AppShellComponent, NavbarComponent
     StoreModule.forRoot({}, {}),
     EffectsModule.forRoot([]),
     AppStateModule,
-    SearchStateModule
+    SearchStateModule,
   ],
   providers: [...services],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -1,4 +1,4 @@
 export interface IAppState {
-    repos: any[];
-    error: any;
+  repos: any[];
+  error: any;
 }

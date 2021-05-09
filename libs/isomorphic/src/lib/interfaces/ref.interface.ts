@@ -1,3 +1,3 @@
 export interface IRef {
-    hash: string;
+  hash: string;
 }
