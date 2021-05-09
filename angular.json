@@ -51,7 +51,9 @@
               "apps/browser/src/favicon.ico",
               "apps/browser/src/assets"
             ],
-            "styles": ["apps/browser/src/styles.scss"],
+            "styles": [
+              "apps/browser/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -113,7 +115,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/browser"],
+          "outputs": [
+            "coverage/apps/browser"
+          ],
           "options": {
             "jestConfig": "apps/browser/jest.config.js",
             "passWithNoTests": true
@@ -129,12 +133,16 @@
       "architect": {
         "build": {
           "builder": "@nrwl/node:build",
-          "outputs": ["{options.outputPath}"],
+          "outputs": [
+            "{options.outputPath}"
+          ],
           "options": {
             "outputPath": "dist/apps/api",
             "main": "apps/api/src/main.ts",
             "tsConfig": "apps/api/tsconfig.app.json",
-            "assets": ["apps/api/src/assets"]
+            "assets": [
+              "apps/api/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -159,15 +167,34 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/api/**/*.ts"]
+            "lintFilePatterns": [
+              "apps/api/**/*.ts"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/api"],
+          "outputs": [
+            "coverage/apps/api"
+          ],
           "options": {
             "jestConfig": "apps/api/jest.config.js",
             "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "api-interfaces": {
+      "root": "libs/api-interfaces",
+      "sourceRoot": "libs/api-interfaces/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/api-interfaces/**/*.ts"
+            ]
           }
         }
       }
@@ -176,43 +203,22 @@
       "root": "libs/isomorphic",
       "sourceRoot": "libs/isomorphic/src",
       "projectType": "library",
-      "architect": {
+      "targets": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/isomorphic/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/isomorphic"],
-          "options": {
-            "jestConfig": "libs/isomorphic/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "browser-api": {
-      "projectType": "library",
-      "root": "libs/browser-api",
-      "sourceRoot": "libs/browser-api/src",
-      "prefix": "gitgrok",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
-              "libs/browser-api/src/**/*.ts",
-              "libs/browser-api/src/**/*.html"
+              "libs/isomorphic/**/*.ts"
             ]
           }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/browser-api"],
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/isomorphic"
+          ],
           "options": {
-            "jestConfig": "libs/browser-api/jest.config.js",
+            "jestConfig": "libs/isomorphic/jest.config.js",
             "passWithNoTests": true
           }
         }

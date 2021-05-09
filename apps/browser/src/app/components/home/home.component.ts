@@ -1,13 +1,11 @@
-import { Component } from '@angular/core';
-import {ApiService} from '@gitgrok/browser-api';
-import { of } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'onivoro-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent {
-  constructor(private readonly apiService: ApiService) {}
-  lee$ = of(Object.keys(this.apiService).join());
+export class HomeComponent implements OnInit {
+  ngOnInit(): void {
+  }
 }

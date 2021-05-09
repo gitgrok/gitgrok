@@ -1,4 +1,5 @@
-import { Module } from '@nestjs/common';
+import { Module, OnModuleInit } from '@nestjs/common';
+import { ServeStaticModule } from '@nestjs/serve-static';
 
 import {
   GitGrokPort,
@@ -11,20 +12,31 @@ import { PathManager } from './services/path-manager';
 import { SearchController } from './controllers/search.controller';
 import { SearchService } from './services/search.service';
 import { ResultTransformer } from './services/result-transformer';
-import { EnvController, EnvModule } from '@onivoro/server-parameterization';
+import { EnvModule } from '@onivoro/server-parameterization';
 import { ServerGitModule } from '@onivoro/server-git';
+import { resolve } from 'path';
+import {ServerBrowserModule} from '@onivoro/server-browser';
+import { AppService } from './app.service';
 
 const env = [HomePath, ManifestPath, GitGrokPort];
 
 @Module({
-  imports: [ServerGitModule, EnvModule],
-  controllers: [RepositoryController, SearchController, EnvController],
+  imports: [
+    ServerBrowserModule.forRoot({headless: false, defaultViewport: {width: 1800, height: 1000}, executablePath: process.env.CHROME_BIN}),
+    ServerGitModule,
+    EnvModule,
+    ServeStaticModule.forRoot({
+      rootPath: resolve(process.cwd(), 'dist/apps/browser')
+    })
+  ],
+  controllers: [RepositoryController, SearchController],
   providers: [
     ...env,
     RepositoryService,
     PathManager,
     ResultTransformer,
     SearchService,
+    AppService
   ],
 })
-export class AppModule {}
+export class AppModule { }

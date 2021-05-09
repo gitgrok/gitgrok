@@ -12,7 +12,6 @@ export const searchInitFailed = createAction(
   failed(SEARCH_INIT),
   props<{ error: any }>()
 );
-
 export const searchStarted = createAction(
   started(AppEvent.SEARCH),
   props<{

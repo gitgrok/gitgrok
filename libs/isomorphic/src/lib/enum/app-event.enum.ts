@@ -6,4 +6,6 @@ export enum AppEvent {
   OPEN_DIR = 'OPEN_DIR',
   OPEN_REPO = 'OPEN_REPO',
   OPEN_FILE = 'OPEN_FILE',
+  UP$ = "UP$",
+  DOWN$ = "DOWN$"
 }

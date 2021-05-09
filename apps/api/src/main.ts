@@ -1,26 +1,15 @@
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- */
 import { ports } from '../../../ports';
-import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 
-import { swagOn } from './swag-on';
-
 import { AppModule } from './app/app.module';
+import { AppService } from './app/app.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  const globalPrefix = '';
-  app.setGlobalPrefix(globalPrefix);
   app.enableCors();
-  app.enableShutdownHooks();
-  await (await swagOn(app)).toPromise();
-  const port = ports.api;
-  await app.listen(port, () => {
-    Logger.log('Listening at http://localhost:' + port + '/' + globalPrefix);
-  });
+  const { api } = ports;
+  await app.listen(api);
+  await app.get(AppService).initIpcChannel(4321).toPromise();
 }
 
 bootstrap();

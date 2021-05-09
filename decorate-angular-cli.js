@@ -37,7 +37,7 @@ try {
  * Symlink of ng to nx, so you can keep using `ng build/test/lint` and still
  * invoke the Nx CLI and get the benefits of computation caching.
  */
-function symlinkNgCLItoNxCLI() {
+function symlinkNgCLItoNxCLI () {
   try {
     const ngPath = './node_modules/.bin/ng';
     const nxPath = './node_modules/.bin/nx';
@@ -53,8 +53,7 @@ function symlinkNgCLItoNxCLI() {
       // If unix-based, symlink
       cp.execSync(`ln -sf ./nx ${ngPath}`);
     }
-  }
-  catch(e) {
+  } catch (e) {
     output.error({ title: 'Unable to create a symlink from the Angular CLI to the Nx CLI:' + e.message });
     throw e;
   }
@@ -64,6 +63,6 @@ try {
   symlinkNgCLItoNxCLI();
   require('@nrwl/cli/lib/decorate-cli').decorateCli();
   output.log({ title: 'Angular CLI has been decorated to enable computation caching.' });
-} catch(e) {
+} catch (e) {
   output.error({ title: 'Decoration of the Angular CLI did not complete successfully' });
 }
