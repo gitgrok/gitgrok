@@ -19,7 +19,7 @@
     "baseUrl": ".",
     "paths": {
       "@gitgrok/api-interfaces": [
-        "libs/api-interfaces/src/index.ts"
+        "libs/api-interfaces/src/"
       ],
       "@gitgrok/isomorphic": [
         "libs/isomorphic/src/index.ts"
