@@ -1,14 +1,13 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Cats example",
-    "description": "The cats API description",
-    "version": "1.0",
+    "title": "gitgrok",
+    "version": "0.0.0",
     "contact": {}
   },
   "tags": [
     {
-      "name": "cats",
+      "name": "0.0.0",
       "description": ""
     }
   ],

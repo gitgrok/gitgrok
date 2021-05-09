@@ -6,12 +6,12 @@ import { execRx } from '@onivoro/server-process';
 
 export const swagOn = async (
   app: any,
-  outPath = './apps/browser/src/app/api/',
+  outPath = './libs/browser-api/src/lib/',
   doc = 'api'
 ) => {
   const docPath = resolve(process.cwd(), `${doc}.json`);
 
-  readObjectRx(resolve(process.cwd(), 'package.json')).pipe(
+  return readObjectRx(resolve(process.cwd(), 'package.json')).pipe(
     concatMap(({ name, version, repository }) => {
       const config = new DocumentBuilder()
         .setTitle(name)
