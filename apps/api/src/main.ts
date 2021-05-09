@@ -6,6 +6,8 @@ import {ports} from '../../../ports';
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 
+import {swagOn} from './swag-on';
+
 import { AppModule } from './app/app.module';
 
 async function bootstrap() {
@@ -13,6 +15,7 @@ async function bootstrap() {
   const globalPrefix = '';
   app.setGlobalPrefix(globalPrefix);
   app.enableCors();
+  await swagOn(app);
   const port = ports.api;
   await app.listen(port, () => {
     Logger.log('Listening at http://localhost:' + port + '/' + globalPrefix);

@@ -1,6 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { AppEvent } from '@gitgrok/isomorphic';
-import { failed, finished, started } from '../lib';
+import { failed, finished, started, AppEvent } from '@gitgrok/isomorphic';
 
 export const initStarted = createAction(started(AppEvent.INIT));
 export const initFinished = createAction(finished(AppEvent.INIT), props<{ repos: any[] }>());
