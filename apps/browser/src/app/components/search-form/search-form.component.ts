@@ -21,10 +21,7 @@ export class SearchFormComponent {
       query: {
         label: 'query',
         type: 'text',
-        validators: [
-          ...this.validators,
-          { name: 'pattern', args: [regexes.dashesLettersNumbersSpaces] },
-        ],
+        validators: [...this.validators, { name: 'pattern', args: [regexes.dashesLettersNumbersSpaces] }],
       },
       pathFilter: {
         label: 'path filter',

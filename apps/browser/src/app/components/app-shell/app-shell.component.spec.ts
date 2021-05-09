@@ -6,13 +6,12 @@ describe('AppShellComponent', () => {
   let component: AppShellComponent;
   let fixture: ComponentFixture<AppShellComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [AppShellComponent],
-      }).compileComponents();
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [ AppShellComponent ]
     })
-  );
+    .compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(AppShellComponent);

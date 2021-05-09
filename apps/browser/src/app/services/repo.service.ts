@@ -3,11 +3,11 @@ import { Injectable } from '@angular/core';
 import { BaseService } from './base.service';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class RepoService extends BaseService {
   openDir(dir: string) {
-    return this.http.put(this.apiUrl(`open-dir`), { url: dir });
+    return this.http.put(this.apiUrl(`open-dir`), {url: dir});
   }
 
   protected getApiPrefix(): string {

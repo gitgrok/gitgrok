@@ -1,4 +1,4 @@
 export class RepositoryForm {
-  repoFilter: string;
-  query: string;
-}
+    repoFilter: string;
+    query: string;
+};

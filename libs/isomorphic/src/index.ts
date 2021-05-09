@@ -1,8 +1,3 @@
-export * from './lib/constant/custom-event-name';
-export * from './lib/constant/global-name';
-export * from './lib/constant/stamps';
-
-export { IIpcAction } from './lib/interfaces/ipc-action.interface';
 export { IBranch } from './lib/interfaces/branch.interface';
 export { IFileSearchResult } from './lib/interfaces/file-search-result'
 export { ParsedPath } from './lib/interfaces/parsed-path.interface';

@@ -16,6 +16,5 @@ export const getResults = createSelector(
 
 export const getSelectedRepos = createSelector(
   selectState,
-  (search: ISearchState) =>
-    (search.repos || []).map((r) => r.replace('.git', ''))
+  (search: ISearchState) => (search.repos || []).map(r => r.replace('.git', ''))
 );

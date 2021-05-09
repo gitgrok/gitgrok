@@ -5,13 +5,10 @@ import { SearchService } from '../services/search.service';
 export class SearchController {
   logger = new Logger(SearchController.name);
 
-  constructor(private readonly searchService: SearchService) {}
+  constructor(private readonly searchService: SearchService) { }
 
   @Get('v2/:term')
-  async v2(
-    @Param() params: { term: string },
-    @Query('pathFilter') pathFilter: string
-  ) {
+  async v2(@Param() params: {term: string}, @Query('pathFilter') pathFilter: string) {
     return this.searchService.searchV2(params.term, pathFilter);
   }
 }

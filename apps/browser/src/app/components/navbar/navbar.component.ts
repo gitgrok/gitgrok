@@ -5,7 +5,7 @@ import { ILink } from '../../interfaces/i-link.interface';
 @Component({
   selector: 'onivoro-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss'],
+  styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
   @Output() readonly clicks = new EventEmitter<number>();

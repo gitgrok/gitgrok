@@ -12,7 +12,9 @@ import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule],
+  imports: [
+    CommonModule
+  ],
   exports: [
     MatButtonModule,
     MatCardModule,
@@ -22,7 +24,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatInputModule,
     MatSelectModule,
     MatTabsModule,
-    MatListModule,
-  ],
+    MatListModule
+  ]
 })
-export class MaterialModule {}
+export class MaterialModule { }
