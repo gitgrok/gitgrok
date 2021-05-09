@@ -20,7 +20,7 @@ import { SearchComponent } from './components/search/search.component';
 import { MaterialModule } from './material.module';
 import { SearchService } from './services/search.service';
 import { SearchStateModule } from './state/search/search-state.module';
-import {} from '@gitgrok/api-interfaces';
+import {ApiModule} from './api/api.module';
 const services = [SearchService];
 
 const components = [
@@ -39,6 +39,7 @@ const components = [
 @NgModule({
   declarations: [...components],
   imports: [
+    ApiModule.forRoot({rootUrl: 'http://localhost:7777/api'}),
     AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
@@ -48,7 +49,7 @@ const components = [
     StoreModule.forRoot({}, {}),
     EffectsModule.forRoot([]),
     AppStateModule,
-    SearchStateModule,
+    SearchStateModule,    
   ],
   providers: [...services],
   bootstrap: [AppComponent],
