@@ -15,6 +15,7 @@ async function bootstrap() {
   const globalPrefix = '';
   app.setGlobalPrefix(globalPrefix);
   app.enableCors();
+  app.enableShutdownHooks();
   await (await swagOn(app)).toPromise();
   const port = ports.api;
   await app.listen(port, () => {

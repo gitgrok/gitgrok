@@ -27,9 +27,22 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/"
+                  }
+                }
+              }
+            }
           }
-        }
+        },
+        "tags": [
+          "repos"
+        ]
       },
       "put": {
         "operationId": "RepositoryController_track",
@@ -48,7 +61,10 @@
           "200": {
             "description": ""
           }
-        }
+        },
+        "tags": [
+          "repos"
+        ]
       }
     },
     "/repos/{url}/branches": {
@@ -59,7 +75,10 @@
           "200": {
             "description": ""
           }
-        }
+        },
+        "tags": [
+          "repos"
+        ]
       }
     },
     "/repos/{url}/open-repo": {
@@ -70,7 +89,10 @@
           "200": {
             "description": ""
           }
-        }
+        },
+        "tags": [
+          "repos"
+        ]
       }
     },
     "/repos/open-dir": {
@@ -91,7 +113,10 @@
           "200": {
             "description": ""
           }
-        }
+        },
+        "tags": [
+          "repos"
+        ]
       }
     },
     "/search/v2/{term}": {

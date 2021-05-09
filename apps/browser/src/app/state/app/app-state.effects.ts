@@ -3,6 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, concatMap, exhaustMap, map } from 'rxjs/operators';
 import { RepoService } from '../../services/repo.service';
+import { ApiService } from '@gitgrok/browser-api';
 import {
   cloneFailed,
   cloneFinished,
@@ -14,12 +15,13 @@ import {
   openRepoFinished,
   openRepoStarted,
 } from './app-state.actions';
-// import { ApiService} from '../../api'
+
 @Injectable()
 export class AppStateEffects {
   constructor(
     private readonly actions$: Actions,
-    private readonly repoService: RepoService
+    private readonly repoService: RepoService,
+    private readonly apiService: ApiService
   ) {}
 
   getRepos$ = createEffect(() =>
@@ -29,7 +31,7 @@ export class AppStateEffects {
       map((repos) => initFinished({ repos } as any)),
       catchError((e) => of(e).pipe(map((error) => initFailed({ error }))))
     )
-  );
+  );  
 
   cloneRepo$ = createEffect(() =>
     this.actions$.pipe(
@@ -45,7 +47,7 @@ export class AppStateEffects {
   getBranchesForRepo$ = createEffect(() =>
     this.actions$.pipe(
       ofType(openRepoStarted),
-      // concatMap(() => ApiService),
+      concatMap(() => ApiService),
       map(({ repo }) => openRepoFinished({ repo }))
     )
   );
