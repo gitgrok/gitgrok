@@ -31,7 +31,7 @@ export class AppService {
 const { IPC } = window['puppeteer-ipc/browser'];
 const ipc = new IPC();
 window['${globalName}'] = ipc;
-ipc.send('${down}', {actionType: '${AppEvent.INIT}', actionProps: {start: new Date().toISOString()}}});
+ipc.send('${down}', {actionType: '${AppEvent.INIT}', actionProps: {start: new Date().toISOString()}});
 ipc.on('${up}', (detail) => {  
     window.dispatchEvent(
       new CustomEvent('${up}', {
