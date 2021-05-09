@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "g": "ng-openapi-gen --input api.json --output ./generated",
+    "gen": "ng-openapi-gen --input api.json --output ./libs/api-interfaces/src/",
     "ng": "nx",
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points",
     "nx": "nx",
