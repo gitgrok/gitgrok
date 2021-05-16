@@ -9,6 +9,7 @@ export class AppService implements OnApplicationShutdown {
   browser: any;
   constructor(private readonly browserService: BrowserService) { }
   async onApplicationShutdown(signal?: string) {
+    console.warn('closing browser');
     await this.browser.close();
   }
   private readonly downStream$$ = new BehaviorSubject<IIpcAction>({
@@ -22,8 +23,7 @@ export class AppService implements OnApplicationShutdown {
     concatMap((a) => this._ipc.send(up, a))
   );
 
-  initIpcChannel(assetPort: number) {
-    const url = `http://localhost:${assetPort}`;
+  initIpcChannel(url: string) {    
 
     return from(this.browserService.createAppRuntime(url))
       .pipe(

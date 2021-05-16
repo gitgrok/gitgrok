@@ -8,13 +8,18 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableShutdownHooks();
   app.enableCors();
-  const { api } = ports;
+  const { api,browser } = ports;
   try {
     await app.listen(api);
   } catch (e) {
     console.warn(e);
   }
-  await app.get(AppService).initIpcChannel(4321).toPromise();
+  const url = getUrl(browser);
+  await app.get(AppService).initIpcChannel(url).toPromise();
 }
 
 bootstrap();
+
+function getUrl(assetPort: number) {  
+  return `http://localhost:${assetPort}`;
+}
