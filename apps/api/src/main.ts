@@ -6,9 +6,14 @@ import { AppService } from './app/app.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.enableShutdownHooks();
   app.enableCors();
   const { api } = ports;
-  await app.listen(api);
+  try {
+    await app.listen(api);
+  } catch (e) {
+    console.warn(e);
+  }
   await app.get(AppService).initIpcChannel(4321).toPromise();
 }
 

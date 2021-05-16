@@ -1,12 +1,16 @@
 import { up, down, globalName, IIpcAction, AppEvent } from '@gitgrok/isomorphic';
-import { Injectable } from '@nestjs/common';
+import { Injectable, OnApplicationShutdown } from '@nestjs/common';
 import { BrowserService } from '@onivoro/server-browser';
 import { from, BehaviorSubject } from 'rxjs';
 import { concatMap, tap } from 'rxjs/operators';
 
 @Injectable()
-export class AppService {
+export class AppService implements OnApplicationShutdown {
+  browser: any;
   constructor(private readonly browserService: BrowserService) { }
+  async onApplicationShutdown(signal?: string) {
+    await this.browser.close();
+  }
   private readonly downStream$$ = new BehaviorSubject<IIpcAction>({
     actionType: AppService.name,
     actionProps: Object.keys(this)
@@ -23,6 +27,9 @@ export class AppService {
 
     return from(this.browserService.createAppRuntime(url))
       .pipe(
+        tap(({ browser }) => { 
+          this.browser = browser;
+        }),
         tap(({ ipc }) => {
           this._ipc = ipc;
           (ipc as any).on(down, (msg: any) => this.downStream$$.next(msg));
@@ -40,7 +47,7 @@ ipc.on('${up}', (detail) => {
     );
 });`
         ))),
-        concatMap(() => this.downStream$),        
+        concatMap(() => this.downStream$),
       );
   };
 }
