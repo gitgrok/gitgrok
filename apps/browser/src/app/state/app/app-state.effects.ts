@@ -8,7 +8,6 @@ import {
   cloneFailed,
   cloneFinished,
   cloneStarted,
-  downFinished,
   downStarted,
   initFailed,
   initFinished,
@@ -25,30 +24,17 @@ export class AppStateEffects {
     private readonly actions$: Actions,
     private readonly repoService: RepoService,
     private readonly actionService: ActionService
-  ) {}
-
-  // onUp$ = createEffect(() => this.actions$.pipe(
-  //   ofType(upStarted),
-  //   map(({actionType, actionProps}) => ({...actionProps, type: actionType}))
-  // ));
-
-  // onDown$ = createEffect(() => this.actions$.pipe(
-  //   ofType(downStarted),
-  //   tap(({actionType, actionProps}) => {     
-  //     this.actionService.dispatch({actionType, actionProps})
-  //   }),
-  //   map(a => downFinished({}))
-  // ));
+  ) { }
 
   autoDown$ = createEffect(() => this.actions$.pipe(
     filter(a => a.type !== downStarted.type),
     filter(a => a.type !== upStarted.type),
-    map(({type, ...rest}) => downStarted({actionType: type, actionProps: rest}))
+    map(({ type, ...rest }) => downStarted({ actionType: type, actionProps: rest }))
   ));
 
   autoUp$ = createEffect(() => this.actions$.pipe(
     ofType(upStarted),
-    map(({actionProps, actionType}) => ({...actionProps, type: actionType}))
+    map(({ actionProps, actionType }) => ({ ...actionProps, type: actionType }))
   ));
 
   getRepos$ = createEffect(() =>

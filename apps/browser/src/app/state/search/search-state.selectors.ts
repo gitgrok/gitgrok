@@ -1,5 +1,6 @@
+import { ISearchState } from '@gitgrok/isomorphic';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { ISearchState } from './search-state.interface';
+
 import { searchStateName } from './search-state.name';
 
 const selectState = createFeatureSelector(searchStateName);

@@ -1,13 +1,14 @@
 import { ActionReducer, createReducer, on } from '@ngrx/store';
 import {
+  ISearchState,
   repoDeselected,
   repoSelected,
   searchFinished,
   searchInitFinished,
   searchStarted,
-} from './search-state.actions';
+} from '@gitgrok/isomorphic';
 import { searchStateDefault } from './search-state.default';
-import { ISearchState } from './search-state.interface';
+
 
 export const searchStateReducer: ActionReducer<ISearchState> = createReducer(
   searchStateDefault,

@@ -11,12 +11,12 @@ import { openDirStarted } from '@gitgrok/isomorphic';
   styleUrls: ['./search-result.component.scss'],
 })
 export class SearchResultComponent implements OnInit {
-  constructor(private readonly store: Store) {}
+  constructor(private readonly store: Store) { }
 
   @Input() rawResult!: any;
   result!: IRepoSearchResult;
   hidden = false;
-  activeMatch: any;
+  activeMatch: any;  
   openSubject = new Subject<string>();
 
   ngOnInit(): void {
@@ -31,5 +31,6 @@ export class SearchResultComponent implements OnInit {
     this.openSubject
       .pipe(map((dir) => this.store.dispatch(openDirStarted({ dir }))))
       .subscribe();
+
   }
 }

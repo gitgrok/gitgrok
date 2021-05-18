@@ -1,4 +1,5 @@
-import { ISearchState } from './search-state.interface';
+import { ISearchState } from "@gitgrok/isomorphic";
+
 
 export const searchStateDefault: ISearchState = {
   query: '',

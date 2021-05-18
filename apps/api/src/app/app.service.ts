@@ -1,8 +1,15 @@
-import { up, down, globalName, IIpcAction, AppEvent } from '@gitgrok/isomorphic';
+import { up, down, globalName, IIpcAction, AppEvent, detailRepoStarted } from '@gitgrok/isomorphic';
 import { Injectable, OnApplicationShutdown } from '@nestjs/common';
 import { BrowserService } from '@onivoro/server-browser';
-import { from, BehaviorSubject } from 'rxjs';
-import { concatMap, tap } from 'rxjs/operators';
+import { from, BehaviorSubject, merge, Subject } from 'rxjs';
+import { concatMap, filter, map, mergeMap, tap } from 'rxjs/operators';
+
+// function ofType({ type }: { type: string }) {
+//   return filter((a) => {
+//     console.log('akshun', a, 'type', type);
+//     return true;
+//   })
+// }
 
 @Injectable()
 export class AppService implements OnApplicationShutdown {
@@ -12,22 +19,32 @@ export class AppService implements OnApplicationShutdown {
     console.warn('closing browser');
     await this.browser.close();
   }
-  private readonly downStream$$ = new BehaviorSubject<IIpcAction>({
+  private readonly downStream$$ = new BehaviorSubject<IIpcAction>(
+    {
     actionType: AppService.name,
     actionProps: Object.keys(this)
-  });
+  }
+  );
   private _ipc: any;
 
   readonly actions$ = this.downStream$$.asObservable().pipe(
     tap(lee => console.log('server receiver downstream', lee)),
-    concatMap((a) => this._ipc.send(up, a))
+    // map(({ actionType, actionProps }) => ({ ...actionProps, type: actionType })),
+    // concatMap((a) => this._ipc.send(up, a))
   );
 
-  initIpcChannel(url: string) {    
+  readonly detailRepoStarted$ = this.actions$.pipe(
+    tap(a => console.log('ax', a)),
+    // ofType(detailRepoStarted),
+  );
+
+  initIpcChannel(url: string) {
+
+    this.detailRepoStarted$.subscribe();
 
     return from(this.browserService.createAppRuntime(url))
       .pipe(
-        tap(({ browser }) => { 
+        tap(({ browser }) => {
           this.browser = browser;
         }),
         tap(({ ipc }) => {
@@ -46,8 +63,7 @@ ipc.on('${up}', (detail) => {
       })
     );
 });`
-        ))),
-        concatMap(() => this.actions$),
+        ))),        
       );
   };
 }

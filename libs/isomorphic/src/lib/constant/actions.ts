@@ -1,6 +1,9 @@
 import { AppEvent } from '../enum/app-event.enum';
 import { IIpcAction } from '../interfaces/ipc-action.interface';
+import { ISearchState } from '../interfaces/search-state.interface';
 import { failed, finished, started } from './stamps';
+
+const SEARCH_INIT = 'SEARCH_INIT';
 
 function props<T>() {
   return () => ({} as T)
@@ -10,6 +13,40 @@ function createAction<T>(type: string, p?: () => T) {
   ac.type = type;
   return ac;
 };
+
+export const searchInitStarted = createAction(started(SEARCH_INIT));
+export const searchInitFinished = createAction(
+  finished(SEARCH_INIT),
+  props<{ repos: ISearchState['repos'] }>()
+);
+export const searchInitFailed = createAction(
+  failed(SEARCH_INIT),
+  props<{ error: any }>()
+);
+export const searchStarted = createAction(
+  started(AppEvent.SEARCH),
+  props<{
+    query: ISearchState['query'];
+    repos: ISearchState['repos'];
+    pathFilter: ISearchState['pathFilter'];
+  }>()
+);
+export const searchFinished = createAction(
+  finished(AppEvent.SEARCH),
+  props<{ results: ISearchState['results'] }>()
+);
+export const searchFailed = createAction(failed(AppEvent.SEARCH));
+
+export const allReposSelected = createAction(`ALL_REPOS_SELECTED`);
+export const repoSelected = createAction(
+  `REPO_SELECTED`,
+  props<{ repo: string }>()
+);
+export const repoDeselected = createAction(
+  `REPO_DESELECTED`,
+  props<{ repo: string }>()
+);
+
 export const initStarted = createAction(started(AppEvent.INIT));
 export const initFinished = createAction(
   finished(AppEvent.INIT),
@@ -64,3 +101,8 @@ export const upStarted = createAction(started(AppEvent.UP$), props<IIpcAction>()
 export const upFinished = createAction(finished(AppEvent.UP$));
 export const downStarted = createAction(started(AppEvent.DOWN$), props<IIpcAction>());
 export const downFinished = createAction(finished(AppEvent.DOWN$));
+
+export const detailRepoStarted = createAction(started(AppEvent.DETAIL_REPO), props<{url: string}>());
+export const detailRepoFinished = createAction(finished(AppEvent.DETAIL_REPO), props<{detail: any}>());
+
+

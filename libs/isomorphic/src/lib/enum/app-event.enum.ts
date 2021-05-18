@@ -7,5 +7,6 @@ export enum AppEvent {
   OPEN_REPO = 'OPEN_REPO',
   OPEN_FILE = 'OPEN_FILE',
   UP$ = "UP$",
-  DOWN$ = "DOWN$"
+  DOWN$ = "DOWN$",
+  DETAIL_REPO = "DETAIL_REPO"
 }

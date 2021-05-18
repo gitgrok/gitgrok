@@ -3,4 +3,5 @@ export interface IAppState {
   error: any;
   upStream: any[];
   downStream: any[];
+  detail: any;
 }

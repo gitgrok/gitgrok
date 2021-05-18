@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
+import { searchStarted } from '@gitgrok/isomorphic';
 import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
 import { debounceTime, map, withLatestFrom } from 'rxjs/operators';
-import { searchStarted } from '../../state/search/search-state.actions';
 import {
   getResults,
   getSelectedRepos,

@@ -3,6 +3,8 @@ export * from './lib/constant/global-name';
 export * from './lib/constant/stamps';
 export * from './lib/constant/actions';
 
+export { IAppState } from './lib/interfaces/app-state.interface';
+export { ISearchState } from './lib/interfaces/search-state.interface';
 export { IIpcAction } from './lib/interfaces/ipc-action.interface';
 export { IBranch } from './lib/interfaces/branch.interface';
 export { IFileSearchResult } from './lib/interfaces/file-search-result'
