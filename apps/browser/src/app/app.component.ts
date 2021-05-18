@@ -4,8 +4,8 @@ import { Store } from '@ngrx/store';
 import { ILink } from './interfaces/i-link.interface';
 import { Subject } from 'rxjs';
 import { links } from './constants/links';
-import { up } from '@gitgrok/isomorphic';
-import { downStarted, upStarted } from './state/app/app-state.actions';
+import { navStarted, up } from '@gitgrok/isomorphic';
+import { downStarted, upStarted,  } from '@gitgrok/isomorphic';
 
 @Component({
   selector: 'gitgrok-root',
@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
     this.route = link;
     this.route$.next(link);
     this.router.navigate([link?.slug || '']);
-    this.store.dispatch(downStarted({actionType: up, actionProps: {...link, icon: 'glory', id: +new Date()}}))
+    this.store.dispatch(navStarted(link as any))
   }
 
   constructor(private readonly router: Router, private readonly store: Store) { }

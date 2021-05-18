@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { SearchService } from '../../services/search.service';
-import { initFinished } from '../app/app-state.actions';
+import { initFinished } from '@gitgrok/isomorphic';
 import { getRepos } from '../app/app-state.selectors';
 import {
   searchFinished,

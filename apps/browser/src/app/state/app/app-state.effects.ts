@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import { down } from '@gitgrok/isomorphic';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, concatMap, exhaustMap, map, tap } from 'rxjs/operators';
-import { IpcProvider } from '../../providers/ipc.provider';
+import { catchError, concatMap, exhaustMap, filter, map, tap } from 'rxjs/operators';
 import { ActionService } from '../../services/action.service';
 import { RepoService } from '../../services/repo.service';
 import {
@@ -18,9 +16,8 @@ import {
   openDirStarted,
   openRepoFinished,
   openRepoStarted,
-  upFinished,
   upStarted,
-} from './app-state.actions';
+} from '@gitgrok/isomorphic';
 
 @Injectable()
 export class AppStateEffects {
@@ -30,17 +27,28 @@ export class AppStateEffects {
     private readonly actionService: ActionService
   ) {}
 
-  onUp$ = createEffect(() => this.actions$.pipe(
-    ofType(upStarted),
-    map(a => upFinished())
+  // onUp$ = createEffect(() => this.actions$.pipe(
+  //   ofType(upStarted),
+  //   map(({actionType, actionProps}) => ({...actionProps, type: actionType}))
+  // ));
+
+  // onDown$ = createEffect(() => this.actions$.pipe(
+  //   ofType(downStarted),
+  //   tap(({actionType, actionProps}) => {     
+  //     this.actionService.dispatch({actionType, actionProps})
+  //   }),
+  //   map(a => downFinished({}))
+  // ));
+
+  autoDown$ = createEffect(() => this.actions$.pipe(
+    filter(a => a.type !== downStarted.type),
+    filter(a => a.type !== upStarted.type),
+    map(({type, ...rest}) => downStarted({actionType: type, actionProps: rest}))
   ));
 
-  onDown$ = createEffect(() => this.actions$.pipe(
-    ofType(downStarted),
-    tap(({actionType, actionProps}) => {     
-      this.actionService.dispatch({actionType, actionProps})
-    }),
-    map(a => downFinished())
+  autoUp$ = createEffect(() => this.actions$.pipe(
+    ofType(upStarted),
+    map(({actionProps, actionType}) => ({...actionProps, type: actionType}))
   ));
 
   getRepos$ = createEffect(() =>

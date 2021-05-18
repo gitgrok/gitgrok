@@ -1,5 +1,5 @@
 import { ActionReducer, createReducer, on } from '@ngrx/store';
-import { cloneFinished, downStarted, initFailed, initFinished, initStarted, upStarted } from './app-state.actions';
+import { cloneFinished, downStarted, initFailed, initFinished, initStarted, upStarted } from '@gitgrok/isomorphic';
 import { appStateDefault } from './app-state.default';
 import { IAppState } from './app-state.interface';
 

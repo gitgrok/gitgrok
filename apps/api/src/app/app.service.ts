@@ -18,7 +18,7 @@ export class AppService implements OnApplicationShutdown {
   });
   private _ipc: any;
 
-  readonly downStream$ = this.downStream$$.asObservable().pipe(
+  readonly actions$ = this.downStream$$.asObservable().pipe(
     tap(lee => console.log('server receiver downstream', lee)),
     concatMap((a) => this._ipc.send(up, a))
   );
@@ -47,7 +47,7 @@ ipc.on('${up}', (detail) => {
     );
 });`
         ))),
-        concatMap(() => this.downStream$),
+        concatMap(() => this.actions$),
       );
   };
 }

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
 import { tap, withLatestFrom } from 'rxjs/operators';
-import { cloneStarted } from '../../state/app/app-state.actions';
+import { cloneStarted } from '@gitgrok/isomorphic';
 import { getRepos } from '../../state/app/app-state.selectors';
 
 @Component({

@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { IRepoSearchResult } from '@gitgrok/isomorphic';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { openDirStarted } from '../../state/app/app-state.actions';
+import { openDirStarted } from '@gitgrok/isomorphic';
 
 @Component({
   selector: 'onivoro-search-result',
