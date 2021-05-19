@@ -1,8 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`ipcActionToAction worx 1`] = `
-Object {
-  "any": "thing",
-  "type": "actionType",
-}
-`;
