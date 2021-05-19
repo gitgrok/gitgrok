@@ -5,7 +5,7 @@ import { IpcProvider } from '../providers/ipc.provider';
 @Injectable({
   providedIn: 'root',
 })
-export class ActionService {
+export class IpcActionService {
   constructor(private readonly ipcProvider: IpcProvider) {}
   dispatch<T>(action: IAction) {  
     return this.ipcProvider.ipc.send(down, action);

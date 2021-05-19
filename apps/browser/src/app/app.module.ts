@@ -19,12 +19,12 @@ import { SearchResultComponent } from './components/search-result/search-result.
 import { SearchComponent } from './components/search/search.component';
 import { MaterialModule } from './material.module';
 import { IpcProvider } from './providers/ipc.provider';
-import { ActionService } from './services/action.service';
+import { IpcActionService } from './services/ipc-action.service';
 import { RepoService } from './services/repo.service';
 import { SearchService } from './services/search.service';
 import { SearchStateModule } from './state/search/search-state.module';
 
-const services = [SearchService, ActionService, RepoService];
+const services = [SearchService, IpcActionService, RepoService];
 
 const components = [
   AppComponent,

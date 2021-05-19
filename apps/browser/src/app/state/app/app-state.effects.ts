@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, concatMap, exhaustMap, filter, map, tap } from 'rxjs/operators';
-import { ActionService } from '../../services/action.service';
+import { IpcActionService } from '../../services/ipc-action.service';
 import { RepoService } from '../../services/repo.service';
 import {
   cloneFailed,
@@ -25,7 +25,7 @@ export class AppStateEffects {
   constructor(
     private readonly actions$: Actions,
     private readonly repoService: RepoService,
-    private readonly actionService: ActionService
+    private readonly actionService: IpcActionService
   ) { }
 
   autoDownStart$ = createEffect(() => this.actions$.pipe(    

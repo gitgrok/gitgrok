@@ -2,6 +2,8 @@ export * from './lib/constant/custom-event-name';
 export * from './lib/constant/global-name';
 export * from './lib/constant/stamps';
 export * from './lib/constant/actions';
+export * from './lib/function/action-to-ipc-action';
+export * from './lib/function/ipc-action-to-action';
 
 export { IAppState } from './lib/interfaces/app-state.interface';
 export { ISearchState } from './lib/interfaces/search-state.interface';
