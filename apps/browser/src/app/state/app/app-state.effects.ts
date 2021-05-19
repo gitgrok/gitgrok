@@ -8,7 +8,6 @@ import {
   cloneFailed,
   cloneFinished,
   cloneStarted,
-  downFinished,
   downStarted,
   initFailed,
   initFinished,
@@ -16,8 +15,6 @@ import {
   openDirStarted,
   openRepoFinished,
   openRepoStarted,
-  upFinished,
-  upStarted,
 } from '@gitgrok/isomorphic';
 
 @Injectable()
@@ -25,27 +22,32 @@ export class AppStateEffects {
   constructor(
     private readonly actions$: Actions,
     private readonly repoService: RepoService,
-    private readonly actionService: IpcActionService
+    private readonly ipcActionService: IpcActionService
   ) { }
 
-  autoDownStart$ = createEffect(() => this.actions$.pipe(    
-    filter(a => !a.type.includes('$')),
-    map(({type, ...props}) => downStarted({ actionProps: props, actionType: type }))
-  ));
-
-  autoDownEnd$ = createEffect(() => this.actions$.pipe(
-    filter(a => a.type === downStarted.type),
+  autoDownStart$ = createEffect(() => this.actions$.pipe(  
+    tap(a => console.log('autoDownStart$ ?', a)),  
+    filter(a => !(JSON.stringify(a)).includes('$')),
+    tap(a => console.log('autoDownStart$ true', a)),  
     filter(() => !!(window as any).GITGROK),
-    tap((a) => this.actionService.dispatch(a)),
-    map(({ type, ...rest }) => downFinished({ actionType: type, actionProps: rest }))
+    tap((a) => this.ipcActionService.dispatch(a)),
+    map((action) => downStarted(({action})))
   ));
 
-  autoUp$ = createEffect(() => this.actions$.pipe(
-    tap(a => console.log(a)),
-    ofType(upStarted),
-    tap(a => console.log(a)),
-    map(({ actionProps }) => upFinished({}))
-  ));
+  // autoDownEnd$ = createEffect(() => this.actions$.pipe(
+  //   tap(a => console.log('autoDownEnd$', a)),  
+  //   filter(a => a.type === downStarted.type),
+  //   filter(() => !!(window as any).GITGROK),
+  //   tap((a) => this.ipcActionService.dispatch(a)),
+  //   map(({ type, ...rest }) => downFinished({ actionType: type, actionProps: rest }))
+  // ));
+
+  // autoUp$ = createEffect(() => this.actions$.pipe(
+  //   tap(a => console.log(a)),
+  //   ofType(upStarted),
+  //   tap(a => console.log(a)),
+  //   map(({ actionProps }) => upFinished({}))
+  // ));
 
   getRepos$ = createEffect(() =>
     this.actions$.pipe(

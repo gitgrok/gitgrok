@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { down, IAction, IIpcAction } from '@gitgrok/isomorphic';
+import { down, IAction } from '@gitgrok/isomorphic';
 import { IpcProvider } from '../providers/ipc.provider';
 
 @Injectable({

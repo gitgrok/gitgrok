@@ -22,13 +22,13 @@ export class SearchStateEffects {
     tap(a => console.log(a)),
     filter(a => a.type !== downStarted.type),
     filter(a => a.type !== upStarted.type),
-    map(({ type, ...rest }) => downStarted({ actionType: type, actionProps: rest }))
+    map((action) => downStarted({action}))
   ));
 
-  autoUp$ = createEffect(() => this.actions$.pipe(
-    ofType(upStarted),
-    map(({ actionProps, type: actionType }) => ({ ...actionProps, type: actionType }))
-  ));
+  // autoUp$ = createEffect(() => this.actions$.pipe(
+  //   ofType(upStarted),
+  //   map(({ actionProps, type: actionType }) => ({ ...actionProps, type: actionType }))
+  // ));
 
 
   executeSearch$ = createEffect(() =>

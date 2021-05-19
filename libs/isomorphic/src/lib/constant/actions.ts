@@ -1,5 +1,5 @@
 import { AppEvent } from '../enum/app-event.enum';
-import { IIpcAction } from '../interfaces/ipc-action.interface';
+import { IAction } from '../interfaces/action.interface';
 import { ISearchState } from '../interfaces/search-state.interface';
 import { failed, finished, started } from './stamps';
 
@@ -97,9 +97,9 @@ export const cloneFailed = createAction(
 );
 
 export const navStarted = createAction(started('NAV'), props<{label: string, slug: string}>());
-export const upStarted = createAction(started(AppEvent.UP$), props<IIpcAction>());
+export const upStarted = createAction(started(AppEvent.UP$), props<{action: IAction}>());
 export const upFinished = createAction(finished(AppEvent.UP$));
-export const downStarted = createAction(started(AppEvent.DOWN$), props<IIpcAction>());
+export const downStarted = createAction(started(AppEvent.DOWN$), props<{action: IAction}>());
 export const downFinished = createAction(finished(AppEvent.DOWN$));
 
 export const detailRepoStarted = createAction(started(AppEvent.DETAIL_REPO), props<{url: string}>());

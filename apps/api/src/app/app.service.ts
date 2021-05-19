@@ -1,4 +1,4 @@
-import { up, down, globalName, IIpcAction, AppEvent, detailRepoStarted, detailRepoFinished } from '@gitgrok/isomorphic';
+import { up, down, globalName, AppEvent, detailRepoStarted, detailRepoFinished, IAction } from '@gitgrok/isomorphic';
 import { Injectable, OnApplicationShutdown } from '@nestjs/common';
 import { BrowserService } from '@onivoro/server-browser';
 import { from, BehaviorSubject, merge, Subject } from 'rxjs';
@@ -21,7 +21,7 @@ export class AppService implements OnApplicationShutdown {
     console.warn('closing browser');
     await this.browser.close();
   }
-  private readonly downStream$$ = new Subject<IIpcAction>(
+  private readonly downStream$$ = new Subject<IAction>(
   //   {
   //   actionType: AppService.name,
   //   actionProps: Object.keys(this)
@@ -31,15 +31,16 @@ export class AppService implements OnApplicationShutdown {
 
   readonly actions$ = this.downStream$$.asObservable().pipe(
     tap(lee => console.log('downStream$$', lee)),
-    // map(({ actionType, actionProps }) => ({ ...actionProps, type: actionType })),
+    // map((action: IAction) => ipcActionToAction(ipcAction)),
+    tap((a: IAction) => console.log('actions$', a)),
     // concatMap((a) => this._ipc.send(up, a))
   );
 
   readonly detailRepoStarted$ = this.actions$.pipe(
     ofType(detailRepoStarted),
     tap(a => console.log('detailRepoStarted', a)),
-    map((a) => ({url: 'blah', detail: 'detallado', a})),
-    // concatMap(({url}) => this.repoSvc.get(url).asObservable().pipe(map(detail => ({detail, url})))),
+    // map((a) => ({url: 'blah', detail: 'detallado', a})),
+    concatMap(({url}) => this.repoSvc.get(url).asObservable().pipe(map(detail => ({detail, url})))),
     map(({url, detail}) => detailRepoFinished({url, detail})),
     tap(a => console.log('sending', a)),
     tap((a) => this._ipc.send(up, a))
@@ -63,7 +64,6 @@ export class AppService implements OnApplicationShutdown {
 const { IPC } = window['puppeteer-ipc/browser'];
 const ipc = new IPC();
 window['${globalName}'] = ipc;
-// ipc.send('${down}', {actionType: '${AppEvent.INIT}', actionProps: {start: new Date().toISOString()}});
 ipc.on('${up}', (detail) => {  
     window.dispatchEvent(
       new CustomEvent('${up}', {
@@ -76,3 +76,4 @@ ipc.on('${up}', (detail) => {
       );
   };
 }
+
