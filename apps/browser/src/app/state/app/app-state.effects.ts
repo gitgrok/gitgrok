@@ -8,6 +8,7 @@ import {
   cloneFailed,
   cloneFinished,
   cloneStarted,
+  downFinished,
   downStarted,
   initFailed,
   initFinished,
@@ -26,10 +27,17 @@ export class AppStateEffects {
     private readonly actionService: ActionService
   ) { }
 
-  autoDown$ = createEffect(() => this.actions$.pipe(
+  autoDownStart$ = createEffect(() => this.actions$.pipe(
     filter(a => a.type !== downStarted.type),
     filter(a => a.type !== upStarted.type),
     map(({ type, ...rest }) => downStarted({ actionType: type, actionProps: rest }))
+  ));
+
+  autoDownEnd$ = createEffect(() => this.actions$.pipe(
+    filter(a => a.type === downStarted.type),
+    filter(() => !!(window as any).GITGROK),
+    tap((a) => this.actionService.dispatch(a)),
+    map(({ type, ...rest }) => downFinished({ actionType: type, actionProps: rest }))
   ));
 
   autoUp$ = createEffect(() => this.actions$.pipe(

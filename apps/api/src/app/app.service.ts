@@ -21,11 +21,11 @@ export class AppService implements OnApplicationShutdown {
     console.warn('closing browser');
     await this.browser.close();
   }
-  private readonly downStream$$ = new BehaviorSubject<IIpcAction>(
-    {
-    actionType: AppService.name,
-    actionProps: Object.keys(this)
-  }
+  private readonly downStream$$ = new Subject<IIpcAction>(
+  //   {
+  //   actionType: AppService.name,
+  //   actionProps: Object.keys(this)
+  // }
   );
   private _ipc: any;
 
@@ -36,11 +36,12 @@ export class AppService implements OnApplicationShutdown {
   );
 
   readonly detailRepoStarted$ = this.actions$.pipe(
-    // ofType(detailRepoStarted),
+    ofType(detailRepoStarted),
     tap(a => console.log('detailRepoStarted', a)),
-    map(() => ({url: 'blah', detail: 'detallado'})),
+    map((a) => ({url: 'blah', detail: 'detallado', a})),
     // concatMap(({url}) => this.repoSvc.get(url).asObservable().pipe(map(detail => ({detail, url})))),
     map(({url, detail}) => detailRepoFinished({url, detail})),
+    tap(a => console.log('sending', a)),
     tap((a) => this._ipc.send(up, a))
     // tap(({type, ...actionProps}) => this._ipc.send(up, {...actionProps, type}))
   );
@@ -75,4 +76,3 @@ ipc.on('${up}', (detail) => {
       );
   };
 }
-

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ActionService } from './action.service';
+import { searchStarted } from '@gitgrok/isomorphic';
+import { Store } from '@ngrx/store';
 import { BaseService } from './base.service';
 
 @Injectable({
@@ -11,7 +12,7 @@ export class SearchService extends BaseService {
     return 'search';
   }
 
-  constructor(private readonly http: HttpClient, private readonly actionService: ActionService) {
+  constructor(private readonly http: HttpClient, private readonly store: Store) {
     super();
   }
 
@@ -24,7 +25,8 @@ export class SearchService extends BaseService {
     return this.http.get(this.apiUrl(`v2/${text}?pathFilter=${pathFilter}`));
   }
 
-  getV3(text: string, pathFilter: string) {
-    return this.actionService.dispatch({ actionType: 'search', actionProps: { text, pathFilter } });
+  getV3(query: string, pathFilter: string) {
+    // return this.actionService.dispatch({ actionType: 'search', actionProps: { text, pathFilter } });
+    return this.store.dispatch(searchStarted({ query, pathFilter, repos: undefined }));
   }
 }
