@@ -1,20 +1,22 @@
-import { up, down, globalName, IIpcAction, AppEvent, detailRepoStarted } from '@gitgrok/isomorphic';
+import { up, down, globalName, IIpcAction, AppEvent, detailRepoStarted, detailRepoFinished } from '@gitgrok/isomorphic';
 import { Injectable, OnApplicationShutdown } from '@nestjs/common';
 import { BrowserService } from '@onivoro/server-browser';
 import { from, BehaviorSubject, merge, Subject } from 'rxjs';
 import { concatMap, filter, map, mergeMap, tap } from 'rxjs/operators';
+import { execRx } from '@onivoro/server-process';
+import { RepositoryService } from './services/repository.service';
 
-// function ofType({ type }: { type: string }) {
-//   return filter((a) => {
-//     console.log('akshun', a, 'type', type);
-//     return true;
-//   })
-// }
+function ofType({ type }: { type: string }) {
+  return filter((a) => {
+    console.log('ofType', a, 'type', type);
+    return (a as any).type === type;
+  })
+}
 
 @Injectable()
 export class AppService implements OnApplicationShutdown {
   browser: any;
-  constructor(private readonly browserService: BrowserService) { }
+  constructor(private readonly browserService: BrowserService, private readonly repoSvc: RepositoryService) { }
   async onApplicationShutdown(signal?: string) {
     console.warn('closing browser');
     await this.browser.close();
@@ -34,13 +36,18 @@ export class AppService implements OnApplicationShutdown {
   );
 
   readonly detailRepoStarted$ = this.actions$.pipe(
-    tap(a => console.log('ax', a)),
     // ofType(detailRepoStarted),
+    tap(a => console.log('detailRepoStarted', a)),
+    map(() => ({url: 'blah', detail: 'detallado'})),
+    // concatMap(({url}) => this.repoSvc.get(url).asObservable().pipe(map(detail => ({detail, url})))),
+    map(({url, detail}) => detailRepoFinished({url, detail})),
+    tap((a) => this._ipc.send(up, a))
+    // tap(({type, ...actionProps}) => this._ipc.send(up, {...actionProps, type}))
   );
 
   initIpcChannel(url: string) {
 
-    this.detailRepoStarted$.subscribe();
+    // this.detailRepoStarted$.pipe().subscribe();
 
     return from(this.browserService.createAppRuntime(url))
       .pipe(
@@ -64,6 +71,7 @@ ipc.on('${up}', (detail) => {
     );
 });`
         ))),        
+        concatMap(() => this.detailRepoStarted$),            
       );
   };
 }

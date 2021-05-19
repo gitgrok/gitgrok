@@ -17,7 +17,7 @@ export class RepositoryController {
 
   @Get(':url/branches')
   async branches(@Param() url: string) {
-    return await this.repositoryService.getReferencesForRepoUrl(url);
+    return await this.repositoryService.get(url).toPromise();
   }
 
   @Get(':url/open-repo')

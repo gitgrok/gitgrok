@@ -16,10 +16,9 @@ export class RepositoryService {
     const at = this.pathManager.extractProjectDirFromUrl(url);
     return execRx(`code ${at}`);
   }
-  async getReferencesForRepoUrl(url: string) {
-    // const repo = await Repository.open(this.pathManager.extractProjectDirFromUrl(url));
-    // return await repo.getReferences();
-    return ['not implemented silly'];
+  get(url: string) {
+    const dir = this.pathManager.extractProjectDirFromUrl(url);
+    return execRx(`ls ${dir}`)    ;
   }
   logger = new Logger(RepositoryService.name);
 

@@ -9,7 +9,6 @@ import {
 } from '@gitgrok/isomorphic';
 import { searchStateDefault } from './search-state.default';
 
-
 export const searchStateReducer: ActionReducer<ISearchState> = createReducer(
   searchStateDefault,
   on(searchStarted, (state: ISearchState, { query }) => ({ ...state, query })),

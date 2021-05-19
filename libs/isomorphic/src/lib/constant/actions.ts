@@ -103,6 +103,4 @@ export const downStarted = createAction(started(AppEvent.DOWN$), props<IIpcActio
 export const downFinished = createAction(finished(AppEvent.DOWN$));
 
 export const detailRepoStarted = createAction(started(AppEvent.DETAIL_REPO), props<{url: string}>());
-export const detailRepoFinished = createAction(finished(AppEvent.DETAIL_REPO), props<{detail: any}>());
-
-
+export const detailRepoFinished = createAction(finished(AppEvent.DETAIL_REPO), props<{detail: any, url: string}>());

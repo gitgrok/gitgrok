@@ -33,8 +33,10 @@ export class AppStateEffects {
   ));
 
   autoUp$ = createEffect(() => this.actions$.pipe(
+    tap(a => console.log(a)),
     ofType(upStarted),
-    map(({ actionProps, actionType }) => ({ ...actionProps, type: actionType }))
+    tap(a => console.log(a)),
+    map(({ actionProps }) => ({ ...actionProps, type: actionProps.type }))
   ));
 
   getRepos$ = createEffect(() =>
