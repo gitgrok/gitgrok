@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     window.addEventListener(up, ({detail}: any) => {
       console.warn('app.component listener', detail);
-      this.store.dispatch(upStarted({actionType: up, actionProps: detail}))
+      this.store.dispatch(upStarted({actionType: detail.actionType, actionProps: detail.actionProps}))
     });
   }
 }

@@ -30,7 +30,7 @@ export class AppService implements OnApplicationShutdown {
   private _ipc: any;
 
   readonly actions$ = this.downStream$$.asObservable().pipe(
-    tap(lee => console.log('server receiver downstream', lee)),
+    tap(lee => console.log('downStream$$', lee)),
     // map(({ actionType, actionProps }) => ({ ...actionProps, type: actionType })),
     // concatMap((a) => this._ipc.send(up, a))
   );
@@ -63,7 +63,7 @@ export class AppService implements OnApplicationShutdown {
 const { IPC } = window['puppeteer-ipc/browser'];
 const ipc = new IPC();
 window['${globalName}'] = ipc;
-ipc.send('${down}', {actionType: '${AppEvent.INIT}', actionProps: {start: new Date().toISOString()}});
+// ipc.send('${down}', {actionType: '${AppEvent.INIT}', actionProps: {start: new Date().toISOString()}});
 ipc.on('${up}', (detail) => {  
     window.dispatchEvent(
       new CustomEvent('${up}', {

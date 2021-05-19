@@ -16,6 +16,7 @@ import {
   openDirStarted,
   openRepoFinished,
   openRepoStarted,
+  upFinished,
   upStarted,
 } from '@gitgrok/isomorphic';
 
@@ -27,10 +28,9 @@ export class AppStateEffects {
     private readonly actionService: ActionService
   ) { }
 
-  autoDownStart$ = createEffect(() => this.actions$.pipe(
-    filter(a => a.type !== downStarted.type),
-    filter(a => a.type !== upStarted.type),
-    map(({ type, ...rest }) => downStarted({ actionType: type, actionProps: rest }))
+  autoDownStart$ = createEffect(() => this.actions$.pipe(    
+    filter(a => !a.type.includes('$')),
+    map(({type, ...props}) => downStarted({ actionProps: props, actionType: type }))
   ));
 
   autoDownEnd$ = createEffect(() => this.actions$.pipe(
@@ -44,7 +44,7 @@ export class AppStateEffects {
     tap(a => console.log(a)),
     ofType(upStarted),
     tap(a => console.log(a)),
-    map(({ actionProps }) => ({ ...actionProps, type: actionProps.type }))
+    map(({ actionProps }) => upFinished({}))
   ));
 
   getRepos$ = createEffect(() =>

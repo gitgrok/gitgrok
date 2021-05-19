@@ -27,7 +27,7 @@ export class SearchStateEffects {
 
   autoUp$ = createEffect(() => this.actions$.pipe(
     ofType(upStarted),
-    map(({ actionProps, actionType }) => ({ ...actionProps, type: actionType }))
+    map(({ actionProps, type: actionType }) => ({ ...actionProps, type: actionType }))
   ));
 
 
