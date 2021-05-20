@@ -20,6 +20,6 @@ async function bootstrap() {
 
 bootstrap();
 
-function getUrl(assetPort: number) {  
+function getUrl(assetPort: number) {
   return `http://localhost:${assetPort}`;
 }

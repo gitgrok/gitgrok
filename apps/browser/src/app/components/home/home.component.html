@@ -1,1 +1,7 @@
-<mat-card>home works!</mat-card>
+<oni-asf-form [uiOptions]="formConfig" [data]="formData" (valueChange)="valueChange$$.next($event)"></oni-asf-form>
+<h1>Key: {{(key$ | async) || '/'}}</h1>
+<div>
+    <div *ngFor="let i of (contents$ | async)">
+        {{i}}
+    </div>
+</div>

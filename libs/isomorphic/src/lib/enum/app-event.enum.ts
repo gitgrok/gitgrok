@@ -8,5 +8,6 @@ export enum AppEvent {
   OPEN_FILE = 'OPEN_FILE',
   UP$ = "UP$",
   DOWN$ = "DOWN$",
-  DETAIL_REPO = "DETAIL_REPO"
+  DETAIL_REPO = "DETAIL_REPO",
+  LOCALSTACK="LOCALSTACK"
 }

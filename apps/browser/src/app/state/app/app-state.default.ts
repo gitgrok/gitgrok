@@ -5,5 +5,7 @@ export const appStateDefault: IAppState = {
   error: null,
   upStream: [],
   downStream: [],
-  detail: {}
+  detail: {},
+  localstack: {},
+  localstackPwd: ''
 };

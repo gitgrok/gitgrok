@@ -5,6 +5,8 @@ import { failed, finished, started } from './stamps';
 
 const SEARCH_INIT = 'SEARCH_INIT';
 
+type money = { details: any, url: string };
+
 function props<T>() {
   return () => ({} as T)
 };
@@ -13,6 +15,8 @@ function createAction<T>(type: string, p?: () => T) {
   ac.type = type;
   return ac;
 };
+export const localstackInitStarted = createAction(started(AppEvent.LOCALSTACK), props<{key: string}>());
+export const localstackInitFinished = createAction(finished(AppEvent.LOCALSTACK), props<{results: string[], key: string}>());
 
 export const searchInitStarted = createAction(started(SEARCH_INIT));
 export const searchInitFinished = createAction(
@@ -96,11 +100,11 @@ export const cloneFailed = createAction(
   props<{ error: any }>()
 );
 
-export const navStarted = createAction(started('NAV'), props<{label: string, slug: string}>());
-export const upStarted = createAction(started(AppEvent.UP$), props<{action: IAction}>());
+export const navStarted = createAction(started('NAV'), props<{ label: string, slug: string }>());
+export const upStarted = createAction(started(AppEvent.UP$), props<{ action: IAction }>());
 export const upFinished = createAction(finished(AppEvent.UP$));
-export const downStarted = createAction(started(AppEvent.DOWN$), props<{action: IAction}>());
+export const downStarted = createAction(started(AppEvent.DOWN$), props<{ action: IAction }>());
 export const downFinished = createAction(finished(AppEvent.DOWN$));
 
-export const detailRepoStarted = createAction(started(AppEvent.DETAIL_REPO), props<{url: string}>());
-export const detailRepoFinished = createAction(finished(AppEvent.DETAIL_REPO), props<{details: any, url: string}>());
+export const detailRepoStarted = createAction(started(AppEvent.DETAIL_REPO), props<{ url: string }>());
+export const detailRepoFinished = createAction(finished(AppEvent.DETAIL_REPO), props<money>());

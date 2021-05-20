@@ -9,10 +9,9 @@ import { downStarted, upStarted,  } from '@gitgrok/isomorphic';
 
 @Component({
   selector: 'gitgrok-root',
-  template: `<onivoro-app-shell [links]="links" (clicks)="navigate($event)">  
+  template: `<onivoro-app-shell [links]="links" (clicks)="navigate($event)">
                 <router-outlet></router-outlet>
-             </onivoro-app-shell>
-             <pre style="padding-left: 200px;">{{state$|async|json}}</pre>`,
+             </onivoro-app-shell>`,
 })
 export class AppComponent implements OnInit {
   links = links;
@@ -36,7 +35,7 @@ export class AppComponent implements OnInit {
     });
 
     window.addEventListener(down, ({detail}: any) => {
-      console.warn('app.component down', detail);      
+      console.warn('app.component down', detail);
       (window as any).down?.(detail);
     });
   }

@@ -4,4 +4,6 @@ export interface IAppState {
   upStream: any[];
   downStream: any[];
   detail: any;
+  localstack: any;
+  localstackPwd: string;
 }

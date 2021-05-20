@@ -27,18 +27,18 @@ export class AppStateEffects {
     private readonly ipcActionService: IpcActionService
   ) { }
 
-  autoDownStart$ = createEffect(() => this.actions$.pipe(  
-    tap(a => console.log('autoDownStart$ ?', a)),  
+  autoDownStart$ = createEffect(() => this.actions$.pipe(
+    tap(a => console.log('autoDownStart$ ?', a)),
     // filter(a => !(JSON.stringify(a)).includes('$')),
     filter(a => !!a?.type && !a.type.includes('$')),
-    tap(a => console.log('autoDownStart$ true', a)),  
+    tap(a => console.log('autoDownStart$ true', a)),
     // filter(() => !!(window as any).GITGROK),
     tap((a) => this.ipcActionService.dispatch(a)),
     map((action) => downStarted(({action})))
   ));
 
   // autoDownEnd$ = createEffect(() => this.actions$.pipe(
-  //   tap(a => console.log('autoDownEnd$', a)),  
+  //   tap(a => console.log('autoDownEnd$', a)),
   //   filter(a => a.type === downStarted.type),
   //   filter(() => !!(window as any).GITGROK),
   //   tap((a) => this.ipcActionService.dispatch(a)),
@@ -49,7 +49,7 @@ export class AppStateEffects {
     tap(a => console.log(a)),
     ofType(upStarted),
     tap(a => console.log(a)),
-    map(({ action }) => upFinished({}))
+    map(({ }) => upFinished({}))
   ));
 
   getRepos$ = createEffect(() =>
