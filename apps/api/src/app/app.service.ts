@@ -37,14 +37,14 @@ export class AppService implements OnApplicationShutdown {
   readonly detailRepoStarted$ = this.actions$.pipe(
     ofType(detailRepoStarted),
     tap(a => console.log('detailRepoStarted', a)),
-    map((a) => ({ url: 'blah', details: { comoes: 'detallado' }, a })),
-    // concatMap(({ url }) => this.repoSvc.get(url).pipe(map(details => ({ details, url }), catchError(e => of({ url, details: e }))))),
+    // map((a) => ({ url: 'blah', details: { comoes: 'detallado' }, a })),
+    concatMap(({ url }) => this.repoSvc.get(url).pipe(map(details => ({ details, url }), catchError(e => of({ url, details: e }))))),
     filter(({ details }) => !!details),
     tap(details => console.log('deeeets', details, typeof details?.details)),
     map(({ url, details }) => detailRepoFinished({ url, details })),
     // map(a => JSON.stringify(a)),
     tap(a => console.log('sending', a)),
-    concatMap((d) => from(this.page.evaluate((detail) =>
+    tap((d) => from(this.page.evaluate((detail) =>
     window.dispatchEvent(
       new CustomEvent('up', {
         detail
