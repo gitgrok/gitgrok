@@ -13,8 +13,9 @@ export const appStateReducer: ActionReducer<IAppState> = createReducer(
   on(downStarted, (s, a) => ({ ...s, downStream: [...s.downStream, a] })),
   on(cloneFinished, (s, a) => ({ ...s, repos: [...s.repos, a.repo].sort() })),
   on(detailRepoFinished, (s, { details, url }) => ({ ...s, detail: { ...s.detail, [url]: details } })),
-  on(localstackNavStarted, (s, { key }) => ({ ...s, localstackPwd: (s.localstackPwd + '/' + key).replace('//', '/') })),
+  // on(localstackNavStarted, (s, { key }) => ({ ...s, localstackPwd: (s.localstackPwd + '/' + key).replace('//', '/') })),
+  on(localstackNavStarted, (s, { key }) => ({ ...s, localstackPwd: (key).replace('//', '/') })),
   on(localstackNavFinished, (s, { results }) => ({ ...s, localstack: { ...s.localstack, results } })),
   on(localstackInitStarted, (s, { key }) => ({ ...s, localstackPwd: key })),
-  on(localstackInitFinished, (s, { results }) => { console.log(new Date().toDateString()); return ({ ...s, localstack: { ...s.localstack, results: results?.length } }); })
+  on(localstackInitFinished, (s, { results }) => { console.log(new Date().toDateString()); return ({ ...s, localstack: { ...s.localstack, results } }); })
 );

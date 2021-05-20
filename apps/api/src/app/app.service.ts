@@ -62,7 +62,8 @@ export class AppService implements OnApplicationShutdown {
     tap(a => console.log('localstack init started', a)),
     concatMap((action) => this.lsLocalStack$$((action as any).key).pipe(
       tap(output => console.log('ls output', output)),
-      map(output => output.split('\n').map(l => l.trim())),
+      map(output => output.split('\n')?.map?.(l => l.trim())),
+      catchError(e => {console.warn(e); return of(e)}),
       map((results) => ({ type: action.type.replace('START', 'FINISH'), results})),
       tap((d) => from(this.page.evaluate((detail) =>
         window.dispatchEvent(

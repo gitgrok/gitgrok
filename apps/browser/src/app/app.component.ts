@@ -6,18 +6,20 @@ import { Subject } from 'rxjs';
 import { links } from './constants/links';
 import { down, navStarted, up } from '@gitgrok/isomorphic';
 import { downStarted, upStarted,  } from '@gitgrok/isomorphic';
+import { getLocalStack, getLocalStackContents, getLocalStackPwd } from './state/app/app-state.selectors';
 
 @Component({
   selector: 'gitgrok-root',
   template: `<onivoro-app-shell [links]="links" (clicks)="navigate($event)">
                 <router-outlet></router-outlet>
              </onivoro-app-shell>
-             <pre style="padding-left: 200px;">{{(state$|async)?.localstack|json}}</pre>`,
+             `,
+            //  <pre style="padding-left: 200px;">{{(state$|async)|json}}</pre>
 })
 export class AppComponent implements OnInit {
   links = links;
   route: any;
-  state$ = this.store.select((s) => s);
+  // state$ = this.store.select(getLocalStackContents);
   route$ = new Subject();
 
   navigate(link: ILink) {

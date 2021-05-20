@@ -3,7 +3,12 @@
 <div>
     <button mat-button (click)="nav$$.next('')">root</button>
 
-    <div *ngFor="let i of (contents$ | async)">
+    <div *ngFor="let i of (s$|async)?.app?.localstack?.results">
         <button mat-button (click)="nav$$.next(i)">{{i}}</button>
+    </div>
+
+    <div>
+        {{(s$|async)?.app?.localstackPwd|json}}
+        {{(s$|async)?.app?.localstack|json}}
     </div>
 </div>

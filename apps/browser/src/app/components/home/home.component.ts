@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { localstackInitFinished, localstackInitStarted, localstackNavStarted } from '@gitgrok/isomorphic';
 import { Store } from '@ngrx/store';
 import { IFieldConfig, regexes } from '@onivoro/angular-serializable-forms';
@@ -10,20 +10,25 @@ import { getLocalStack, getLocalStackContents, getLocalStackPwd } from '../../st
   selector: 'onivoro-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class HomeComponent implements OnInit {
-  valueChange$$ = new Subject<{path:string}>();
+  valueChange$$ = new Subject<{ path: string }>();
   contents$ = this.store.select(getLocalStackContents);
+  s$ = this.store;
   key$ = this.store.select(getLocalStackPwd);
   init$ = this.valueChange$$.asObservable().pipe(
     tap(v => console.warn('vvvvv', v)),
-    tap((key) => this.store.dispatch(localstackInitStarted({ key: key.path }))),
+    tap(() => this.ref.detectChanges()),
+    tap((key) => this.store.dispatch(localstackNavStarted({ key: key.path }))),
   );
   nav$$ = new Subject();
 
   nav$ = this.nav$$.asObservable().pipe(
+    withLatestFrom(this.key$),
     tap(d => console.warn('nav$', d)),
-    tap((key) => this.store.dispatch(localstackNavStarted({ key: key as string })))
+    tap(() => this.ref.detectChanges()),
+    tap(([key,current]) => key ? this.store.dispatch(localstackNavStarted({ key: current + (key as string)?.replace('PRE ', '').replace('//','/') as string })) : this.store.dispatch(localstackInitStarted({ key: '' })))
   );
   formData = { path: '' };
   formConfig: IFieldConfig = {
@@ -35,7 +40,14 @@ export class HomeComponent implements OnInit {
       }
     },
   };
-  constructor(private store: Store) { }
+  constructor(private store: Store,
+    private readonly ref: ChangeDetectorRef
+  ) {
+    // ref.detach();
+    setInterval(() => {
+      this.ref.detectChanges();
+    }, 2000);
+  }
   ngOnInit(): void {
     this.init$.subscribe();
     this.nav$.subscribe();
