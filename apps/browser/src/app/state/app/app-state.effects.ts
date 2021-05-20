@@ -15,6 +15,8 @@ import {
   openDirStarted,
   openRepoFinished,
   openRepoStarted,
+  upFinished,
+  upStarted,
 } from '@gitgrok/isomorphic';
 
 @Injectable()
@@ -42,12 +44,12 @@ export class AppStateEffects {
   //   map(({ type, ...rest }) => downFinished({ actionType: type, actionProps: rest }))
   // ));
 
-  // autoUp$ = createEffect(() => this.actions$.pipe(
-  //   tap(a => console.log(a)),
-  //   ofType(upStarted),
-  //   tap(a => console.log(a)),
-  //   map(({ actionProps }) => upFinished({}))
-  // ));
+  autoUp$ = createEffect(() => this.actions$.pipe(
+    tap(a => console.log(a)),
+    ofType(upStarted),
+    tap(a => console.log(a)),
+    map(({ action }) => upFinished({}))
+  ));
 
   getRepos$ = createEffect(() =>
     this.actions$.pipe(

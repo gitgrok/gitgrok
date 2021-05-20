@@ -1,8 +1,8 @@
 import { up, down, globalName, AppEvent, detailRepoStarted, detailRepoFinished, IAction } from '@gitgrok/isomorphic';
 import { Injectable, OnApplicationShutdown } from '@nestjs/common';
 import { BrowserService } from '@onivoro/server-browser';
-import { from, BehaviorSubject, merge, Subject } from 'rxjs';
-import { concatMap, filter, map, mergeMap, tap } from 'rxjs/operators';
+import { from, BehaviorSubject, merge, Subject, of } from 'rxjs';
+import { catchError, concatMap, filter, map, mergeMap, tap } from 'rxjs/operators';
 import { execRx } from '@onivoro/server-process';
 import { RepositoryService } from './services/repository.service';
 
@@ -39,15 +39,15 @@ export class AppService implements OnApplicationShutdown {
   readonly detailRepoStarted$ = this.actions$.pipe(
     ofType(detailRepoStarted),
     tap(a => console.log('detailRepoStarted', a)),
-    // map((a) => ({url: 'blah', detail: 'detallado', a})),
-    concatMap(({url}) => this.repoSvc.get(url).asObservable().pipe(map(detail => ({detail, url})))),
+    map((a) => ({url: 'blah', detail: 'detallado', a})),
+    // concatMap(({url}) => this.repoSvc.get(url).pipe(map(detail => ({detail, url}), catchError(e => of({url, detail: e}))))),
     map(({url, detail}) => detailRepoFinished({url, detail})),
     tap(a => console.log('sending', a)),
-    tap((a) => this._ipc.send(up, a))
+    tap((action) => this._ipc.send(up, action))
     // tap(({type, ...actionProps}) => this._ipc.send(up, {...actionProps, type}))
   );
 
-  initIpcChannel(url: string) {
+  initIpcChannel(url: string) {of
 
     // this.detailRepoStarted$.pipe().subscribe();
 
@@ -64,7 +64,12 @@ export class AppService implements OnApplicationShutdown {
 const { IPC } = window['puppeteer-ipc/browser'];
 const ipc = new IPC();
 window['${globalName}'] = ipc;
+console.warn(ipc)
+window.onerror = function(message, source, lineno, colno, error) {
+  console.warn(message, source, lineno, colno, error)
+}
 ipc.on('${up}', (detail) => {  
+    console.warn('up', detail);
     window.dispatchEvent(
       new CustomEvent('${up}', {
         detail: detail,

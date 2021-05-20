@@ -11,7 +11,8 @@ import { downStarted, upStarted,  } from '@gitgrok/isomorphic';
   selector: 'gitgrok-root',
   template: `<onivoro-app-shell [links]="links" (clicks)="navigate($event)">  
                 <router-outlet></router-outlet>
-             </onivoro-app-shell>`,
+             </onivoro-app-shell>
+             <pre style="padding-left: 200px;">{{state$|async|json}}</pre>`,
 })
 export class AppComponent implements OnInit {
   links = links;
