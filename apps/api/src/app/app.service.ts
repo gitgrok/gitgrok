@@ -33,20 +33,19 @@ export class AppService implements OnApplicationShutdown {
     tap(lee => console.log('downStream$$', lee)),
     // map((action: IAction) => ipcActionToAction(ipcAction)),
     tap((a: IAction) => console.log('actions$', a)),
-    // concatMap((a) => this._ipc.send(up, a))
   );
 
   readonly detailRepoStarted$ = this.actions$.pipe(
     ofType(detailRepoStarted),
     tap(a => console.log('detailRepoStarted', a)),
-    // map((a) => ({url: 'blah', details: {comoes:'detallado'}, a})),
-    concatMap(({ url }) => this.repoSvc.get(url).pipe(map(details => ({ details, url }), catchError(e => of({ url, details: e }))))),
-    filter(({ details }) => !!details),
+    map((a) => ({url: 'blah', details: {comoes:'detallado'}, a})),
+    // concatMap(({ url }) => this.repoSvc.get(url).pipe(map(details => ({ details, url }), catchError(e => of({ url, details: e }))))),
+    filter(({ details }) => !!details),    
+    tap(details => console.log('deeeets', details, typeof details?.details)),
     map(({ url, details }) => detailRepoFinished({ url, details })),
+    // map(a => JSON.stringify(a)),
     tap(a => console.log('sending', a)),
-    tap((action) => this._ipc.send(up, action)),
-    catchError(e => of(e).pipe(map((e) => detailRepoFinished({ url: 'idk', details: e })),
-      tap((action) => this._ipc.send(up, action)))),
+    tap((action) => this.send({action})),
   );
 
   initIpcChannel(url: string) {
@@ -60,15 +59,13 @@ export class AppService implements OnApplicationShutdown {
         tap(({ ipc }) => {
           this._ipc = ipc;
           (ipc as any).on(down, (msg: any) => this.downStream$$.next(msg));
+          this.send('test up connection')
         }),
         concatMap(({ page }) => from(page.evaluate(`
 const { IPC } = window['puppeteer-ipc/browser'];
 const ipc = new IPC();
 window['${globalName}'] = ipc;
 console.warn(ipc)
-window.onerror = function(message, source, lineno, colno, error) {
-  console.warn(message, source, lineno, colno, error)
-}
 ipc.on('${up}', (detail) => {  
     console.warn('up', detail);
     window.dispatchEvent(
@@ -81,5 +78,9 @@ ipc.on('${up}', (detail) => {
         concatMap(() => this.detailRepoStarted$),
       );
   };
+
+  send (payload: any) {    
+    this._ipc.send(up, payload).catch();
+  }
 }
 
