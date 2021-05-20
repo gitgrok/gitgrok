@@ -32,7 +32,7 @@ export class AppStateEffects {
     // filter(a => !(JSON.stringify(a)).includes('$')),
     filter(a => !!a?.type && !a.type.includes('$')),
     tap(a => console.log('autoDownStart$ true', a)),  
-    filter(() => !!(window as any).GITGROK),
+    // filter(() => !!(window as any).GITGROK),
     tap((a) => this.ipcActionService.dispatch(a)),
     map((action) => downStarted(({action})))
   ));

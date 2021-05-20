@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { ILink } from './interfaces/i-link.interface';
 import { Subject } from 'rxjs';
 import { links } from './constants/links';
-import { navStarted, up } from '@gitgrok/isomorphic';
+import { down, navStarted, up } from '@gitgrok/isomorphic';
 import { downStarted, upStarted,  } from '@gitgrok/isomorphic';
 
 @Component({
@@ -31,8 +31,13 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     window.addEventListener(up, ({detail}: any) => {
-      console.warn('app.component listener', detail);
-      this.store.dispatch(upStarted({action: detail}))
+      console.warn('app.component up', detail);
+      this.store.dispatch(detail)
+    });
+
+    window.addEventListener(down, ({detail}: any) => {
+      console.warn('app.component down', detail);      
+      (window as any).down?.(detail);
     });
   }
 }
