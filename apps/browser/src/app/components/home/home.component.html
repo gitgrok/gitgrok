@@ -1,7 +1,9 @@
 <oni-asf-form [uiOptions]="formConfig" [data]="formData" (valueChange)="valueChange$$.next($event)"></oni-asf-form>
-<h1>Key: {{(key$ | async) || '/'}}</h1>
+<h1>Key: "{{(key$ | async | json)}}"</h1>
 <div>
+    <button mat-button (click)="nav$$.next('')">root</button>
+
     <div *ngFor="let i of (contents$ | async)">
-        {{i}}
+        <button mat-button (click)="nav$$.next(i)">{{i}}</button>
     </div>
 </div>

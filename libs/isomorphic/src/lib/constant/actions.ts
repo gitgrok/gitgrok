@@ -15,8 +15,11 @@ function createAction<T>(type: string, p?: () => T) {
   ac.type = type;
   return ac;
 };
-export const localstackInitStarted = createAction(started(AppEvent.LOCALSTACK), props<{key: string}>());
-export const localstackInitFinished = createAction(finished(AppEvent.LOCALSTACK), props<{results: string[], key: string}>());
+export const localstackInitStarted = createAction(started(AppEvent.LOCALSTACK_INIT), props<{key: string}>());
+export const localstackInitFinished = createAction(finished(AppEvent.LOCALSTACK_INIT), props<{results: string[]}>());
+
+export const localstackNavStarted = createAction(started(AppEvent.LOCALSTACK_NAV), props<{key: string}>());
+export const localstackNavFinished = createAction(finished(AppEvent.LOCALSTACK_NAV), props<{results: string[]}>());
 
 export const searchInitStarted = createAction(started(SEARCH_INIT));
 export const searchInitFinished = createAction(
@@ -102,7 +105,7 @@ export const cloneFailed = createAction(
 
 export const navStarted = createAction(started('NAV'), props<{ label: string, slug: string }>());
 export const upStarted = createAction(started(AppEvent.UP$), props<{ action: IAction }>());
-export const upFinished = createAction(finished(AppEvent.UP$));
+export const upFinished = createAction(finished(AppEvent.UP$), props<{ action: IAction }>());
 export const downStarted = createAction(started(AppEvent.DOWN$), props<{ action: IAction }>());
 export const downFinished = createAction(finished(AppEvent.DOWN$));
 

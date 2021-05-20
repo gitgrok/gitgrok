@@ -1,4 +1,4 @@
-import { up, down, globalName, AppEvent, detailRepoStarted, detailRepoFinished, IAction, localstackInitStarted, localstackInitFinished } from '@gitgrok/isomorphic';
+import { up, down, globalName, AppEvent, detailRepoStarted, detailRepoFinished, IAction, localstackInitStarted, localstackInitFinished, localstackNavStarted } from '@gitgrok/isomorphic';
 import { Injectable, OnApplicationShutdown } from '@nestjs/common';
 import { BrowserService } from '@onivoro/server-browser';
 import { from, BehaviorSubject, merge, Subject, of } from 'rxjs';
@@ -55,21 +55,24 @@ export class AppService implements OnApplicationShutdown {
   );
 
 
-  lsLocalStack$$ = (...paths: string[]) => {const cmd = `awslocal --endpoint-url=http://localhost:6654 s3 ls s3://development/assess/${(paths || []).join('/')}`; console.log(cmd); return execRx(cmd)};
+  lsLocalStack$$ = (key: string) => { const cmd = `awslocal --endpoint-url=http://localhost:6654 s3 ls s3://development/assess/${key}`; console.log(cmd); return execRx(cmd) };
   readonly localstack$ = this.actions$.pipe(
-    ofType(localstackInitStarted),
+    // ofType(localstackInitStarted),
+    filter(a => a.type === localstackInitStarted.type || a.type === localstackNavStarted.type),
     tap(a => console.log('localstack init started', a)),
-    concatMap(({key}) => this.lsLocalStack$$(key)),
-    tap(output => console.log('ls output', output)),
-    map(output => output.split('\n').map(l => l.trim())),
-    map((results) => localstackInitFinished({ results, key: '' })),
-    tap((d) => from(this.page.evaluate((detail) =>
-      window.dispatchEvent(
-        new CustomEvent('up', {
-          detail
-        })
-      ), d
-    )))
+    concatMap((action) => this.lsLocalStack$$((action as any).key).pipe(
+      tap(output => console.log('ls output', output)),
+      map(output => output.split('\n').map(l => l.trim())),
+      map((results) => ({ type: action.type.replace('START', 'FINISH'), results})),
+      tap((d) => from(this.page.evaluate((detail) =>
+        window.dispatchEvent(
+          new CustomEvent('up', {
+            detail
+          })
+        ), d
+      )))
+    )),
+
   );
 
   initIpcChannel(url: string) {
@@ -81,7 +84,7 @@ export class AppService implements OnApplicationShutdown {
         }),
         concatMap(async ({ page }) =>
           await (page.exposeFunction('down', (action: IAction) => {
-            console.log('exposed', action);
+            console.log('page.exposeFunction.down', action);
             this.downStream$$.next(action);
           })
           )),

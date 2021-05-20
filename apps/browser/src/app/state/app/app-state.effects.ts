@@ -28,7 +28,7 @@ export class AppStateEffects {
   ) { }
 
   autoDownStart$ = createEffect(() => this.actions$.pipe(
-    tap(a => console.log('autoDownStart$ ?', a)),
+    // tap(a => console.log('autoDownStart$ ?', a)),
     // filter(a => !(JSON.stringify(a)).includes('$')),
     filter(a => !!a?.type && !a.type.includes('$')),
     tap(a => console.log('autoDownStart$ true', a)),
@@ -49,7 +49,7 @@ export class AppStateEffects {
     tap(a => console.log(a)),
     ofType(upStarted),
     tap(a => console.log(a)),
-    map(({ }) => upFinished({}))
+    map(({action}) => upFinished({action}))
   ));
 
   getRepos$ = createEffect(() =>

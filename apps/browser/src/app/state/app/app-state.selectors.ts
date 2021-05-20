@@ -32,5 +32,5 @@ export const getLocalStackPwd = createSelector(
 export const getLocalStackContents = createSelector(
   getLocalStack,
   getLocalStackPwd,
-  (ls, lsPwd) => ls[lsPwd]
+  (ls, lsPwd) => ls[lsPwd]?.map(l => l?.replace?.(/PRE\W/g, ''))
 );
