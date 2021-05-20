@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { detailRepoStarted } from '@gitgrok/isomorphic';
 import { Store } from '@ngrx/store';
+import { map } from 'rxjs/operators';
 import { getDetail } from '../../state/app/app-state.selectors';
 
 @Component({
@@ -10,7 +11,10 @@ import { getDetail } from '../../state/app/app-state.selectors';
 })
 export class RepositoryComponent implements OnInit {
   @Input() url!: string;
-  detail$ = this.store.select(getDetail);
+  src$ = this.store.select(getDetail);
+  detail$ = this.src$.pipe(map(o => {
+    return o[this.url]
+  }));
   constructor(private readonly store: Store) {}
 
   ngOnInit(): void {
