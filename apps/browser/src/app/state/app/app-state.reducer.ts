@@ -11,5 +11,5 @@ export const appStateReducer: ActionReducer<IAppState> = createReducer(
   on(upStarted, (s, a) => ({...s, upStream: [...s.upStream, a]})),
   // on(downStarted, (s, a) => ({...s, downStream: [...s.downStream, a]})),
   on(cloneFinished, (s, a) => ({ ...s, repos: [...s.repos, a.repo].sort() })),
-  on(detailRepoFinished, (s, {detail, url}) => ({ ...s,  detail}))
+  on(detailRepoFinished, (s, {details: detail, url}) => ({ ...s,  detail}))
 );

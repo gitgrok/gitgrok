@@ -22,10 +22,10 @@ export class AppService implements OnApplicationShutdown {
     await this.browser.close();
   }
   private readonly downStream$$ = new Subject<IAction>(
-  //   {
-  //   actionType: AppService.name,
-  //   actionProps: Object.keys(this)
-  // }
+    //   {
+    //   actionType: AppService.name,
+    //   actionProps: Object.keys(this)
+    // }
   );
   private _ipc: any;
 
@@ -39,17 +39,18 @@ export class AppService implements OnApplicationShutdown {
   readonly detailRepoStarted$ = this.actions$.pipe(
     ofType(detailRepoStarted),
     tap(a => console.log('detailRepoStarted', a)),
-    map((a) => ({url: 'blah', detail: 'detallado', a})),
-    // concatMap(({url}) => this.repoSvc.get(url).pipe(map(detail => ({detail, url}), catchError(e => of({url, detail: e}))))),
-    map(({url, detail}) => detailRepoFinished({url, detail})),
+    // map((a) => ({url: 'blah', details: {comoes:'detallado'}, a})),
+    concatMap(({ url }) => this.repoSvc.get(url).pipe(map(details => ({ details, url }), catchError(e => of({ url, details: e }))))),
+    filter(({ details }) => !!details),
+    map(({ url, details }) => detailRepoFinished({ url, details })),
     tap(a => console.log('sending', a)),
-    tap((action) => this._ipc.send(up, action))
-    // tap(({type, ...actionProps}) => this._ipc.send(up, {...actionProps, type}))
+    tap((action) => this._ipc.send(up, action)),
+    catchError(e => of(e).pipe(map((e) => detailRepoFinished({ url: 'idk', details: e })),
+      tap((action) => this._ipc.send(up, action)))),
   );
 
-  initIpcChannel(url: string) {of
-
-    // this.detailRepoStarted$.pipe().subscribe();
+  initIpcChannel(url: string) {
+    of
 
     return from(this.browserService.createAppRuntime(url))
       .pipe(
@@ -76,8 +77,8 @@ ipc.on('${up}', (detail) => {
       })
     );
 });`
-        ))),        
-        concatMap(() => this.detailRepoStarted$),            
+        ))),
+        concatMap(() => this.detailRepoStarted$),
       );
   };
 }
