@@ -5,6 +5,7 @@ import { from, BehaviorSubject, merge, Subject, of } from 'rxjs';
 import { catchError, concatMap, filter, map, mergeMap, tap } from 'rxjs/operators';
 import { execRx } from '@onivoro/server-process';
 import { RepositoryService } from './services/repository.service';
+import { s3Prefix } from '@gitgrok/isomorphic';
 
 function ofType({ type }: { type: string }) {
   return filter((a) => {
@@ -55,7 +56,7 @@ export class AppService implements OnApplicationShutdown {
   );
 
 
-  lsLocalStack$$ = (key: string) => { const cmd = `awslocal --endpoint-url=http://localhost:6654 s3 ls s3://development/assess/${key}`; console.log(cmd); return execRx(cmd) };
+  lsLocalStack$$ = (key: string) => { const cmd = `awslocal --endpoint-url=http://localhost:6654 s3 ls ${s3Prefix}${key}`; console.log(cmd); return execRx(cmd) };
   readonly localstack$ = this.actions$.pipe(
     // ofType(localstackInitStarted),
     filter(a => a.type === localstackInitStarted.type || a.type === localstackNavStarted.type),

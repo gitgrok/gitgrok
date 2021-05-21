@@ -1,11 +1,10 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { localstackInitFinished, localstackInitStarted, localstackNavStarted } from '@gitgrok/isomorphic';
+import { localstackInitFinished, localstackInitStarted, localstackNavStarted, s3Prefix } from '@gitgrok/isomorphic';
 import { Store } from '@ngrx/store';
 import { IFieldConfig, regexes } from '@onivoro/angular-serializable-forms';
 import { Subject } from 'rxjs';
 import { concatMap, map, tap, withLatestFrom } from 'rxjs/operators';
 import { getLocalStack, getLocalStackContents, getLocalStackPwd } from '../../state/app/app-state.selectors';
-
 @Component({
   selector: 'onivoro-home',
   templateUrl: './home.component.html',
@@ -13,6 +12,7 @@ import { getLocalStack, getLocalStackContents, getLocalStackPwd } from '../../st
   changeDetection: ChangeDetectionStrategy.Default
 })
 export class HomeComponent implements OnInit {
+  s3Prefix =s3Prefix;
   valueChange$$ = new Subject<{ path: string }>();
   contents$ = this.store.select(getLocalStackContents);
   s$ = this.store;
@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
     fieldLayout: [['path']],
     fieldOptions: {
       path: {
-        label: '>',
+        label: s3Prefix,
         type: 'text',
       }
     },

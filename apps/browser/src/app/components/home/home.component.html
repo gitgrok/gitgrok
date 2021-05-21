@@ -1,14 +1,17 @@
 <oni-asf-form [uiOptions]="formConfig" [data]="formData" (valueChange)="valueChange$$.next($event)"></oni-asf-form>
-<h1>Key: "{{(key$ | async | json)}}"</h1>
+<h1>
+    <button mat-button color="primary" (click)="nav$$.next('')"><mat-icon>home</mat-icon></button>
+  {{s3Prefix}}{{(key$ | async)}}</h1>
 <div>
-    <button mat-button (click)="nav$$.next('')">root</button>
 
     <div *ngFor="let i of (s$|async)?.app?.localstack?.results">
         <button mat-button (click)="nav$$.next(i)">{{i}}</button>
     </div>
 
-    <div>
+    <hr>
+
+    <small>
         {{(s$|async)?.app?.localstackPwd|json}}
         {{(s$|async)?.app?.localstack|json}}
-    </div>
+    </small>
 </div>

@@ -15,3 +15,4 @@ export { IRepoSearchResult } from './lib/interfaces/repo-search-result';
 export { ITag } from './lib/interfaces/tag.interface';
 
 export { AppEvent } from './lib/enum/app-event.enum';
+export { s3Prefix } from './lib/constant/s3-prefix'
