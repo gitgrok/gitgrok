@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { localstackInitFinished, localstackInitStarted, localstackNavStarted, s3Prefix } from '@gitgrok/isomorphic';
+import { localstackInitFinished, localstackInitStarted, localstackNavStarted, s3Prefix, localstackCmdPrefix } from '@gitgrok/isomorphic';
 import { Store } from '@ngrx/store';
 import { IFieldConfig, regexes } from '@onivoro/angular-serializable-forms';
 import { Subject } from 'rxjs';
@@ -13,6 +13,7 @@ import { getLocalStack, getLocalStackContents, getLocalStackPwd } from '../../st
 })
 export class HomeComponent implements OnInit {
   s3Prefix =s3Prefix;
+  lo = localstackCmdPrefix;
   valueChange$$ = new Subject<{ path: string }>();
   contents$ = this.store.select(getLocalStackContents);
   s$ = this.store;
