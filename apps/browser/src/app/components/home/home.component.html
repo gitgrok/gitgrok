@@ -1,30 +1,10 @@
 <oni-asf-form [uiOptions]="formConfig" [data]="formData" (valueChange)="valueChange$$.next($event)"></oni-asf-form>
 <h1>
-  <button mat-button color="primary" (click)="nav$$.next('')">
+  <button mat-button color="primary" (click)="exec$$.next('')">
     <mat-icon>refresh</mat-icon>
   </button>
-  {{s3Prefix}}{{(key$ | async)}}
 </h1>
-
-
-<div>
-  <small>
-    <p>{{lo}} ls {{s3Prefix}}{{(key$ | async)}}</p>
-    <p>{{lo}} cp {{s3Prefix}}{{(key$ | async)}}</p>
-    <p>{{lo}} rm {{s3Prefix}}{{(key$ | async)}}</p>
-    <p>{{lo}} rm --recursive {{s3Prefix}}{{(key$ | async)}}</p>
-  </small>
-
-  <hr>
-
-  <div *ngFor="let i of (s$|async)?.app?.localstack?.results">
-    <button mat-button (click)="nav$$.next(i)">{{i}}</button>
-  </div>
-
-  <hr>
-
-  <small>
-    {{(s$|async)?.app?.localstackPwd|json}}
-    {{(s$|async)?.app?.localstack|json}}
-  </small>
-</div>
+<hr/>
+<pre>
+  {{exec$|async|json}}
+</pre>

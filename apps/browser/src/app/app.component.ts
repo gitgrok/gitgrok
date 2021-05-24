@@ -5,8 +5,6 @@ import { ILink } from './interfaces/i-link.interface';
 import { Subject } from 'rxjs';
 import { links } from './constants/links';
 import { down, navStarted, up } from '@gitgrok/isomorphic';
-import { downStarted, upStarted,  } from '@gitgrok/isomorphic';
-import { getLocalStack, getLocalStackContents, getLocalStackPwd } from './state/app/app-state.selectors';
 
 @Component({
   selector: 'gitgrok-root',

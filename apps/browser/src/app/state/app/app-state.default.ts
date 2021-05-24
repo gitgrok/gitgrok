@@ -7,5 +7,6 @@ export const appStateDefault: IAppState = {
   downStream: [],
   detail: {},
   localstack: {},
-  localstackPwd: ''
+  localstackPwd: '',
+  cmds: {}
 };

@@ -1,5 +1,5 @@
 import { ActionReducer, createReducer, on } from '@ngrx/store';
-import { cloneFinished, detailRepoFinished, downStarted, IAppState, initFailed, initFinished, initStarted, localstackInitFinished, localstackInitStarted, localstackNavFinished, localstackNavStarted, upFinished, upStarted } from '@gitgrok/isomorphic';
+import { cloneFinished, detailRepoFinished, downStarted, execFinished, execStarted, IAppState, initFailed, initFinished, initStarted, localstackInitFinished, localstackInitStarted, localstackNavFinished, localstackNavStarted, upFinished, upStarted } from '@gitgrok/isomorphic';
 import { appStateDefault } from './app-state.default';
 
 
@@ -7,6 +7,8 @@ export const appStateReducer: ActionReducer<IAppState> = createReducer(
   appStateDefault,
   on(initStarted, (s, a) => ({ ...s, repos: [] })),
   on(initFinished, (s, a) => ({ ...s, repos: a.repos })),
+  on(execStarted, (s, a) => ({ ...s, cmds: {...s.cmds, [a.cmd]: null} })),
+  on(execFinished, (s, {cmd, result}) => ({ ...s, cmds: {...s.cmds, [cmd]: result} })),
   on(initFailed, (s, a) => ({ ...s, error: a.error })),
   on(upStarted, (s, a) => ({ ...s, upStream: [...s.upStream, a] })),
   on(upFinished, (s, a) => ({ ...s, upStream: [...s.upStream, a] })),

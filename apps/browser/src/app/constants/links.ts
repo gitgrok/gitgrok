@@ -21,4 +21,11 @@ export const search: ILink = {
   slug: 'search',
 };
 
-export const links: ILink[] = [home, repos, search];
+export const localStackLink: ILink = {
+  icon: 'archive',
+  id: 'localStack',
+  label: 'localstack',
+  slug: 'localstack',
+};
+
+export const links: ILink[] = [home, repos, search, localStackLink];

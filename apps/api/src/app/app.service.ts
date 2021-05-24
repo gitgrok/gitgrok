@@ -1,8 +1,8 @@
 import { IAction } from '@gitgrok/isomorphic';
 import { Injectable, OnApplicationShutdown } from '@nestjs/common';
 import { BrowserService } from '@onivoro/server-browser';
-import { from, Subject, } from 'rxjs';
-import { concatMap, map, tap } from 'rxjs/operators';
+import { from, merge, Subject, } from 'rxjs';
+import { concatMap, concatMapTo, map, mergeMap, tap } from 'rxjs/operators';
 import { RepositoryService } from './services/repository.service';
 import { AppEffects } from './app.effects';
 
@@ -17,11 +17,7 @@ export class AppService implements OnApplicationShutdown {
     await this.browser.close();
   }
   private readonly downStream$$ = new Subject<IAction>();
-
-  readonly actions$ = this.downStream$$.asObservable().pipe(
-    tap(lee => console.log('downStream$$', lee)),
-    tap((a: IAction) => console.log('actions$', a)),
-  );
+  private readonly actions$ = this.downStream$$.asObservable();
 
   initIpcChannel(url: string) {
     return from(this.browserService.createAppRuntime(url))
@@ -37,7 +33,8 @@ export class AppService implements OnApplicationShutdown {
           })
           )),
         map(() => new AppEffects(this.repoSvc, this.actions$)),
-        concatMap((fx) => fx.localstack$), // all fx need merged here
+        concatMap((fx) => merge(fx.localstack$, fx.detailRepoStarted$)),
+        tap((action) => console.log('upStream$$', action)),
         tap((action) => from(this.page.evaluate((detail) =>
           window.dispatchEvent(
             new CustomEvent('up', {

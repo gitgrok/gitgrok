@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppShellComponent } from './components/app-shell/app-shell.component';
 import { HomeComponent } from './components/home/home.component';
+import { LocalStackComponent } from './components/localstack/localstack.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { RepositoryFormComponent } from './components/repository-form/repository-form.component';
 import { RepositoryListComponent } from './components/repository-list/repository-list.component';
@@ -28,6 +29,7 @@ const services = [SearchService, IpcActionService, RepoService];
 
 const components = [
   AppComponent,
+  LocalStackComponent,
   RepositoryListComponent,
   RepositoryComponent,
   RepositoryFormComponent,
@@ -41,7 +43,7 @@ const components = [
 
 @NgModule({
   declarations: [...components],
-  imports: [    
+  imports: [
     AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,

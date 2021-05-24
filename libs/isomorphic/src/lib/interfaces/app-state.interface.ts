@@ -6,4 +6,5 @@ export interface IAppState {
   detail: any;
   localstack: any;
   localstackPwd: string;
+  cmds: {[cmd: string]: any}
 }
