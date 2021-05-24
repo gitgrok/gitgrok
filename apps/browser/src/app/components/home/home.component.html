@@ -5,10 +5,10 @@
   </button>
 </h1>
 <hr/>
-<pre>
-  {{out$|async|json}}
+<pre *ngFor="let l of (out$|async)">
+  {{l}}
 </pre>
-
+<!--
 <hr/>
 <pre>
   {{exec$|async|json}}
@@ -17,4 +17,4 @@
 <hr/>
 <pre>
   {{s$|async|json}}
-</pre>
+</pre> -->

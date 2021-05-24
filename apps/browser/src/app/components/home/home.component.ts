@@ -3,7 +3,7 @@ import { localstackInitFinished, localstackInitStarted, localstackNavStarted, lo
 import { Store } from '@ngrx/store';
 import { IFieldConfig, regexes } from '@onivoro/angular-serializable-forms';
 import { Subject } from 'rxjs';
-import { concatMap, map, tap, withLatestFrom } from 'rxjs/operators';
+import { concatMap, filter, map, tap, withLatestFrom } from 'rxjs/operators';
 import { getCmds } from '../../state/app/app-state-exec.selectors';
 import { getLocalStack, getLocalStackContents, getLocalStackPwd } from '../../state/app/app-state.selectors';
 @Component({
@@ -15,13 +15,14 @@ import { getLocalStack, getLocalStackContents, getLocalStackPwd } from '../../st
 export class HomeComponent implements OnInit {
   valueChange$$ = new Subject<{ command: string }>();
   s$ = this.store;
-  out$ = this.store.select(getCmds);
+  cmd = '';
   exec$$ = new Subject();
   exec$ = this.exec$$.asObservable().pipe(
     withLatestFrom(this.valueChange$$),
-    map(([_event, { command }]) => this.store.dispatch(execStarted({ cmd: command }))
-    )
-  );
+    tap(([_event, { command }]) => (this.cmd = command)),
+    tap(([_event, { command }]) => this.store.dispatch(execStarted({ cmd: command })),
+  ));
+  out$ = this.store.select(getCmds).pipe(map(cmds => cmds[this.cmd]), map(txt => txt?.split('\n') || []))
   formData = { command: '' };
   formConfig: IFieldConfig = {
     fieldLayout: [['command']],
