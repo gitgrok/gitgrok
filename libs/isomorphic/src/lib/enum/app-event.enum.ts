@@ -1,5 +1,6 @@
 export enum AppEvent {
   INIT = 'INIT',
+  EXEC = 'EXEC',
   SEARCH = 'SEARCH',
   CLONE = 'CLONE',
   PULL = 'PULL',
