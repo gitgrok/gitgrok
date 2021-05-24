@@ -18,7 +18,9 @@ export class RepositoryService {
   }
   get(url: string) {
     const dir = this.pathManager.extractProjectDirFromUrl(url);
-    return execRx(`ls ${dir}`).pipe(catchError(e => of(e).pipe(tap(e => console.warn('ooops', e)))))  ;
+    return execRx(`ls ${dir}`).pipe(
+      catchError((e) => of(e).pipe(tap((e) => console.warn('ooops', e))))
+    );
   }
   logger = new Logger(RepositoryService.name);
 

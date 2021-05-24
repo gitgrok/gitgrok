@@ -1,20 +1,14 @@
-<oni-asf-form [uiOptions]="formConfig" [data]="formData" (valueChange)="valueChange$$.next($event)"></oni-asf-form>
+<oni-asf-form
+  [uiOptions]="formConfig"
+  [data]="formData"
+  (valueChange)="valueChange$$.next($event)"
+></oni-asf-form>
 <h1>
   <button mat-button color="primary" (click)="exec$$.next('')">
     <mat-icon>refresh</mat-icon>
   </button>
 </h1>
-<hr/>
-<pre *ngFor="let l of (out$|async)">
-  {{l}}
+<hr />
+<pre *ngFor="let l of out$ | async">
+  {{ l }}
 </pre>
-<!--
-<hr/>
-<pre>
-  {{exec$|async|json}}
-</pre>
-
-<hr/>
-<pre>
-  {{s$|async|json}}
-</pre> -->

@@ -9,10 +9,9 @@ import { down, navStarted, up } from '@gitgrok/isomorphic';
 @Component({
   selector: 'gitgrok-root',
   template: `<onivoro-app-shell [links]="links" (clicks)="navigate($event)">
-                <router-outlet></router-outlet>
-             </onivoro-app-shell>
-             `,
-            //  <pre style="padding-left: 200px;">{{(state$|async)|json}}</pre>
+    <router-outlet></router-outlet>
+  </onivoro-app-shell> `,
+  //  <pre style="padding-left: 200px;">{{(state$|async)|json}}</pre>
 })
 export class AppComponent implements OnInit {
   links = links;
@@ -24,18 +23,18 @@ export class AppComponent implements OnInit {
     this.route = link;
     this.route$.next(link);
     this.router.navigate([link?.slug || '']);
-    this.store.dispatch(navStarted(link as any))
+    this.store.dispatch(navStarted(link as any));
   }
 
-  constructor(private readonly router: Router, private readonly store: Store) { }
+  constructor(private readonly router: Router, private readonly store: Store) {}
 
   ngOnInit(): void {
-    window.addEventListener(up, ({detail}: any) => {
+    window.addEventListener(up, ({ detail }: any) => {
       console.warn('app.component up', detail);
-      this.store.dispatch(detail)
+      this.store.dispatch(detail);
     });
 
-    window.addEventListener(down, ({detail}: any) => {
+    window.addEventListener(down, ({ detail }: any) => {
       console.warn('app.component down', detail);
       (window as any).down?.(detail);
     });

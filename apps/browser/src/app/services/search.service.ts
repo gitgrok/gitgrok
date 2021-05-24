@@ -12,7 +12,10 @@ export class SearchService extends BaseService {
     return 'search';
   }
 
-  constructor(private readonly http: HttpClient, private readonly store: Store) {
+  constructor(
+    private readonly http: HttpClient,
+    private readonly store: Store
+  ) {
     super();
   }
 
@@ -27,6 +30,8 @@ export class SearchService extends BaseService {
 
   getV3(query: string, pathFilter: string) {
     // return this.actionService.dispatch({ actionType: 'search', actionProps: { text, pathFilter } });
-    return this.store.dispatch(searchStarted({ query, pathFilter, repos: undefined }));
+    return this.store.dispatch(
+      searchStarted({ query, pathFilter, repos: undefined })
+    );
   }
 }

@@ -5,7 +5,7 @@ import { AppStateEffects } from './app-state.effects';
 import { appStateName } from './app-state.name';
 import { appStateReducer } from './app-state.reducer';
 @NgModule({
-  imports: [    
+  imports: [
     StoreModule.forFeature(appStateName, appStateReducer),
     EffectsModule.forFeature([AppStateEffects]),
   ],

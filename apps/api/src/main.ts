@@ -8,7 +8,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableShutdownHooks();
   app.enableCors();
-  const { api,browser } = ports;
+  const { api, browser } = ports;
   try {
     await app.listen(api);
   } catch (e) {

@@ -1,4 +1,4 @@
-import { IAppState } from "@gitgrok/isomorphic";
+import { IAppState } from '@gitgrok/isomorphic';
 
 export const appStateDefault: IAppState = {
   repos: [],
@@ -8,5 +8,5 @@ export const appStateDefault: IAppState = {
   detail: {},
   localstack: {},
   localstackPwd: '',
-  cmds: {}
+  cmds: {},
 };

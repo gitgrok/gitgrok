@@ -15,22 +15,18 @@ export const getDetail = createSelector(
   (app: IAppState) => app.detail || { no: 'details' }
 );
 
-
 export const getLocalStack = createSelector(
   selectState,
   (app: IAppState) => app.localstack
 );
-
 
 export const getLocalStackPwd = createSelector(
   selectState,
   (app: IAppState) => app.localstackPwd
 );
 
-
-
 export const getLocalStackContents = createSelector(
   getLocalStack,
   getLocalStackPwd,
-  (ls, lsPwd) => ls[lsPwd]?.map(l => l?.replace?.(/PRE\W/g, ''))
+  (ls, lsPwd) => ls[lsPwd]?.map((l) => l?.replace?.(/PRE\W/g, ''))
 );

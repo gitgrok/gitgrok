@@ -15,19 +15,23 @@ import { ResultTransformer } from './services/result-transformer';
 import { EnvModule } from '@onivoro/server-parameterization';
 import { ServerGitModule } from '@onivoro/server-git';
 import { resolve } from 'path';
-import {ServerBrowserModule} from '@onivoro/server-browser';
+import { ServerBrowserModule } from '@onivoro/server-browser';
 import { AppService } from './app.service';
 
 const env = [HomePath, ManifestPath, GitGrokPort];
 
 @Module({
   imports: [
-    ServerBrowserModule.forRoot({headless: false, defaultViewport: {width: 1800, height: 1000}, executablePath: process.env.CHROME_BIN}),
+    ServerBrowserModule.forRoot({
+      headless: false,
+      defaultViewport: { width: 1800, height: 1000 },
+      executablePath: process.env.CHROME_BIN,
+    }),
     ServerGitModule,
     EnvModule,
     ServeStaticModule.forRoot({
-      rootPath: resolve(process.cwd(), 'dist/apps/browser')
-    })
+      rootPath: resolve(process.cwd(), 'dist/apps/browser'),
+    }),
   ],
   controllers: [RepositoryController, SearchController],
   providers: [
@@ -36,7 +40,7 @@ const env = [HomePath, ManifestPath, GitGrokPort];
     PathManager,
     ResultTransformer,
     SearchService,
-    AppService
+    AppService,
   ],
 })
-export class AppModule { }
+export class AppModule {}

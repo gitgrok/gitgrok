@@ -8,14 +8,24 @@ const manifestPath: ManifestPath = { value: 'MANIFESTPATH' } as any;
 
 describe(PathManager.name, () => {
   describe(PathManager.prototype.extractProjectDirFromUrl.name, () => {
-    it.each([[ng]])(PathManager.prototype.extractProjectDirFromUrl.name, (url: string) => {
-      expect(new PathManager(homePath, manifestPath).extractProjectDirFromUrl(url)).toMatchSnapshot();
-    });
+    it.each([[ng]])(
+      PathManager.prototype.extractProjectDirFromUrl.name,
+      (url: string) => {
+        expect(
+          new PathManager(homePath, manifestPath).extractProjectDirFromUrl(url)
+        ).toMatchSnapshot();
+      }
+    );
   });
 
   describe(PathManager.prototype.extractDirToConeInFromUrl.name, () => {
-    it.each([[ng]])(PathManager.prototype.extractProjectDirFromUrl.name, (url: string) => {
-      expect(new PathManager(homePath, manifestPath).extractDirToConeInFromUrl(url)).toMatchSnapshot();
-    });
+    it.each([[ng]])(
+      PathManager.prototype.extractProjectDirFromUrl.name,
+      (url: string) => {
+        expect(
+          new PathManager(homePath, manifestPath).extractDirToConeInFromUrl(url)
+        ).toMatchSnapshot();
+      }
+    );
   });
 });

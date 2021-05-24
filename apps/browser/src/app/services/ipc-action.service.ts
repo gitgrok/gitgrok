@@ -8,8 +8,8 @@ export class IpcActionService {
   dispatch<T>(detail: IAction) {
     window.dispatchEvent(
       new CustomEvent('down', {
-        detail
+        detail,
       })
-    )
+    );
   }
 }

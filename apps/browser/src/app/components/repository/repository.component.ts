@@ -12,13 +12,15 @@ import { getDetail } from '../../state/app/app-state.selectors';
 export class RepositoryComponent implements OnInit {
   @Input() url!: string;
   src$ = this.store.select(getDetail);
-  detail$ = this.src$.pipe(map(o => {
-    return o[this.url]
-  }));
+  detail$ = this.src$.pipe(
+    map((o) => {
+      return o[this.url];
+    })
+  );
   constructor(private readonly store: Store) {}
 
   ngOnInit(): void {
-    const {url} = this;
-    this.store.dispatch(detailRepoStarted({url}));
+    const { url } = this;
+    this.store.dispatch(detailRepoStarted({ url }));
   }
 }

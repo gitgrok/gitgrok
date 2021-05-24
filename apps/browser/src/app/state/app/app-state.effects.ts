@@ -1,7 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, concatMap, exhaustMap, filter, map, tap } from 'rxjs/operators';
+import {
+  catchError,
+  concatMap,
+  exhaustMap,
+  filter,
+  map,
+  tap,
+} from 'rxjs/operators';
 import { IpcActionService } from '../../services/ipc-action.service';
 import { RepoService } from '../../services/repo.service';
 import {
@@ -25,17 +32,19 @@ export class AppStateEffects {
     private readonly actions$: Actions,
     private readonly repoService: RepoService,
     private readonly ipcActionService: IpcActionService
-  ) { }
+  ) {}
 
-  autoDownStart$ = createEffect(() => this.actions$.pipe(
-    // tap(a => console.log('autoDownStart$ ?', a)),
-    // filter(a => !(JSON.stringify(a)).includes('$')),
-    filter(a => !!a?.type && !a.type.includes('$')),
-    tap(a => console.log('autoDownStart$ true', a)),
-    // filter(() => !!(window as any).GITGROK),
-    tap((a) => this.ipcActionService.dispatch(a)),
-    map((action) => downStarted(({action})))
-  ));
+  autoDownStart$ = createEffect(() =>
+    this.actions$.pipe(
+      // tap(a => console.log('autoDownStart$ ?', a)),
+      // filter(a => !(JSON.stringify(a)).includes('$')),
+      filter((a) => !!a?.type && !a.type.includes('$')),
+      tap((a) => console.log('autoDownStart$ true', a)),
+      // filter(() => !!(window as any).GITGROK),
+      tap((a) => this.ipcActionService.dispatch(a)),
+      map((action) => downStarted({ action }))
+    )
+  );
 
   // autoDownEnd$ = createEffect(() => this.actions$.pipe(
   //   tap(a => console.log('autoDownEnd$', a)),
@@ -45,12 +54,14 @@ export class AppStateEffects {
   //   map(({ type, ...rest }) => downFinished({ actionType: type, actionProps: rest }))
   // ));
 
-  autoUp$ = createEffect(() => this.actions$.pipe(
-    tap(a => console.log(a)),
-    ofType(upStarted),
-    tap(a => console.log(a)),
-    map(({action}) => upFinished({action}))
-  ));
+  autoUp$ = createEffect(() =>
+    this.actions$.pipe(
+      tap((a) => console.log(a)),
+      ofType(upStarted),
+      tap((a) => console.log(a)),
+      map(({ action }) => upFinished({ action }))
+    )
+  );
 
   getRepos$ = createEffect(() =>
     this.actions$.pipe(
