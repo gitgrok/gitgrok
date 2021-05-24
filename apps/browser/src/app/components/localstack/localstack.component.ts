@@ -76,5 +76,6 @@ export class LocalStackComponent implements OnInit {
   ngOnInit(): void {
     this.init$.subscribe();
     this.nav$.subscribe();
+    this.nav$$.next('');
   }
 }
