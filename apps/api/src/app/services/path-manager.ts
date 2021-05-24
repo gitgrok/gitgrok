@@ -21,7 +21,7 @@ export class PathManager {
   }
 
   extractDirToConeInFromUrl(url: string): string {
-    return parse(`${this.homePath.value}${url.split('https://')[1]}`).dir;
+    return parse(`${this.homePath.value}/${url.split('https://')[1]}`).dir;
   }
 
   extractProjectDirFromUrl(url: string): string {

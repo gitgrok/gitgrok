@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PathManager extractDirToConeInFromUrl extractProjectDirFromUrl 1`] = `"HOMEPATH/github.com/angular"`;
+
+exports[`PathManager extractProjectDirFromUrl extractProjectDirFromUrl 1`] = `"HOMEPATH/github.com/angular/angular-cli"`;
