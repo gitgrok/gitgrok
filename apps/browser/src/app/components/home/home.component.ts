@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { localstackInitFinished, localstackInitStarted, localstackNavStarted, s3Prefix, localstackCmdPrefix, execStarted } from '@gitgrok/isomorphic';
+import { localstackInitFinished, localstackInitStarted, localstackNavStarted, localstackCmdPrefix, execStarted } from '@gitgrok/isomorphic';
 import { Store } from '@ngrx/store';
 import { IFieldConfig, regexes } from '@onivoro/angular-serializable-forms';
 import { Subject } from 'rxjs';
@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
     fieldLayout: [['command']],
     fieldOptions: {
       command: {
-        label: s3Prefix,
+        label: '>',
         type: 'text',
       }
     },

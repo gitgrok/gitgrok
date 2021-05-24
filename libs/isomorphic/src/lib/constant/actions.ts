@@ -54,7 +54,7 @@ export const repoDeselected = createAction(
   props<{ repo: string }>()
 );
 export const execStarted = createAction(started(AppEvent.EXEC), props<{cmd: string}>());
-export const execFinished = createAction(finished(AppEvent.EXEC), props<{cmd: string, result: any}>());
+export const execFinished = createAction(finished(AppEvent.EXEC), props<{cmd: string, results: any}>());
 export const execFailed = createAction(failed(AppEvent.EXEC), props<{cmd: string, err: any}>());
 
 export const initStarted = createAction(started(AppEvent.INIT));

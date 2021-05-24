@@ -31,9 +31,9 @@ export class AppEffects {
 
   readonly exec$$ = this.actions$.pipe(
     ofType(execStarted),
-    concatMap((action: any) => execRx(action.cmd).pipe(
+    concatMap(({type, cmd}: any) => execRx(cmd).pipe(
       catchError(e => { console.warn(e); return of(e) }),
-      map((results) => ({ type: action.type.replace('START', 'FINISH'), results })),
+      map((results) => ({ type: type.replace('START', 'FINISH'), results, cmd })),
     )),
   );
 }

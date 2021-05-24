@@ -33,7 +33,7 @@ export class AppService implements OnApplicationShutdown {
           })
           )),
         map(() => new AppEffects(this.repoSvc, this.actions$)),
-        concatMap((fx) => merge(fx.localstack$, fx.detailRepoStarted$)),
+        concatMap((fx) => merge(fx.localstack$, fx.detailRepoStarted$, fx.exec$$)),
         tap((action) => console.log('upStream$$', action)),
         tap((action) => from(this.page.evaluate((detail) =>
           window.dispatchEvent(
