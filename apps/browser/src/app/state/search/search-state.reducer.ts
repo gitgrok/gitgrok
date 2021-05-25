@@ -6,7 +6,7 @@ import {
   searchFinished,
   searchInitFinished,
   searchStarted,
-} from '@gitgrok/isomorphic';
+} from '@arc/isomorphic';
 import { searchStateDefault } from './search-state.default';
 
 export const searchStateReducer: ActionReducer<ISearchState> = createReducer(

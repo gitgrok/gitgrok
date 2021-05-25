@@ -15,7 +15,7 @@ import {
   localstackNavStarted,
   upFinished,
   upStarted,
-} from '@gitgrok/isomorphic';
+} from '@arc/isomorphic';
 import { appStateDefault } from './app-state.default';
 
 export const appStateReducer: ActionReducer<IAppState> = createReducer(

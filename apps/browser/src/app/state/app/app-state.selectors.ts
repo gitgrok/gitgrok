@@ -1,4 +1,4 @@
-import { IAppState } from '@gitgrok/isomorphic';
+import { IAppState } from '@arc/isomorphic';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 import { appStateName } from './app-state.name';

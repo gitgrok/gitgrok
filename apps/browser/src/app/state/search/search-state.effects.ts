@@ -10,7 +10,7 @@ import {
   searchFinished,
   searchInitFinished,
   searchStarted,
-} from '@gitgrok/isomorphic';
+} from '@arc/isomorphic';
 import { getRepos } from '../app/app-state.selectors';
 
 @Injectable()

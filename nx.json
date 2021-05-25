@@ -1,5 +1,5 @@
 {
-    "npmScope": "gitgrok",
+    "npmScope": "arc",
     "affected": {
         "defaultBase": "master"
     },
@@ -32,9 +32,6 @@
             "tags": []
         },
         "api": {
-            "tags": []
-        },
-        "api-interfaces": {
             "tags": []
         },
         "isomorphic": {

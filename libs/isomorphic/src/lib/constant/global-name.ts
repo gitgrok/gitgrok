@@ -1,1 +1,1 @@
-export const globalName = 'GITGROK';
+export const globalName = 'ARC';

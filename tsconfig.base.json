@@ -18,10 +18,10 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@gitgrok/api-interfaces": [
+      "@arc/api-interfaces": [
         "libs/api-interfaces/src/index.ts"
       ],
-      "@gitgrok/isomorphic": [
+      "@arc/isomorphic": [
         "libs/isomorphic/src/index.ts"
       ]
     }

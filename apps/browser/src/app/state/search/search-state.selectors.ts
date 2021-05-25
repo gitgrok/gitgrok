@@ -1,4 +1,4 @@
-import { ISearchState } from '@gitgrok/isomorphic';
+import { ISearchState } from '@arc/isomorphic';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 import { searchStateName } from './search-state.name';

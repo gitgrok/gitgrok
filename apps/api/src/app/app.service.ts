@@ -1,42 +1,29 @@
-import { IAction } from '@gitgrok/isomorphic';
+import { IAction } from '@arc/isomorphic';
 import { Injectable, OnApplicationShutdown } from '@nestjs/common';
-import { BrowserService } from '@onivoro/server-browser';
 import { from, merge, Subject } from 'rxjs';
 import { concatMap, concatMapTo, map, mergeMap, tap } from 'rxjs/operators';
-import { RepositoryService } from './services/repository.service';
-import { AppEffects } from './app.effects';
+import { ApiEffects } from './app.effects';
+import { ServerAppVscxService } from '@onivoro/server-app-vscx';
 
 @Injectable()
 export class AppService implements OnApplicationShutdown {
   browser: any;
   page: any;
   constructor(
-    private readonly browserService: BrowserService,
-    private readonly repoSvc: RepositoryService
-  ) {}
+    private readonly vscx: ServerAppVscxService
+  ) { }
   async onApplicationShutdown(signal?: string) {
-    console.warn('closing browser');
+    console.warn('closing browser', signal);
     await this.browser.close();
   }
   private readonly downStream$$ = new Subject<IAction>();
   private readonly actions$ = this.downStream$$.asObservable();
 
   initIpcChannel(url: string) {
-    return from(this.browserService.createAppRuntime(url)).pipe(
-      tap(({ page, browser }) => {
-        this.browser = browser;
-        this.page = page;
-      }),
-      concatMap(
-        async ({ page }) =>
-          await page.exposeFunction('down', (action: IAction) => {
-            console.log('page.exposeFunction.down', action);
-            this.downStream$$.next(action);
-          })
-      ),
-      map(() => new AppEffects(this.repoSvc, this.actions$)),
+    return this.vscx.getActions$$(url).pipe(
+      map(() => new ApiEffects(this.actions$)),
       concatMap((fx) =>
-        merge(fx.localstack$, fx.detailRepoStarted$, fx.exec$$)
+        merge(fx.localstack$, fx.exec$$)
       ),
       tap((action) => console.log('upStream$$', action)),
       tap((action) =>
@@ -52,6 +39,37 @@ export class AppService implements OnApplicationShutdown {
           )
         )
       )
-    );
+    )
+    // return from(this.browserService.createAppRuntime(url)).pipe(
+    //   tap(({ page, browser }) => {
+    //     this.browser = browser;
+    //     this.page = page;
+    //   }),
+    //   concatMap(
+    //     async ({ page }) =>
+    //       await page.exposeFunction('down', (action: IAction) => {
+    //         console.log('page.exposeFunction.down', action);
+    //         this.downStream$$.next(action);
+    //       })
+    //   ),
+    //   map(() => new ApiEffects(this.actions$)),
+    //   concatMap((fx) =>
+    //     merge(fx.localstack$, fx.exec$$)
+    //   ),
+    //   tap((action) => console.log('upStream$$', action)),
+    //   tap((action) =>
+    //     from(
+    //       this.page.evaluate(
+    //         (detail) =>
+    //           window.dispatchEvent(
+    //             new CustomEvent('up', {
+    //               detail,
+    //             })
+    //           ),
+    //         action
+    //       )
+    //     )
+    //   )
+    // );
   }
 }

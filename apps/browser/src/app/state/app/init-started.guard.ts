@@ -7,7 +7,7 @@ import {
 } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { initStarted } from '@gitgrok/isomorphic';
+import { initStarted } from '@arc/isomorphic';
 @Injectable({
   providedIn: 'root',
 })

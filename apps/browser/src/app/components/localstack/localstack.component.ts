@@ -8,7 +8,7 @@ import {
   localstackNavStarted,
   s3Prefix,
   localstackCmdPrefix,
-} from '@gitgrok/isomorphic';
+} from '@arc/isomorphic';
 import { Store } from '@ngrx/store';
 import { IFieldConfig } from '@onivoro/angular-serializable-forms';
 import { Subject } from 'rxjs';

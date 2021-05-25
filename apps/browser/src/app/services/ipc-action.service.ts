@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { down, IAction } from '@gitgrok/isomorphic';
+import { down, IAction } from '@arc/isomorphic';
 
 @Injectable({
   providedIn: 'root',

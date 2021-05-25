@@ -36,7 +36,7 @@
       "projectType": "application",
       "root": "apps/browser",
       "sourceRoot": "apps/browser/src",
-      "prefix": "gitgrok",
+      "prefix": "arc",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -180,21 +180,6 @@
           "options": {
             "jestConfig": "apps/api/jest.config.js",
             "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "api-interfaces": {
-      "root": "libs/api-interfaces",
-      "sourceRoot": "libs/api-interfaces/src",
-      "projectType": "library",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/api-interfaces/**/*.ts"
-            ]
           }
         }
       }

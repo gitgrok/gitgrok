@@ -9,7 +9,7 @@ import {
   localstackNavStarted,
   localstackCmdPrefix,
   execStarted,
-} from '@gitgrok/isomorphic';
+} from '@arc/isomorphic';
 import { Store } from '@ngrx/store';
 import { IFieldConfig, regexes } from '@onivoro/angular-serializable-forms';
 import { Subject } from 'rxjs';

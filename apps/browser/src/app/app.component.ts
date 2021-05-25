@@ -4,10 +4,10 @@ import { Store } from '@ngrx/store';
 import { ILink } from './interfaces/i-link.interface';
 import { Subject } from 'rxjs';
 import { links } from './constants/links';
-import { down, navStarted, up } from '@gitgrok/isomorphic';
+import { down, navStarted, up } from '@arc/isomorphic';
 
 @Component({
-  selector: 'gitgrok-root',
+  selector: 'arc-root',
   template: `<onivoro-app-shell [links]="links" (clicks)="navigate($event)">
     <router-outlet></router-outlet>
   </onivoro-app-shell> `,
@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
     this.route = link;
     this.route$.next(link);
     this.router.navigate([link?.slug || '']);
-    this.store.dispatch(navStarted(link as any));
+    this.store.dispatch(navStarted(link as any) as any);
   }
 
   constructor(private readonly router: Router, private readonly store: Store) {}

@@ -1,7 +1,6 @@
-import { IAppState } from '@gitgrok/isomorphic';
+import { IAppState } from '@arc/isomorphic';
 
 export const appStateDefault: IAppState = {
-  repos: [],
   error: null,
   upStream: [],
   downStream: [],
