@@ -2,7 +2,8 @@ import { AppEvent } from '../enum/app-event.enum';
 import { IAction } from '../interfaces/action.interface';
 import { ISearchState } from '../interfaces/search-state.interface';
 import { failed, finished, started } from './stamps';
-
+// import { createAction, props } from '@onivoro/server-app-vscx';
+// import { createAction } from '@onivoro/server-app-vscx';
 const SEARCH_INIT = 'SEARCH_INIT';
 
 type money = { details: any, url: string };
@@ -15,6 +16,7 @@ function createAction<T>(type: string, p?: () => T) {
   ac.type = type;
   return ac;
 };
+
 export const localstackInitStarted = createAction(started(AppEvent.LOCALSTACK_INIT), props<{key: string}>());
 export const localstackInitFinished = createAction(finished(AppEvent.LOCALSTACK_INIT), props<{results: string[]}>());
 

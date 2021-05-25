@@ -3,7 +3,6 @@ import {
   detailRepoFinished,
   IAction,
   localstackInitStarted,
-  localstackInitFinished,
   localstackNavStarted,
   execStarted,
 } from '@gitgrok/isomorphic';
