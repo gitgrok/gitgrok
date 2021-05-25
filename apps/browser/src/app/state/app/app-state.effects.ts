@@ -36,27 +36,16 @@ export class AppStateEffects {
 
   autoDownStart$ = createEffect(() =>
     this.actions$.pipe(
-      // tap(a => console.log('autoDownStart$ ?', a)),
-      // filter(a => !(JSON.stringify(a)).includes('$')),
       filter((a) => !!a?.type && !a.type.includes('$')),
+      filter((a) => !((a as any).producer) || !((a as any).producer).includes('api')),
       tap((a) => console.log('autoDownStart$ true', a)),
-      // filter(() => !!(window as any).GITGROK),
       tap((a) => this.ipcActionService.dispatch(a)),
       map((action) => downStarted({ action }))
     )
   );
 
-  // autoDownEnd$ = createEffect(() => this.actions$.pipe(
-  //   tap(a => console.log('autoDownEnd$', a)),
-  //   filter(a => a.type === downStarted.type),
-  //   filter(() => !!(window as any).GITGROK),
-  //   tap((a) => this.ipcActionService.dispatch(a)),
-  //   map(({ type, ...rest }) => downFinished({ actionType: type, actionProps: rest }))
-  // ));
-
   autoUp$ = createEffect(() =>
     this.actions$.pipe(
-      tap((a) => console.log(a)),
       ofType(upStarted),
       tap((a) => console.log(a)),
       map(({ action }) => upFinished({ action }))

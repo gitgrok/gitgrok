@@ -11,12 +11,10 @@ import { down, navStarted, up } from '@gitgrok/isomorphic';
   template: `<onivoro-app-shell [links]="links" (clicks)="navigate($event)">
     <router-outlet></router-outlet>
   </onivoro-app-shell> `,
-  //  <pre style="padding-left: 200px;">{{(state$|async)|json}}</pre>
 })
 export class AppComponent implements OnInit {
   links = links;
   route: any;
-  // state$ = this.store.select(getLocalStackContents);
   route$ = new Subject();
 
   navigate(link: ILink) {
@@ -31,12 +29,12 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     window.addEventListener(up, ({ detail }: any) => {
       console.warn('app.component up', detail);
-      this.store.dispatch(detail);
+      this.store.dispatch({...detail, producer: 'api'});
     });
 
     window.addEventListener(down, ({ detail }: any) => {
       console.warn('app.component down', detail);
-      (window as any).down?.(detail);
+      (window as any).down?.({...detail, producer: 'ui'});
     });
   }
 }

@@ -1,20 +1,18 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   OnInit,
 } from '@angular/core';
 import {
-  localstackInitFinished,
   localstackInitStarted,
   localstackNavStarted,
   s3Prefix,
   localstackCmdPrefix,
 } from '@gitgrok/isomorphic';
 import { Store } from '@ngrx/store';
-import { IFieldConfig, regexes } from '@onivoro/angular-serializable-forms';
+import { IFieldConfig } from '@onivoro/angular-serializable-forms';
 import { Subject } from 'rxjs';
-import { concatMap, map, tap, withLatestFrom } from 'rxjs/operators';
+import { tap, withLatestFrom } from 'rxjs/operators';
 import {
   getLocalStack,
   getLocalStackContents,
@@ -34,8 +32,6 @@ export class LocalStackComponent implements OnInit {
   s$ = this.store;
   key$ = this.store.select(getLocalStackPwd);
   init$ = this.valueChange$$.asObservable().pipe(
-    tap((v) => console.warn('vvvvv', v)),
-    tap(() => this.ref.detectChanges()),
     tap((key) => this.store.dispatch(localstackNavStarted({ key: key.path })))
   );
   nav$$ = new Subject();
@@ -43,7 +39,6 @@ export class LocalStackComponent implements OnInit {
   nav$ = this.nav$$.asObservable().pipe(
     withLatestFrom(this.key$),
     tap((d) => console.warn('nav$', d)),
-    tap(() => this.ref.detectChanges()),
     tap(([key, current]) =>
       key
         ? this.store.dispatch(
@@ -67,11 +62,7 @@ export class LocalStackComponent implements OnInit {
       },
     },
   };
-  constructor(private store: Store, private readonly ref: ChangeDetectorRef) {
-    // ref.detach();
-    setInterval(() => {
-      this.ref.detectChanges();
-    }, 2000);
+  constructor(private store: Store) {
   }
   ngOnInit(): void {
     this.init$.subscribe();
