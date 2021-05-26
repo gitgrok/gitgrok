@@ -15,6 +15,16 @@ export const getDetail = createSelector(
   (app: IAppState) => app.detail || { no: 'details' }
 );
 
+export const getActionListDown = createSelector(
+  selectState,
+  (app: IAppState) => app?.downStream
+);
+
+export const getActionListUp = createSelector(
+  selectState,
+  (app: IAppState) => app?.upStream
+);
+
 export const getLocalStack = createSelector(
   selectState,
   (app: IAppState) => app.localstack

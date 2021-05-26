@@ -10,6 +10,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppShellComponent } from './components/app-shell/app-shell.component';
 import { HomeComponent } from './components/home/home.component';
+import { ActionComponent } from './components/action/action.component';
+import { ActionListComponent } from './components/action-list/action-list.component';
 import { LocalStackComponent } from './components/localstack/localstack.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { RepositoryFormComponent } from './components/repository-form/repository-form.component';
@@ -29,6 +31,8 @@ const services = [SearchService, IpcActionService, RepoService];
 
 const components = [
   AppComponent,
+  ActionComponent,
+  ActionListComponent,
   LocalStackComponent,
   RepositoryListComponent,
   RepositoryComponent,
@@ -58,4 +62,4 @@ const components = [
   providers: [...services, IpcProvider],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

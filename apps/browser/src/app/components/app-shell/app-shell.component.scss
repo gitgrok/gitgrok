@@ -1,4 +1,6 @@
 main {
   margin-left: 5rem;
   padding: 0 1rem;
+display: grid;
+grid-template-columns: 2fr 10fr 2fr;
 }

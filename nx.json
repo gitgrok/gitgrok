@@ -34,9 +34,6 @@
         "api": {
             "tags": []
         },
-        "api-interfaces": {
-            "tags": []
-        },
         "isomorphic": {
             "tags": []
         }
