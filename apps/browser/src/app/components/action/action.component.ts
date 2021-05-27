@@ -15,9 +15,10 @@ export class ActionComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    const { type, ...props } = this.action;
-    this.props = props
-    this.type = type;
+    const { type, ...props } = this.action as any;
+    const {action: {type: innerType, ...innerProps}} = props;
+    this.props = innerProps
+    this.type = innerType;
   }
 
 }

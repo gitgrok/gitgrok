@@ -1,4 +1,6 @@
 <article class="pad-1 col">
     <h3>Actions</h3>
-    <gitgrok-action [action]="a" *ngFor="let a of (actionList$|async)"></gitgrok-action>
+    <div class="list-wrapper">
+        <gitgrok-action [action]="a" *ngFor="let a of (actionList$|async)"></gitgrok-action>
+    </div>
 </article>

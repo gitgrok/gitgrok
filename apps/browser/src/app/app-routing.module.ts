@@ -5,7 +5,7 @@ import { HomeComponent } from './components/home/home.component';
 import { LocalStackComponent } from './components/localstack/localstack.component';
 import { RepositoryListComponent } from './components/repository-list/repository-list.component';
 import { SearchComponent } from './components/search/search.component';
-import { home, localStackLink, repos, search } from './constants/links';
+import { console, localStackLink, repos, search } from './constants/links';
 const pathMatch = 'full';
 
 const routes: Routes = [
@@ -15,9 +15,9 @@ const routes: Routes = [
     children: [
       { path: repos.slug, component: RepositoryListComponent, pathMatch },
       { path: search.slug, component: SearchComponent, pathMatch },
-      { path: home.slug, component: HomeComponent, pathMatch },
+      { path: console.slug, component: HomeComponent, pathMatch },
       { path: localStackLink.slug, component: LocalStackComponent, pathMatch },
-      { path: '', redirectTo: home.slug, pathMatch },
+      { path: '', redirectTo: console.slug, pathMatch },
     ],
   },
 ];

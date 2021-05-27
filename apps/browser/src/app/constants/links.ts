@@ -1,10 +1,10 @@
 import { ILink } from '../interfaces/i-link.interface';
 
-export const home: ILink = {
-  icon: 'home',
+export const console: ILink = {
+  icon: 'video_label',
   id: 'home',
-  label: 'Home',
-  slug: 'home',
+  label: 'Console',
+  slug: 'console',
 };
 
 export const repos: ILink = {
@@ -28,4 +28,4 @@ export const localStackLink: ILink = {
   slug: 'localstack',
 };
 
-export const links: ILink[] = [home, repos, search, localStackLink];
+export const links: ILink[] = [console, repos, search, localStackLink];
