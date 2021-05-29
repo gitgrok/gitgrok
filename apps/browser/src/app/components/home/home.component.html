@@ -1,14 +1,15 @@
-<oni-asf-form
-  [uiOptions]="formConfig"
-  [data]="formData"
-  (valueChange)="valueChange$$.next($event)"
-></oni-asf-form>
-<h1>
+<oni-asf-form [uiOptions]="formConfig" [data]="formData" (valueChange)="valueChange$$.next($event)"></oni-asf-form>
+
+<div class="row justify-items-space-around">
+
   <button mat-button color="primary" (click)="exec$$.next('')">
     <mat-icon>play_arrow</mat-icon>
   </button>
-</h1>
+
+</div>
+
 <hr />
+
 <pre *ngFor="let l of out$ | async">
   {{ l }}
 </pre>

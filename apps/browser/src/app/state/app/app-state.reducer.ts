@@ -2,6 +2,7 @@ import { ActionReducer, createReducer, on } from '@ngrx/store';
 import {
   cloneFinished,
   detailRepoFinished,
+  downFinished,
   downStarted,
   execFinished,
   execStarted,
@@ -18,6 +19,15 @@ import {
 } from '@gitgrok/isomorphic';
 import { appStateDefault } from './app-state.default';
 
+const maxActions = 5;
+
+function appendUpToMax(_max: number) {
+  return function (collection: any[], item: any) {
+    return [item, ...collection]
+    // .slice(max);
+  };
+}
+
 export const appStateReducer: ActionReducer<IAppState> = createReducer(
   appStateDefault,
   on(initStarted, (s, a) => ({ ...s, repos: [] })),
@@ -28,9 +38,10 @@ export const appStateReducer: ActionReducer<IAppState> = createReducer(
     cmds: { ...s.cmds, [cmd]: results },
   })),
   on(initFailed, (s, a) => ({ ...s, error: a.error })),
-  on(upStarted, (s, a) => ({ ...s, upStream: [...s.upStream, a] })),
-  on(upFinished, (s, a) => ({ ...s, upStream: [...s.upStream, a] })),
-  on(downStarted, (s, a) => ({ ...s, downStream: [...s.downStream, a] })),
+  on(upStarted, (s, a) => ({ ...s, upStream: [...appendUpToMax(maxActions)(s.upStream, a)] })),
+  on(upFinished, (s, a) => ({ ...s, upStream: [...appendUpToMax(maxActions)(s.upStream, a)] })),
+  on(downStarted, (s, a) => ({ ...s, downStream: [...appendUpToMax(maxActions)(s.downStream, a)] })),
+  on(downFinished, (s, a) => ({ ...s, downStream: [...appendUpToMax(maxActions)(s.downStream, a)] })),
   on(cloneFinished, (s, a) => ({ ...s, repos: [...s.repos, a.repo].sort() })),
   on(detailRepoFinished, (s, { details, url }) => ({
     ...s,
