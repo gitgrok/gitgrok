@@ -1,5 +1,5 @@
 import { Module, OnModuleInit } from '@nestjs/common';
-import { ServeStaticModule } from '@nestjs/serve-static';
+// import { ServeStaticModule } from '@nestjs/serve-static';
 
 import {
   GitGrokPort,
@@ -14,7 +14,7 @@ import { SearchService } from './services/search.service';
 import { ResultTransformer } from './services/result-transformer';
 import { EnvModule } from '@onivoro/server-parameterization';
 import { ServerGitModule } from '@onivoro/server-git';
-import { resolve } from 'path';
+// import { resolve } from 'path';
 
 const env = [HomePath, ManifestPath, GitGrokPort];
 
@@ -22,10 +22,10 @@ const env = [HomePath, ManifestPath, GitGrokPort];
   imports: [
     ServerGitModule,
     EnvModule,
-    ServeStaticModule.forRoot({
-      // rootPath: resolve(process.cwd(), 'dist/apps/browser'),
-      rootPath: resolve('/Users/lee.norris/github.com/gitgrok/gitgrok/apps/kit/build'),
-    }),
+    // ServeStaticModule.forRoot({
+    //   // rootPath: resolve(process.cwd(), 'dist/apps/browser'),
+    //   rootPath: resolve('/Users/lee.norris/github.com/gitgrok/gitgrok/apps/kit/build'),
+    // }),
   ],
   controllers: [RepositoryController, SearchController],
   providers: [
