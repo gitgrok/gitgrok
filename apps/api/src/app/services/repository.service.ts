@@ -3,7 +3,7 @@ import { readObjectRx, writeObjectRx } from '@onivoro/server-disk';
 import { execRx } from '@onivoro/server-process';
 import { resolve } from 'path';
 import { of } from 'rxjs';
-import { catchError, concatMap, defaultIfEmpty, tap } from 'rxjs/operators';
+import { catchError, concatMap, defaultIfEmpty, map, tap } from 'rxjs/operators';
 import { ManifestPath } from '../config/gitgrok-server.config';
 import { PathManager } from './path-manager';
 
@@ -48,7 +48,8 @@ export class RepositoryService {
           this.manifestPath.value,
           this.dedup([...list, url].sort())
         )
-      )
+      ),
+      map(() => [])
     );
   }
 

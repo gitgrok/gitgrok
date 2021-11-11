@@ -32,6 +32,7 @@ export class RepositoryController {
 
   @Put()
   async track(@Body() body: Dto) {
+    console.warn('body', body)
     return await this.repositoryService
       .track(body.url)
       .toPromise()
