@@ -18,23 +18,18 @@ export class RepositoryService {
   }
   listBranches(url: string) {
     const cwd = this.pathManager.extractProjectDirFromUrl(url);
-    return execRx(`git branch`, {cwd}).pipe(
-      // catchError((e) => of(e).pipe(tap((e) => console.warn('ooops', e))))
-    );
+    return execRx(`git branch`, { cwd });
   }
   ls(url: string) {
     const dir = this.pathManager.extractProjectDirFromUrl(url);
-    return execRx(`ls ${dir}`).pipe(
-      // catchError((e) => of(e).pipe(tap((e) => console.warn('ooops', e))))
-    );
+    return execRx(`ls ${dir}`);
   }
   getDetail(url: string) {
     return this.ls(url).pipe(
-      concatMap(filesAndFolders => this.listBranches(url).pipe(map(branches => ({
-        branches, filesAndFolders
-      }))),
-        // catchError((e) => of(e).pipe(tap((e) => console.warn('ooops', e))))
-      )
+      concatMap(filesAndFolders => this.listBranches(url).pipe(
+        map(branches => ({
+          branches, filesAndFolders
+        }))))
     );
   }
 
@@ -43,7 +38,7 @@ export class RepositoryService {
   constructor(
     private readonly manifestPath: ManifestPath,
     private readonly pathManager: PathManager
-  ) {}
+  ) { }
 
   list() {
     return readObjectRx(this.manifestPath.value).pipe(
@@ -66,7 +61,7 @@ export class RepositoryService {
           this.manifestPath.value,
           this.dedup([...list, url].sort())
         )
-        .pipe(map(() => list))
+          .pipe(map(() => list))
       )
     );
   }
