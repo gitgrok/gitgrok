@@ -5,7 +5,7 @@ const reposApi = new ReposApi({basePath: 'http://localhost:7777', isJsonMime: ()
 const reposPromise = reposApi.repositoryControllerList();
 function detail (url: string) {
 	detailPromise = reposApi.repositoryControllerDetails(url);
-	detailPromise = reposApi.re
+	// detailPromise = reposApi.re
 }
 </script>
 

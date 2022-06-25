@@ -1,10 +1,8 @@
 import { Body, Controller, Get, Put, Logger, Param } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiProperty, ApiTags } from '@nestjs/swagger';
+import { UrlDto } from '../dtos/url.dto';
 import { RepositoryService } from '../services/repository.service';
 
-export class Dto {
-  url: string;
-}
 const prefix = 'repos';
 @ApiTags(prefix)
 @Controller(prefix)
@@ -34,12 +32,12 @@ export class RepositoryController {
   }
 
   @Put('open-dir')
-  async openDir(@Body() dto: Dto) {
+  async openDir(@Body() dto: UrlDto) {
     return await this.repositoryService.openDir(dto.url).toPromise();
   }
 
   @Put()
-  async track(@Body() body: Dto) {
+  async track(@Body() body: UrlDto) {
     console.warn('body', body)
     return await this.repositoryService
       .track(body.url)

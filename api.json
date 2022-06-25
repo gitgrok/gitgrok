@@ -22,7 +22,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Dto"
+                "$ref": "#/components/schemas/UrlDto"
               }
             }
           }
@@ -115,7 +115,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Dto"
+                "$ref": "#/components/schemas/UrlDto"
               }
             }
           }
@@ -196,9 +196,16 @@
   "servers": [],
   "components": {
     "schemas": {
-      "Dto": {
+      "UrlDto": {
         "type": "object",
-        "properties": {}
+        "properties": {
+          "url": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "url"
+        ]
       },
       "SearchDto": {
         "type": "object",

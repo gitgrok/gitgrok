@@ -24,7 +24,7 @@ export class SearchService {
           list.map((url: string) => {
             const cwd = this.pathMgr.extractProjectDirFromUrl(url);
             return this.grepService
-              .grepForLinesMatching(_payload, cwd, pathFilter)
+              .grep(`${_payload}`, cwd, [pathFilter])
               .then((lines) => this.resultTformer.transformV2(cwd, lines))
               .catch((e) => {
                 this.logger.warn(e);
