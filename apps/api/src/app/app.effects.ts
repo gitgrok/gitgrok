@@ -6,7 +6,6 @@ import {
   localstackNavStarted,
   execStarted,
 } from '@gitgrok/isomorphic';
-import { Injectable } from '@nestjs/common';
 import { of, Observable } from 'rxjs';
 import { catchError, concatMap, filter, map, tap } from 'rxjs/operators';
 import { execRx } from '@onivoro/server-process';
@@ -23,7 +22,7 @@ export class AppEffects {
   readonly detailRepoStarted$ = this.actions$.pipe(
     ofType(detailRepoStarted),
     concatMap(({ url }) =>
-      this.repoSvc.get(url).pipe(
+      this.repoSvc.getDetail(url).pipe(
         map(
           (details) => ({ details, url }),
           catchError((e) => of({ url, details: e }))

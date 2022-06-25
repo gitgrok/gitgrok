@@ -1,8 +1,11 @@
 <script lang="ts">
 import {ReposApi} from "../../../../../libs/generated-api/src/lib";
-
-const reposPromise = new ReposApi({basePath: 'http://localhost:7777', isJsonMime: () => true}).repositoryControllerList();
-
+let detailPromise;
+const reposApi = new ReposApi({basePath: 'http://localhost:7777', isJsonMime: () => true});
+const reposPromise = reposApi.repositoryControllerList();
+function detail (url: string) {
+	detailPromise = reposApi.repositoryControllerDetails(url);
+}
 </script>
 
 <main class="hero">
@@ -10,9 +13,18 @@ const reposPromise = new ReposApi({basePath: 'http://localhost:7777', isJsonMime
   loading
 {:then repos}
   {#each repos.data as r}
-    {r}
+   <button on:click={() => detail(r)}> {r} </button>
   {/each}
 {/await}
+
+{#if detailPromise}
+	{#await detailPromise}
+	{:then detail}
+		{detail.data.branches}
+		{detail.data.filesAndFolders}
+	{/await}
+{/if}
+
 
 </main>
 

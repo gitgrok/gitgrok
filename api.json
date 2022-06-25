@@ -60,6 +60,29 @@
         ]
       }
     },
+    "/repos/{url}/details": {
+      "get": {
+        "operationId": "RepositoryController_details",
+        "parameters": [
+          {
+            "name": "url",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "repos"
+        ]
+      }
+    },
     "/repos/{url}/open-repo": {
       "get": {
         "operationId": "RepositoryController_openRepo",

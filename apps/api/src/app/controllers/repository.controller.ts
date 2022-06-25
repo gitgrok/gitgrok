@@ -20,7 +20,12 @@ export class RepositoryController {
 
   @Get(':url/branches')
   async branches(@Param('url') url: string) {
-    return await this.repositoryService.get(url).toPromise();
+    return await this.repositoryService.listBranches(url).toPromise();
+  }
+
+  @Get(':url/details')
+  details(@Param('url') url: string) {
+    return this.repositoryService.getDetail(url);
   }
 
   @Get(':url/open-repo')

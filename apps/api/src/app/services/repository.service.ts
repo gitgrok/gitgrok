@@ -16,12 +16,28 @@ export class RepositoryService {
     const at = this.pathManager.extractProjectDirFromUrl(url);
     return execRx(`code ${at}`);
   }
-  get(url: string) {
-    const dir = this.pathManager.extractProjectDirFromUrl(url);
-    return execRx(`ls ${dir}`).pipe(
-      catchError((e) => of(e).pipe(tap((e) => console.warn('ooops', e))))
+  listBranches(url: string) {
+    const cwd = this.pathManager.extractProjectDirFromUrl(url);
+    return execRx(`git branch`, {cwd}).pipe(
+      // catchError((e) => of(e).pipe(tap((e) => console.warn('ooops', e))))
     );
   }
+  ls(url: string) {
+    const dir = this.pathManager.extractProjectDirFromUrl(url);
+    return execRx(`ls ${dir}`).pipe(
+      // catchError((e) => of(e).pipe(tap((e) => console.warn('ooops', e))))
+    );
+  }
+  getDetail(url: string) {
+    return this.ls(url).pipe(
+      concatMap(filesAndFolders => this.listBranches(url).pipe(map(branches => ({
+        branches, filesAndFolders
+      }))),
+        // catchError((e) => of(e).pipe(tap((e) => console.warn('ooops', e))))
+      )
+    );
+  }
+
   logger = new Logger(RepositoryService.name);
 
   constructor(
