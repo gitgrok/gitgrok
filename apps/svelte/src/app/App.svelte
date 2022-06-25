@@ -7,7 +7,9 @@ import RepoList from "./components/RepoList.svelte";
   <RepoList />
 </main>
 
-<style>
+<style lang="scss">
+	@import "@onivoro/browser-layout/index";
+  	@import "@onivoro/browser-layout/hero";
 	main {
 		text-align: center;
 		padding: 1em;

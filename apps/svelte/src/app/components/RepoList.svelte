@@ -8,37 +8,50 @@ function detail (url: string) {
 }
 </script>
 
-<main class="hero">
-{#await reposPromise}
-  loading
-{:then repos}
-  {#each repos.data as r}
-   <button on:click={() => detail(r)}> {r} </button>
-  {/each}
-{/await}
+<h2>REPOS</h2>
+<div class="row">
+	<div>
+		<h3>URL</h3>
+		{#await reposPromise}
+			loading
+		{:then repos}
+			{#each repos.data as r}
+				<button class=btn on:click={() => detail(r)}> {r} </button>
+			{/each}
+		{/await}
+	</div>
 
-{#if detailPromise}
-	{#await detailPromise}
-	{:then detail}
-		{detail.data.branches}
-		{detail.data.filesAndFolders}
-	{/await}
-{/if}
+	{#if detailPromise}
+		{#await detailPromise}
+		{:then detail}
+			<div>
+				<h3>BRANCHES</h3>
+				<div>{detail.data.branches}</div>
+			</div>
+			<div class=col>
+				<h3>DIRECTORY LISTING</h3>
+				{#each detail.data.filesAndFolders.split('\n') as entry}
+					<div>{entry}</div>
+				{/each}
+			</div>
+		{/await}
+	{/if}
+</div>
 
+<style lang="scss">
+	@import "@onivoro/browser-layout/button";
+	@import "@onivoro/browser-layout/flex";
+	@import "@onivoro/browser-layout/hero";
+	@import "@onivoro/browser-layout/text";
 
-</main>
-
-<style>
-	main {
-		text-align: center;
-		padding: 1em;
-		margin: 0 auto;
+	.row {
+		width: 100%;
+		@extend .txt;
+		& > div {
+			@extend .txt;
+			width: 33%;
+			border: solid 1px rgba(0,0,0,0.1);
+		}
 	}
 
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
 </style>
