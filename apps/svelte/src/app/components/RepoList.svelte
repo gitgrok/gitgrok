@@ -1,9 +1,10 @@
 <script lang="ts">
 import { onMount } from "svelte";
-import {ReposApi} from "@gitgrok/generated-api";
+import {ReposApi} from "../../../../../libs/generated-api/src/lib";
 
-let reposPromise: any[];
+let reposPromise;
 
+reposPromise = new ReposApi({basePath: 'http://localhost:3333', isJsonMime: () => true}).repositoryControllerList();
 onMount(() => {
   reposPromise = new ReposApi({basePath: 'http://localhost:3333', isJsonMime: () => true}).repositoryControllerList();
 });
@@ -15,7 +16,7 @@ onMount(() => {
 {#await reposPromise}
   loading
 {:then repos}
-  {#each repos as r}
+  {#each repos.data as r}
     {r}
   {/each}
 {/await}
