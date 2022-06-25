@@ -1,3 +1,12 @@
+import { ApiProperty } from "@nestjs/swagger";
+
 export class SearchDto {
-  term: string; path: string; url: string;
+  @ApiProperty()
+  term: string;
+
+  @ApiProperty()
+  path: string;
+  
+  @ApiProperty() 
+  url: string;
 }
