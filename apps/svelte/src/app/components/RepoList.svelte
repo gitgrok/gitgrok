@@ -1,7 +1,7 @@
 <script lang="ts">
 import {ReposApi} from "../../../../../libs/generated-api/src/lib";
 
-const reposPromise = new ReposApi({basePath: 'http://localhost:3333', isJsonMime: () => true}).repositoryControllerList();
+const reposPromise = new ReposApi({basePath: 'http://localhost:7777', isJsonMime: () => true}).repositoryControllerList();
 
 </script>
 

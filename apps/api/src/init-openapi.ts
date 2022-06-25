@@ -11,7 +11,7 @@ export async function initOpenapi(app: INestApplication) {
     .build();
 
   const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('api-docs', app, document);
+  SwaggerModule.setup('dox', app, document);
 
   await writeFile(resolve(`api.json`), JSON.stringify(document, null, 2));
 }
