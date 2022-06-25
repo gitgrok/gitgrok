@@ -1,10 +1,13 @@
 import { Body, Controller, Get, Put, Logger, Param } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { RepositoryService } from '../services/repository.service';
 
 export class Dto {
   url: string;
 }
-@Controller('repos')
+const prefix = 'repos';
+@ApiTags(prefix)
+@Controller(prefix)
 export class RepositoryController {
   logger = new Logger(RepositoryController.name);
 
@@ -16,12 +19,12 @@ export class RepositoryController {
   }
 
   @Get(':url/branches')
-  async branches(@Param() url: string) {
+  async branches(@Param('url') url: string) {
     return await this.repositoryService.get(url).toPromise();
   }
 
   @Get(':url/open-repo')
-  async openRepo(@Param() url: string) {
+  async openRepo(@Param('url') url: string) {
     return await this.repositoryService.openRepo(url).toPromise();
   }
 

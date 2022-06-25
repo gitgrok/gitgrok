@@ -1,18 +1,22 @@
-import { ports } from '../../../ports';
+import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app/app.module';
+import { initOpenapi } from './init-openapi';
+
+import * as dotenv from 'dotenv';
 
 async function bootstrap() {
+  dotenv.config();
   const app = await NestFactory.create(AppModule);
-  app.enableShutdownHooks();
   app.enableCors();
-  const { api } = ports;
-  try {
-    await app.listen(api);
-  } catch (e) {
-    console.warn(e);
-  }
+  app.enableShutdownHooks();
+  const port = process.env.PORT || 3333;
+  await initOpenapi(app);
+  await app.listen(port);
+  Logger.log(
+    `🚀 http://localhost:${port}`
+  );
 }
 
 bootstrap();

@@ -1,25 +1,5 @@
 {
   "openapi": "3.0.0",
-  "info": {
-    "title": "gitgrok",
-    "version": "0.0.0",
-    "contact": {}
-  },
-  "tags": [
-    {
-      "name": "0.0.0",
-      "description": ""
-    }
-  ],
-  "servers": [],
-  "components": {
-    "schemas": {
-      "Dto": {
-        "type": "object",
-        "properties": {}
-      }
-    }
-  },
   "paths": {
     "/repos": {
       "get": {
@@ -27,17 +7,7 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/"
-                  }
-                }
-              }
-            }
+            "description": ""
           }
         },
         "tags": [
@@ -70,7 +40,16 @@
     "/repos/{url}/branches": {
       "get": {
         "operationId": "RepositoryController_branches",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "url",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": ""
@@ -84,7 +63,16 @@
     "/repos/{url}/open-repo": {
       "get": {
         "operationId": "RepositoryController_openRepo",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "url",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": ""
@@ -124,6 +112,14 @@
         "operationId": "SearchController_v2",
         "parameters": [
           {
+            "name": "term",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "pathFilter",
             "required": true,
             "in": "query",
@@ -136,29 +132,54 @@
           "200": {
             "description": ""
           }
-        }
+        },
+        "tags": [
+          "search"
+        ]
       }
     },
-    "/e/n//v/": {
-      "get": {
-        "operationId": "EnvController_getAll",
+    "/search": {
+      "post": {
+        "operationId": "SearchController_search",
         "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchDto"
+              }
+            }
+          }
+        },
         "responses": {
-          "200": {
+          "201": {
             "description": ""
           }
-        }
+        },
+        "tags": [
+          "search"
+        ]
       }
-    },
-    "/e/n//v/{name}": {
-      "get": {
-        "operationId": "EnvController_getOne",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
+    }
+  },
+  "info": {
+    "title": "API DOCUMENTATION",
+    "description": "",
+    "version": "0.0.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "schemas": {
+      "Dto": {
+        "type": "object",
+        "properties": {}
+      },
+      "SearchDto": {
+        "type": "object",
+        "properties": {}
       }
     }
   }

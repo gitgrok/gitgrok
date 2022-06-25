@@ -30,7 +30,9 @@ export class RepositoryService {
   ) {}
 
   list() {
-    return readObjectRx(this.manifestPath.value);
+    return readObjectRx(this.manifestPath.value).pipe(
+      catchError(e => of(e).pipe(map(() => ([])))),
+    );
   }
 
   track(url: string) {
@@ -48,8 +50,8 @@ export class RepositoryService {
           this.manifestPath.value,
           this.dedup([...list, url].sort())
         )
-      ),
-      map(() => [])
+        .pipe(map(() => list))
+      )
     );
   }
 
