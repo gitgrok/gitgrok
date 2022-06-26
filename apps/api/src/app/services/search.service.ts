@@ -24,7 +24,7 @@ export class SearchService {
           list.map((url: string) => {
             const cwd = this.pathMgr.extractProjectDirFromUrl(url);
             return this.grepService
-              .grep(this.sanitize(_payload), cwd, [pathFilter])
+              .grep(this.sanitize(_payload), cwd, [pathFilter], {n: true}, false)
               .then((lines) => this.resultTformer.transformV2(cwd, lines))
               .catch((e) => {
                 this.logger.warn(e);
@@ -35,9 +35,8 @@ export class SearchService {
       )
       .then((results) => results.filter((r) => r));
   }
-  sanitize(payload: string): string {
-    return payload
-      .replace(/(/g, '\\(')
-      .replace(/)/g, '\\)')
+  sanitize(_payload: string): string {
+    return _payload;
   }
+  
 }

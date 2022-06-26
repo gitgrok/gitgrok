@@ -32,7 +32,7 @@
     "@onivoro/browser-layout": "^0.72.0",
     "@onivoro/server-browser": "^0.9.0",
     "@onivoro/server-disk": "^0.3.0",
-    "@onivoro/server-git": "^0.2.0",
+    "@onivoro/server-git": "^0.4.0",
     "@onivoro/server-parameterization": "^0.6.0",
     "@onivoro/server-process": "^1.24.0",
     "core-js": "^3.6.5",
