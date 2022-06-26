@@ -1,15 +1,31 @@
 <script lang="ts">
-import {ReposApi} from "../../../../../libs/generated-api/src/lib";
+import {reposApi} from "../api";
+
 let detailPromise;
-const reposApi = new ReposApi({basePath: 'http://localhost:7777', isJsonMime: () => true});
-const reposPromise = reposApi.repositoryControllerList();
+let reposPromise = reposApi.repositoryControllerList();
 function detail (url: string) {
 	detailPromise = reposApi.repositoryControllerDetails(url);
 	// detailPromise = reposApi.re
 }
+let showForm = false;
+let urlInput;
+function save () {
+	reposApi.repositoryControllerTrack({url: urlInput.value}).then(() => {
+		showForm = false;
+		reposPromise = reposApi.repositoryControllerList();
+	}).catch(e => console.warn(e));
+}
 </script>
 
-<h2>REPOS</h2>
+<h2 class="row btn-row">REPOS <button class=btn on:click={() => showForm=true}>+</button></h2>
+{#if showForm}
+	<div class=btn-row>
+		<input type=text bind:this={urlInput}/>
+		<button class=btn on:click={save}>Save</button>
+		<button class=btn on:click={() => showForm=false}>Cancel</button>
+	</div>
+{/if}
+
 <div class="row">
 	<div>
 		<h3>URL</h3>
@@ -52,6 +68,15 @@ function detail (url: string) {
 			@extend .txt;
 			width: 33%;
 			border: solid 1px rgba(0,0,0,0.1);
+		}
+	}
+
+	.btn-row {
+		@extend .row;
+		justify-content: center;
+		align-items: center;
+		& button {
+			max-width: fit-content;
 		}
 	}
 
