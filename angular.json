@@ -4,7 +4,6 @@
   "projects": {
     "api": "apps/api",
     "api-interfaces": "libs/api-interfaces",
-    "generated-api": "libs/generated-api",
-    "svelte": "apps/svelte"
+    "generated-api": "libs/generated-api"
   }
 }
